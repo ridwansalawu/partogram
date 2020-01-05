@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Axios from "axios"
+import Partograph from './components/Partograph';
 
 
 
@@ -31,6 +32,7 @@ class App extends React.Component {
             <div>
 
                 <h1>{ this.state.hello }</h1>
+                <Partograph />
 
 
                 
