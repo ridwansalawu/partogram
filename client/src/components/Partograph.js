@@ -8,13 +8,20 @@ class Partograph extends Component{
 
     constructor(props) {
       super(props)
-    
       this.state = {
           dataset: [
               {labourTime: "",
             dilatation: ""}
           ],
-         user:null
+         user:null,
+         bishop: {
+             dilatation: "",
+             effacement: "",
+             position: "",
+             station:"",
+             descent: ""
+
+         }
       };
 
     //   this.setData = this.setData.bind(this);
@@ -34,7 +41,7 @@ class Partograph extends Component{
 
     setInitialGraphData () {
 
-      const labourTime = _.range(0, 25);
+      const labourTime = _.range(0, 13);
       let dilatation = _.range(0, 11);
       const alertDataset =  [[...labourTime], [...dilatation]];
       const dataset = labourTime.map((item, index) => {
@@ -106,7 +113,7 @@ class Partograph extends Component{
             .range([drawingBoardHeight, 0])
             
         const drawingBoard = mains
-            .append("svg")
+            .insert("svg", ":first-child")
             .attr("width", this.width + this.margin.left + this.margin.right)
             .attr("height", this.height + this.margin.top + this.margin.bottom)
             .call(responsivefy)
@@ -196,7 +203,28 @@ class Partograph extends Component{
                         <nav className="nav5">nav5</nav>
                     </div>
                     <div className="left-sidebar sidebars"> <h2>left side bar</h2> </div>
-                    <div className="main-page"><h2>Graph Area</h2></div>
+                    <div className="main-page"><h2>Graph Area</h2>
+                        <div id="custom-input">
+                            <form action="">
+                                time<input type="number" value="0" />
+                                cervix<input type="number"/>
+                                <hr/>
+                                Dilatation<input type="number" value="0" />
+                                Descent<input type="number" value="0" />
+                                Station<input type="number" value="0" />
+                                Effacement<input type="number" value="0" />
+                                Position<select name="position" id="pos">
+                                            <option value="anterior">Anterior</option>
+                                            <option value="central">Central</option>
+                                            <option value="posterior">Posterior</option>
+                                        </select>
+                                <hr/>
+                                <button>submit</button>
+                            </form>
+                            
+                        </div>
+                    
+                    </div>
                     <div className="right-sidebar">
                     
                         
