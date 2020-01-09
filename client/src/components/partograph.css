@@ -81,7 +81,23 @@ div.navigation > nav {
 .highlight {
     background-color: cornflowerblue;
 }
+.main-page{
+  
+   
+}
 
+svg {
+   
+}
+
+.line {
+    fill: none;
+    stroke: rgb(16, 22, 95);
+}
+.action-line {
+    fill: none;
+    stroke: red;
+}
 
 /* ========================================================================================================== */
 
