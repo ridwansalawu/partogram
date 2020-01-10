@@ -5,6 +5,7 @@ import Partograph from './components/Partograph';
 
 
 
+
 class App extends React.Component {
 
     constructor(props) {
@@ -33,6 +34,7 @@ class App extends React.Component {
 
                 <h1>{ this.state.hello }</h1>
                 <Partograph />
+              
 
 
                 

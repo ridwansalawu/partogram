@@ -9,23 +9,19 @@ class Partograph extends Component{
     constructor(props) {
       super(props)
       this.state = {
-          dataset: [
-              {labourTime: "",
-            dilatation: ""}
-          ],
-         user:null,
-         bishop: {
-             dilatation: "",
-             effacement: "",
-             position: "",
-             station:"",
-             descent: ""
+          time:"",
+          cervix:"",
+          labourTime: "",
+          dilatation: "",
+          user:null,
+          dilatation: 0,
+          effacement: 0,
+          position: null,
+          station: 0,
+          descent: 0
 
-         }
+         
       };
-
-    //   this.setData = this.setData.bind(this);
-
       this.margin = {
         top:10,
         right: 20,
@@ -40,7 +36,6 @@ class Partograph extends Component{
     };
 
     setInitialGraphData () {
-
       const labourTime = _.range(0, 13);
       let dilatation = _.range(0, 11);
       const alertDataset =  [[...labourTime], [...dilatation]];
@@ -50,11 +45,9 @@ class Partograph extends Component{
       return dataset
     }
 
-
     setAlertLineData() {
-
-        let labourTime = [0,1,2,3,4,5,6,7,8,9,10]
-        let dilatation = [4,5,6,7,8,9,10,11,12,13,14]
+        let labourTime = [0,1,2,3,4,5,6]
+        let dilatation = [4,5,6,7,8,9,10]
         const alertDataset =  [[...labourTime], [...dilatation]];
         const dataset = labourTime.map((item, index) => {
             return {"labourTime": item, "dilatation": dilatation[index]}
@@ -62,11 +55,9 @@ class Partograph extends Component{
         return dataset
             }
 
-    
    setActionLineData() {
        let labourTime = [4,5,6,7,8,9,10]
        let dilatation = [4,5,6,7,8,9,10]
-    
        const alertDataset =  [[...labourTime], [...dilatation]];
        const dataset = labourTime.map((item, index) => {
        return {"labourTime": item, "dilatation": dilatation[index]}
@@ -75,7 +66,6 @@ class Partograph extends Component{
         }
 
     setData () {
-
       const labourTime = _.range(0, 25);
       let dilatation = _.range(4, 29);
       const alertDataset =  [[...labourTime], [...dilatation]];
@@ -83,6 +73,26 @@ class Partograph extends Component{
           return {"labourTime": item, "dilatation": dilatation[index]}
       })
       return dataset
+    }
+
+    // handleChange =  (evt) => {
+    //     const value = evt.target.value;
+    //     this.setState({
+    //       ...this.state.bishop,
+    //       [evt.target.name]: value
+    //     });
+    //   }
+
+
+    handleChange = (e) => {
+
+        this.setState({...this.state, [e.target.name]: e.target.value})
+        console.log("change handled")
+    }
+
+    calcBishopScore = () => {
+        console.log("Bishop score = ")
+
     }
 
     
@@ -95,7 +105,10 @@ class Partograph extends Component{
     }
 
     mountChart() {
- // ===================================================================
+
+        console.log(this.state.bishop)
+        console.log(this.state.dataset)
+ 
         console.log("i'v mounted")
         const drawingBoardWidth = this.width;
         const drawingBoardHeight = this.height;
@@ -173,15 +186,7 @@ class Partograph extends Component{
                 drawingBoard.attr('height', Math.round(targetWidth / aspect));
             }
         }
-
-        
-
-        
-
-        
-
-        
-            
+     
     }
     
 
@@ -205,19 +210,67 @@ class Partograph extends Component{
                     <div className="left-sidebar sidebars"> <h2>left side bar</h2> </div>
                     <div className="main-page"><h2>Graph Area</h2>
                         <div id="custom-input">
-                            <form action="">
-                                time<input type="number" value="0" />
-                                cervix<input type="number"/>
+                            <form onSubmit={this.calcBishopScore}>
+                                <label>time</label>
+                                <input
+                                    type="number"
+                                    id="Time"
+                                    name="time"
+                                    onChange={this.handleChange}
+                                />
+
+                                cervix
+                                <input 
+                                    type="number"
+                                    id="Cervix"
+                                    name="cervix"
+                                    onChange={this.handleChange}
+                                />
+                                
                                 <hr/>
-                                Dilatation<input type="number" value="0" />
-                                Descent<input type="number" value="0" />
-                                Station<input type="number" value="0" />
-                                Effacement<input type="number" value="0" />
-                                Position<select name="position" id="pos">
-                                            <option value="anterior">Anterior</option>
-                                            <option value="central">Central</option>
-                                            <option value="posterior">Posterior</option>
-                                        </select>
+
+                                Dilatation
+                                <input 
+                                    type="number" 
+                                    id="Dilatation"
+                                    name="dilatation"
+                                    onChange={this.handleChange} 
+                                />
+
+                                Descent
+                                <input 
+                                    type="number" 
+                                    id="Descent"
+                                    name="descent"
+                                    onChange={this.handleChange} 
+                                />
+
+                                Station
+                                <input 
+                                    type="number" 
+                                    id="Station"
+                                    name="station"
+                                    onChange={this.handleChange} 
+                                />
+
+                                Effacement
+                                <input 
+                                    type="number" 
+                                    id="Effacement"
+                                    name="effacement"
+                                    onChange={this.handleChange} 
+                                />
+
+                                Position
+                                <select 
+                                    name="position" 
+                                    id="Position" 
+                                    onChange={this.handleChange} 
+                                    >
+                                        <option value="anterior">Anterior</option>
+                                        <option value="central">Central</option>
+                                        <option value="posterior">Posterior</option>
+                                </select>
                                 <hr/>
                                 <button>submit</button>
                             </form>
