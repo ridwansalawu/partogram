@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './partograph.css';
 import _ from "lodash";
+import Header from './Header'
 
 
 class Partograph extends Component{
@@ -87,7 +88,7 @@ class Partograph extends Component{
     handleChange = (e) => {
 
         this.setState({...this.state, [e.target.name]: e.target.value})
-        console.log("change handled")
+       
     }
 
     calcBishopScore = () => {
@@ -106,10 +107,6 @@ class Partograph extends Component{
 
     mountChart() {
 
-        console.log(this.state.bishop)
-        console.log(this.state.dataset)
- 
-        console.log("i'v mounted")
         const drawingBoardWidth = this.width;
         const drawingBoardHeight = this.height;
         let mains = d3.select(".main-page")
@@ -199,7 +196,7 @@ class Partograph extends Component{
             <div className="main-content">
 
                 <div className="container">
-                    <div className="header"> <h2>header</h2> </div>
+                    <div className="header"><Header /> </div>
                     <div className="navigation">
                         <nav className="nav1">nav1</nav>
                         <nav className="nav2">nav2</nav>

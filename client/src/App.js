@@ -2,6 +2,11 @@ import React from 'react';
 import './App.css';
 import Axios from "axios"
 import Partograph from './components/Partograph';
+import User from './components/User';
+import Biodata from './components/Biodata'
+import Header from './components/Header';
+
+
 
 
 
@@ -17,6 +22,7 @@ class App extends React.Component {
     };
 
     componentDidMount() {
+  
         Axios('/hello')
             .then(res => this.setState({hello: res.data}))
     }
@@ -31,13 +37,9 @@ class App extends React.Component {
     render() {
         return (
             <div>
-
-                <h1>{ this.state.hello }</h1>
-                <Partograph />
-              
-
-
                 
+                <Partograph />
+                <User/>   
             </div>
         )
     }
