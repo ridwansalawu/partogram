@@ -9,6 +9,7 @@ import Bishop from './components/Bishop';
 import firebase from './components/Firebase'
 import Register from './components/Register'
 import { navigate } from '@reach/router';
+import Login from "./components/Login"
 
 
 
@@ -92,6 +93,7 @@ class App extends Component {
                 <Route path="/user" component={User} />
                 <Route path="/register"  render={(props) => <Register  {...props} registerUser={this.registerUser}/>}/>
 
+                <Route path="/login"  component={Login} />
                 <Route component={NotFound} />
             </Switch>
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormError from "./FormError";
 import firebase from "./Firebase"
+import { navigate } from '@reach/router';
 
 
 
@@ -56,6 +57,7 @@ export default class Register extends Component {
         .catch(error => {
             error.message !== null ? this.setState({errorMessage: error.message}) : this.setState({errorMessage:null})
         })
+        navigate("/")
 
     }
     

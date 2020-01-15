@@ -5,6 +5,7 @@ import Partograph from './Partograph';
 import User from './User';
 import Biodata from './Biodata'
 import Welcome from './Welcome';
+import Login from './Login';
 
 
 class App extends React.Component {
@@ -24,6 +25,7 @@ class App extends React.Component {
                                      /> }
                 
                <h1>Welcome home</h1>
+               <Login />
             </div>
         )
     }
