@@ -12,16 +12,16 @@ class App extends React.Component {
     constructor(props) {
       super(props)
     
-    //   this.state = {
-    //      user: "ridwan"
-    //   };
     };
 
 
     render() {
+        // const {logOutUser} = this.props;
         return (
             <div>
-                {this.props.user && <Welcome user= {this.props.user}/> }
+                {this.props.user && <Welcome user= {this.props.user}
+                                            logOutUser= {this.props.logOutUser}
+                                     /> }
                 
                <h1>Welcome home</h1>
             </div>

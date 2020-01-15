@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom';
-import './welcome.css'
+import { Link } from '@reach/router';
+import './welcome.css';
 
 export default class Welcome extends Component {
     
     render() {
-        const { user } = this.props;
+        const { user, logOutUser } = this.props;
+        console.log(logOutUser)
 
         return (
             <div>
-                <code className="welcome">Welcome {user}</code>
+                <code className="welcome">Welcome {user} </code>
                 ,
-                <NavLink to="#"> Log Out</NavLink>
+                <Link to="#" onClick={logOutUser}> 
+                Log Out</Link>
                 
             </div>
         )
