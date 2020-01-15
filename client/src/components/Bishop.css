@@ -1,0 +1,13 @@
+.form-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.form-control {
+    margin: 1px;
+    width: 420px;
+}
+
+.togx {
+    width: 500px;
+}

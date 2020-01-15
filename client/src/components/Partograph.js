@@ -2,7 +2,23 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './partograph.css';
 import _ from "lodash";
-import Header from './Header'
+import Header from './Header';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import Button from '@material-ui/core/Button';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import Input from '@material-ui/core/Input';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
+// import Popover from '@material-ui/core/Popover';
+// import Typography from '@material-ui/core/Typography';
+import CustomDataSet from './CustomDataSet';
+import AlertLine from './AlertLine';
+
+// import { DialogActions } from '@material-ui/core';
 
 
 class Partograph extends Component{
@@ -19,7 +35,16 @@ class Partograph extends Component{
           effacement: 0,
           position: null,
           station: 0,
-          descent: 0
+          descent: 0,
+          setOpen: false,
+          open: false,
+          age: "",
+          anchorEl: null,
+          setAnchorEl: null,
+          customD:"",
+          customH:"",
+          customData:[]
+
 
          
       };
@@ -32,6 +57,9 @@ class Partograph extends Component{
 
       this.width = 600 - this.margin.left - this.margin.right;
       this.height = 300 - this.margin.top - this.margin.bottom;
+
+      this.customDilatation = this.state.customDilatation;
+      this.customTime = this.state.customTime;
      
 
     };
@@ -39,7 +67,7 @@ class Partograph extends Component{
     setInitialGraphData () {
       const labourTime = _.range(0, 13);
       let dilatation = _.range(0, 11);
-      const alertDataset =  [[...labourTime], [...dilatation]];
+    //   const alertDataset =  [[...labourTime], [...dilatation]];
       const dataset = labourTime.map((item, index) => {
           return {"labourTime": item, "dilatation": dilatation[index]}
       })
@@ -49,7 +77,7 @@ class Partograph extends Component{
     setAlertLineData() {
         let labourTime = [0,1,2,3,4,5,6]
         let dilatation = [4,5,6,7,8,9,10]
-        const alertDataset =  [[...labourTime], [...dilatation]];
+        // const alertDataset =  [[...labourTime], [...dilatation]];
         const dataset = labourTime.map((item, index) => {
             return {"labourTime": item, "dilatation": dilatation[index]}
             })
@@ -59,10 +87,25 @@ class Partograph extends Component{
    setActionLineData() {
        let labourTime = [4,5,6,7,8,9,10]
        let dilatation = [4,5,6,7,8,9,10]
+    //    const alertDataset =  [[...labourTime], [...dilatation]];
+       const dataset = labourTime.map((item, index) => {
+       return {"labourTime": item, "dilatation": dilatation[index]}
+            })
+       return dataset
+        }
+
+//    drawAlertLine = () => d3.line()
+//             .x(d => xScale(d.labourTime))
+//             .y(d => yScale(d.dilatation))
+
+   setCustomLineData() {
+       let labourTime = [0,1,2,3,5,7,9]
+       let dilatation = [0,2,4,6,6,9,10]
        const alertDataset =  [[...labourTime], [...dilatation]];
        const dataset = labourTime.map((item, index) => {
        return {"labourTime": item, "dilatation": dilatation[index]}
             })
+        
        return dataset
         }
 
@@ -86,23 +129,40 @@ class Partograph extends Component{
 
 
     handleChange = (e) => {
+        this.setState({...this.state, [e.target.name]: e.target.value}) 
+    }
 
-        this.setState({...this.state, [e.target.name]: e.target.value})
+    handleCustomChange = (e) => {
+       
+        
+        this.setState({...this.state, [e.target.name]: e.target.value })
+
+    }
+
+    handleSubmitExamination = (e) => {
+        e.preventDefault()
+        this.setState({...this.state.customData, customData: {  labourTime: this.state.custH, dilatation: this.state.custD}})
        
     }
 
     calcBishopScore = () => {
-        console.log("Bishop score = ")
+    }
 
+  
+    componentWillMount(){
+       
     }
 
     
 
-    
-
     componentDidMount() {
-        this.mountChart()
-     
+   
+      this.mountChart() 
+      console.log("=======" + this.state.customData)
+    }
+
+    componentDidUpdate() {
+       this.mountChart()
     }
 
     mountChart() {
@@ -113,6 +173,7 @@ class Partograph extends Component{
         let initialGraphData = this.setInitialGraphData();
         const alertDataSet = this.setAlertLineData();
         const actionDataSet = this.setActionLineData();
+        const customDataSet = this.setCustomLineData()
 
         const xScale = d3.scaleLinear()
             .domain(d3.extent(initialGraphData, d => d.labourTime))
@@ -142,6 +203,7 @@ class Partograph extends Component{
 
         drawingBoard.append("path")
             .attr("class", "line")
+            .attr("id", "alert-line")
             .datum(alertDataSet)
             .attr("d", drawAlertLine)
 
@@ -153,6 +215,19 @@ class Partograph extends Component{
             .attr("class", "action-line")
             .datum(actionDataSet)
             .attr("d", drawActionLine)
+
+        const drawCustomLine = d3.line()
+            .x(d => xScale(d.labourTime))
+            .y(d => yScale(d.dilatation))
+
+        drawingBoard.append("path")
+        .attr("class", "custom-line")
+        .datum(customDataSet)
+        .attr("d", drawCustomLine)
+        .attr("id", "custom-line")
+
+        console.log("ppppppppp   " + this.state.customData)
+       
         
             
         
@@ -167,10 +242,7 @@ class Partograph extends Component{
             height = parseInt(drawingBoard.style('height'), 10),
             aspect = width / height;
 
-            console.log(container)
-            console.log(height)
-            console.log(width)
-            console.log(aspect)
+           
 
             drawingBoard.attr("viewBox", `0 0 ${width} ${height}`)
                 .attr("preserveAspectRatio", "xMinYMid")
@@ -185,10 +257,19 @@ class Partograph extends Component{
         }
      
     }
-    
 
+    handleClickOpen = () => {
+        this.setState({setOpen: true});
+      };
 
+    handleClose = () => {
+        this.setState({setOpen: false});
+        
+      };
 
+    handleChange = event => {
+        this.setState(Number(event.target.value) || '');
+      };
 
 
     render() {
@@ -196,6 +277,7 @@ class Partograph extends Component{
             <div className="main-content">
 
                 <div className="container">
+                
                     <div className="header"><Header /> </div>
                     <div className="navigation">
                         <nav className="nav1">nav1</nav>
@@ -205,80 +287,30 @@ class Partograph extends Component{
                         <nav className="nav5">nav5</nav>
                     </div>
                     <div className="left-sidebar sidebars"> <h2>left side bar</h2> </div>
+     
+                    
+                    
+                    
                     <div className="main-page"><h2>Graph Area</h2>
                         <div id="custom-input">
-                            <form onSubmit={this.calcBishopScore}>
-                                <label>time</label>
-                                <input
-                                    type="number"
-                                    id="Time"
-                                    name="time"
-                                    onChange={this.handleChange}
-                                />
+                            <CustomDataSet  custD={this.state.custD}
+                                            custH={this.state.custH}
+                                            custDH= {this.state.customData}
 
-                                cervix
-                                <input 
-                                    type="number"
-                                    id="Cervix"
-                                    name="cervix"
-                                    onChange={this.handleChange}
-                                />
-                                
-                                <hr/>
-
-                                Dilatation
-                                <input 
-                                    type="number" 
-                                    id="Dilatation"
-                                    name="dilatation"
-                                    onChange={this.handleChange} 
-                                />
-
-                                Descent
-                                <input 
-                                    type="number" 
-                                    id="Descent"
-                                    name="descent"
-                                    onChange={this.handleChange} 
-                                />
-
-                                Station
-                                <input 
-                                    type="number" 
-                                    id="Station"
-                                    name="station"
-                                    onChange={this.handleChange} 
-                                />
-
-                                Effacement
-                                <input 
-                                    type="number" 
-                                    id="Effacement"
-                                    name="effacement"
-                                    onChange={this.handleChange} 
-                                />
-
-                                Position
-                                <select 
-                                    name="position" 
-                                    id="Position" 
-                                    onChange={this.handleChange} 
-                                    >
-                                        <option value="anterior">Anterior</option>
-                                        <option value="central">Central</option>
-                                        <option value="posterior">Posterior</option>
-                                </select>
-                                <hr/>
-                                <button>submit</button>
-                            </form>
+                                            mountChart={this.mountChart} 
+                                            handleCustChange= {this.handleCustomChange}
+                                            handleSubmitE = {this.handleSubmitExamination}
+                            />
+                           
+                                                       
                             
-                        </div>
+                            
+                    </div>
                     
                     </div>
                     <div className="right-sidebar">
-                    
-                        
-                        <h2>Right Side Bar</h2></div>
+                        <h2>Right Side Bar</h2>
+                    </div>
                     <div className="display-zone"><h2>display zone</h2> <span id="display-toggle"><button>edit</button></span></div>
                     <div className="footer"><h2>footer</h2></div>
                 </div>   

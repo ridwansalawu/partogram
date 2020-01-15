@@ -26,6 +26,8 @@ svg {
 
 }
 
+
+
 .header {
     background-color: lightblue;
 }
@@ -92,14 +94,28 @@ svg {
 
 .line {
     fill: none;
-    stroke: rgb(16, 22, 95);
+    stroke: #0401E7;
 }
 .action-line {
-    fill: none;
+    fill:none;
     stroke: red;
+}
+
+.custom-line {
+    fill:black;
+    stroke:#FFFFFF;
+
 }
 #custom-input {
     border: red solid 1px;
+}
+
+.popover {
+    pointer-events: none;
+}
+
+.paper {
+    padding:1;
 }
 
 /* ========================================================================================================== */
