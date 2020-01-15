@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home'
 import Partograph from './components/Partograph';
@@ -8,14 +8,31 @@ import NotFound from './components/NotFound';
 import Bishop from './components/Bishop';
 
 
-const App = () => (
-    <BrowserRouter>
+
+
+class App extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         user: "ridwan"
+      };
+    };
+    
+
+
+    render() {
+
+
+        return (
+             <BrowserRouter>
         <main>
-            <Header />
+            <Header user={this.state.user}/>
+            
             <Bishop />
             <Switch>
                 <Redirect from="/home" to="/" />
-                <Route exact path='/' component = {Home}/>
+                <Route exact path='/' render={() => <Home user={this.state.user}/>}/>
                 <Route path='/partograph' component = {Partograph}/>
                 <Route path="/user" component={User} />
                 <Route component={NotFound} />
@@ -23,6 +40,19 @@ const App = () => (
 
         </main>
     </BrowserRouter>
-)
+        )
+    }
+}
+
+
 
 export default App;
+
+
+
+
+
+
+
+
+
