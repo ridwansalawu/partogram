@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FormError from "./FormError";
 import firebase from 'firebase';
 import { navigate } from '@reach/router';
+import { createBrowserHistory } from 'history';
 
 
 
@@ -15,6 +16,7 @@ import { navigate } from '@reach/router';
             email: "",
             password: "",
         };
+        const history = createBrowserHistory();
       };
 
       handleChange = (e) =>  {
@@ -38,7 +40,8 @@ import { navigate } from '@reach/router';
             registrationInfo.email,
             registrationInfo.password
         ).then(() => {
-            navigate("/partograph");
+            // navigate("/partograph");
+            this.props.history.push("/user")
         })
 
         .catch(error => {
