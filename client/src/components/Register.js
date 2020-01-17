@@ -58,9 +58,8 @@ export default class Register extends Component {
             error.message !== null ? this.setState({errorMessage: error.message}) : this.setState({errorMessage:null})
            
         })
-        .then(()=> {
-            this.props.history.push("/partograph")
-        })
+        navigate("/partograph")
+       
         
 
     }

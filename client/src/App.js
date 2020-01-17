@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect, useHistory } from 'react-router-dom';
+// import { BrowserRouter, Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Home from './components/Home'
 import Partograph from './components/Partograph';
 import User from './components/User';
 import Header from './components/Header';
-import NotFound from './components/NotFound';
-import Bishop from './components/Bishop';
+// import NotFound from './components/NotFound';
 import firebase from './components/Firebase'
 import Register from './components/Register'
-import { navigate } from '@reach/router';
+import { Router, navigate } from '@reach/router';
 import Login from "./components/Login"
+import Hospitals from './components/Hospitals';
+import { red } from '@material-ui/core/colors';
+import { timeThursdays } from 'd3';
+import JoinClinic from './components/JoinClinic';
+import Patients from "./components/Patients"
 
 
 
@@ -33,7 +37,31 @@ class App extends Component {
                     displayName: FBUser.displayName,
                     userID: FBUser.uid
                 })
+                const hospitalsRef = firebase
+                    .database()
+                    .ref('hospitals/' + FBUser.uid);
+
+                hospitalsRef.on('value', snapshot => {
+                    let hospitals = snapshot.val();
+                    let hospitalsList = [];
+
+                    for (let item in hospitals) {
+                        hospitalsList.push({
+                            hospitalID: item,
+                            hospitalName: hospitals[item].hospitalName
+                        });
+                    }
+                    this.setState({
+                        hospitals: hospitalsList,
+                        howManyhospitals: hospitalsList.length
+                    })
+                })
+
+
+            } else {
+                this.setState({user: null})
             }
+
         })
        
         
@@ -69,6 +97,13 @@ class App extends Component {
 
         })
     }
+
+    addHospital = hospitalName => {
+        const ref = firebase
+            .database()
+            .ref(`hospitals/${this.state.user.uid}`);
+             ref.push({hospitalName: hospitalName})
+    }
     
 
 
@@ -76,29 +111,29 @@ class App extends Component {
 
 
         return (
-             <BrowserRouter>
-        <main>
-            <Header user={this.state.displayName}
-                    logOutUser= {this.logOutUser}
-            />
-            
-            <Bishop />
-            <Switch>
-                <Redirect from="/home" to="/" />
-                <Route exact path='/' render={() => <Home user={this.state.displayName}
-                                                          logOutUser= {this.logOutUser}                    
-                                                     />}
+
+            <div>
+                <Header user={this.state.displayName}
+                        logOutUser= {this.logOutUser}
                 />
-                <Route path='/partograph' component = {Partograph}/>
-                <Route path="/user" component={User} />
-                <Route path="/register"  render={(props) => <Register  {...props} registerUser={this.registerUser}/>}/>
+                <Router>
+                    <Home path="/" user={this.state.displayName} logOutUser= {this.logOutUser}  />
+                    <Partograph path="partograph" />
+                    <User path="user" />
+                    <Register path="register" registerUser={this.registerUser} />
+                    <Login path="login" />
+                    <Hospitals path="hospitals" addHospital={this.addHospital}
+                                                hospitals={this.state.hospitals}
+                                                userID={this.state.userID} />
+                    <Patients path="patients/:userID/:hospitalID" adminUser={this.state.userID} />
 
-                <Route path="/login"  component={Login} />
-                <Route component={NotFound} />
-            </Switch>
+                    <JoinClinic path="joinclinic/:userID/:hospitalID"  />
+                    
+                </Router>
 
-        </main>
-    </BrowserRouter>
+
+            </div>
+
         )
     }
 }

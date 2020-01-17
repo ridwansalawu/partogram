@@ -16,19 +16,19 @@ handleSubmit = (e)=> {
     console.log("submitted successfully========" + this.props.customDH)
 }
 
-componentDidUpdate() {
+// componentDidUpdate() {
 
 
-    let labourTime = [3,5,7,9]
-    let dilatation = [6,6,9,10]
-    const CustomDataSet = [[...labourTime], [...dilatation]];
-    const custom_dataset = labourTime.map((item, index) => {
-        return {"labourTime": item, "dilatation": dilatation[index]}
-             })
+//     let labourTime = [3,5,7,9]
+//     let dilatation = [6,6,9,10]
+//     const CustomDataSet = [[...labourTime], [...dilatation]];
+//     const custom_dataset = labourTime.map((item, index) => {
+//         return {"labourTime": item, "dilatation": dilatation[index]}
+//              })
 
-    this.props.mountChart()
-    console.log("====custome data too===" + this.props.custDH)
-}
+//     this.props.mountChart()
+//     console.log("====custome data too===" + this.props.custDH)
+// }
 
    
 

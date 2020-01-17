@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FormError from "./FormError";
 import firebase from 'firebase';
 import { navigate } from '@reach/router';
-import { createBrowserHistory } from 'history';
+
 
 
 
@@ -16,7 +16,7 @@ import { createBrowserHistory } from 'history';
             email: "",
             password: "",
         };
-        const history = createBrowserHistory();
+       
       };
 
       handleChange = (e) =>  {
@@ -40,8 +40,7 @@ import { createBrowserHistory } from 'history';
             registrationInfo.email,
             registrationInfo.password
         ).then(() => {
-            // navigate("/partograph");
-            this.props.history.push("/user")
+            navigate("/partograph");    
         })
 
         .catch(error => {

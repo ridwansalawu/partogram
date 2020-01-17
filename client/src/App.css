@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.hospital-form{
+  margin: 50vh 50vw 50vw 50vh;
+}

@@ -3,22 +3,9 @@ import * as d3 from 'd3';
 import './partograph.css';
 import _ from "lodash";
 import Header from './Header';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
-// import Popover from '@material-ui/core/Popover';
-// import Typography from '@material-ui/core/Typography';
 import CustomDataSet from './CustomDataSet';
 import AlertLine from './AlertLine';
 
-// import { DialogActions } from '@material-ui/core';
 
 
 class Partograph extends Component{
@@ -60,11 +47,11 @@ class Partograph extends Component{
 
       this.customDilatation = this.state.customDilatation;
       this.customTime = this.state.customTime;
-     
+      this.setInitialGraphData = this.setInitialGraphData.bind(this);
 
     };
 
-    setInitialGraphData () {
+    setInitialGraphData() {
       const labourTime = _.range(0, 13);
       let dilatation = _.range(0, 11);
     //   const alertDataset =  [[...labourTime], [...dilatation]];
@@ -161,16 +148,16 @@ class Partograph extends Component{
       console.log("=======" + this.state.customData)
     }
 
-    componentDidUpdate() {
-       this.mountChart()
-    }
+    // componentDidUpdate() {
+    //    this.mountChart()
+    // }
 
     mountChart() {
 
         const drawingBoardWidth = this.width;
         const drawingBoardHeight = this.height;
         let mains = d3.select(".main-page")
-        let initialGraphData = this.setInitialGraphData();
+        const initialGraphData = this.setInitialGraphData();
         const alertDataSet = this.setAlertLineData();
         const actionDataSet = this.setActionLineData();
         const customDataSet = this.setCustomLineData()

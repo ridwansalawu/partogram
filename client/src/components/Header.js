@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import { Link } from "@reach/router";
 
 
 
@@ -11,17 +12,15 @@ class Header extends Component {
             <header>
                 <h1>the partogram</h1>
                 <nav className="navigation">
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/partograph">Partogram</NavLink>
-                    <NavLink to="/user">Users</NavLink>
-                    {!this.props.user && <NavLink to="#">Log In</NavLink> }
-                    {!this.props.user && <NavLink to="/register">Register</NavLink>}
-    
-                    {this.props.user && <NavLink to="/login" onClick={e => logOutUser(e) }>log out</NavLink>}
-                    
-                   
-                    
-                    <NavLink to="#">Patients</NavLink>
+                    <Link to="/">Home</Link>
+                    <Link to="/partograph">Partogram</Link>
+                    <Link to="/user">Users</Link>
+                    {!this.props.user && <Link to="/login">Log In</Link> }
+                    {!this.props.user && <Link to="/register">Register</Link>}
+                    {this.props.user && <Link to="/login" onClick={e => logOutUser(e) }>log out</Link>}
+                    <Link to="#">Patients</Link>
+                    <Link to="/hospitals">Hospital</Link>
+
                 </nav>
             </header>
                 
