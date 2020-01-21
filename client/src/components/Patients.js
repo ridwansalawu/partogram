@@ -42,6 +42,8 @@ class Patients extends Component {
                 <div><h1>Patients</h1></div>
                 <div>
                     <PatientsList userID={this.props.userID}
+                                  adminUser={this.props.adminUser}
+                                  hospitalID={this.props.hospitalID}
                                   patients={this.state.displayPatients}/>
                 </div>
 

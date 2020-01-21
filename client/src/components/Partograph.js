@@ -180,9 +180,37 @@ class Partograph extends Component{
                             //  .style("border", "black 2px solid")
         drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
 
+
+
+
+        const xAxisTickFormater = num => 
+            
+            d3.format("")(num).replace(/^\d+\.\d/, "")
+            // let x = +d3.format("")(num)
+            // // x = Math.round(x)
+
+            // console.log(typeof x)
+            // return x
+
+            
+
+            
+
+        
+            
+
+        const xAxis = d3.axisBottom(xScale)
+            .tickFormat(xAxisTickFormater)
+            .ticks(24)
+            .tickSize(-260)
+
+       
+
+
+
         drawingBoard.append("g")
             .attr("transform", `translate(0, ${this.height})`)
-            .call(d3.axisBottom(xScale).ticks(24).tickSize(-260)); 
+            .call(xAxis); 
 
         const drawAlertLine = d3.line()
             .x(d => xScale(d.labourTime))
@@ -213,7 +241,7 @@ class Partograph extends Component{
         .attr("d", drawCustomLine)
         .attr("id", "custom-line")
 
-        console.log("ppppppppp   " + this.state.customData)
+       
        
         
             
