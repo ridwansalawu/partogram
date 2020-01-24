@@ -156,7 +156,7 @@ class Partograph extends Component{
 
         const drawingBoardWidth = this.width;
         const drawingBoardHeight = this.height;
-        let mains = d3.select(".main-page")
+        const mains = d3.select(".main-page")
         const initialGraphData = this.setInitialGraphData();
         const alertDataSet = this.setAlertLineData();
         const actionDataSet = this.setActionLineData();
@@ -178,14 +178,44 @@ class Partograph extends Component{
             .append("g")
             .attr("transform", `translate(${this.margin.left}, ${this.margin.top})`)
                             //  .style("border", "black 2px solid")
-        drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
 
 
 
+// Y-AXIS ------------------------------------------------------------------------------- 
+        const yAxisGroup = drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
+        yAxisGroup.append("text")
+        .attr("y", 20)
+        .attr("x", this.height/2)
+        .attr("transform", "rotate(90)")
+        .text("Cervical Dilatation")
+        .attr("class", "y-axis-group-text")
 
-        const xAxisTickFormater = num => 
+        .attr("fill", "black")
+        
+
+// Y-AXIS ------------------------------------------------------------------------------- 
+
+
+        const xAxisTickFormater = num => {
             
-            d3.format("")(num).replace(/^\d+\.\d/, "")
+            let refined = d3.format("")(num).replace(/^\d+\.\d/, "")
+
+            // let exp = /^1\d$/;
+            // if (!exp.test(refined)){
+            //     return "00:" + refined + "0"
+            // }else{
+                
+            // }
+            // refined = refined.replace(/^00\:$/, "")
+
+
+            // console.log(exp.test(refined) )
+            // // console.log(typeof exp)
+
+            
+
+            return refined
+        }
             // let x = +d3.format("")(num)
             // // x = Math.round(x)
 
@@ -207,10 +237,19 @@ class Partograph extends Component{
        
 
 
-
-        drawingBoard.append("g")
+// X-AXIS----------------------------------------------------------------------
+        const xAxisGroup = drawingBoard.append("g")
             .attr("transform", `translate(0, ${this.height})`)
             .call(xAxis); 
+
+        xAxisGroup.append("text")
+            .attr("y", 20)
+            .attr("x", this.width/2)
+            .text("Hours")
+
+            .attr("fill", "black")
+
+// X-AXIS----------------------------------------------------------------------
 
         const drawAlertLine = d3.line()
             .x(d => xScale(d.labourTime))
@@ -240,6 +279,12 @@ class Partograph extends Component{
         .datum(customDataSet)
         .attr("d", drawCustomLine)
         .attr("id", "custom-line")
+
+        drawingBoard.append("text")
+            .attr("y", 1)
+            .attr("x", 150)
+            .text(`hospital Number: Time of Delivery:`)
+
 
        
        
