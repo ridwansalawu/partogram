@@ -1,16 +1,19 @@
 var express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const authenticate = require("../authenticate");
+const cors = require("./cors")
 const Parturients = require("../models/parturients");
 
-
-var parturientsRouter = express.Router();
+const parturientsRouter = express.Router();
 
 parturientsRouter.use(bodyParser.json());
 
 parturientsRouter.route("/")
-  .get((req, res, next) => {
+  .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
+  .get(cors.cors, (req, res, next) => {
     Parturients.find({})
+      .populate('comments.author')
       .then((parturients) => {
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
@@ -19,7 +22,7 @@ parturientsRouter.route("/")
       (err) => next(err))
       .catch((err) => next(err))
   })
-  .post((req, res, next) => {
+  .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     Parturients.create(req.body)
       .then((parturient)=> {
         console.log("Another patient admitted into labour ward, ", parturient)
@@ -30,11 +33,11 @@ parturientsRouter.route("/")
       }, (err) => next(err) )
       .catch((err) => next(err))
   })
-  .put((req,res,next) => {
+  .put(cors.corsWithOptions, authenticate.verifyUser,(req,res,next) => {
     res.statusCode = 403;
     res.end("PUT operation not supported!")
 })
-.delete((req,res,next) => {
+.delete(cors.corsWithOptions, authenticate.verifyUser,(req,res,next) => {
    
   Parturients.remove({})
   .then((parturient) => {
@@ -48,8 +51,10 @@ parturientsRouter.route("/")
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route('/:parturientId')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
+.get(cors.cors,(req,res,next) => {
   Parturients.findById(req.params.parturientId)
+    .populate("comments.author")
     .then((parturient) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -57,11 +62,11 @@ parturientsRouter.route('/:parturientId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /dishes/'+ req.params.parturientId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
   Parturients.findByIdAndUpdate(req.params.parturientId, {
         $set: req.body
     }, { new: true })
@@ -72,7 +77,7 @@ parturientsRouter.route('/:parturientId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
   Parturients.findByIdAndRemove(req.params.parturientId)
     .then((parturient) => {
         res.statusCode = 200;

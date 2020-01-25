@@ -28,6 +28,14 @@ const parturientSchema = new Schema({
     },
     time: {
         type: Number
+    },
+    comment: {
+        type: String,
+       default: ""
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 
 });
