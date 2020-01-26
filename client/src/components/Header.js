@@ -20,6 +20,7 @@ class Header extends Component {
                     {this.props.user && <Link to="/login" onClick={e => logOutUser(e) }>log out</Link>}
                     <Link to="#">Patients</Link>
                     <Link to="/hospitals">Hospital</Link>
+                    <Link to="/parturient">Parturients</Link>
 
                 </nav>
             </header>

@@ -14,6 +14,7 @@ import { red } from '@material-ui/core/colors';
 import { timeThursdays } from 'd3';
 import JoinClinic from './components/JoinClinic';
 import Patients from "./components/Patients"
+import Parturient from './components/Parturient';
 
 
 
@@ -128,6 +129,7 @@ class App extends Component {
                     <Patients path="patients/:userID/:hospitalID" adminUser={this.state.userID} />
 
                     <JoinClinic path="joinclinic/:userID/:hospitalID"  />
+                    <Parturient path="parturient" />
                     
                 </Router>
 
