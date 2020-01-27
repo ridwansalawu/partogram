@@ -1,34 +1,36 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "reactstrap";
+import { Card,  CardText, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { Link } from "react-router-dom";
+// import {col, Row, Button} from "reactstrap"
+// import {Control, LocalForm, Errors } from 'react-redux-form';
 import "../index.css"
 
 
-const RenderParturients = ({parturient, onClick, image}) => {
+
+const RenderParturients = ({parturient}) => {
     return(
-        <Card onClick={() => onClick(parturient.hospId)} className="card-body">
-                        
-                        <CardImg width="100%" src={image} />  
-                        <CardImgOverlay className="ml-5">
-                            <CardTitle> {parturient.firstName + parturient.lastName}</CardTitle>
-                            <CardText>Date of Birth:  {parturient.dob}  </CardText>
-                            <CardText>Last Delivery  </CardText>
-                            <CardText >Last Menstrual Period: {parturient.lmp} </CardText>
-                            <CardText >Significant Intrapartum Events: </CardText>
-                            <CardText className="card-body2">Hospital Id:{parturient.hospId} </CardText>
-                        </CardImgOverlay>
-                </Card>
+        <Card>
+            <Link to={`/parturients/${parturient.hospId}`}>
+                <CardTitle className="bg-secondary"> {parturient.firstName + " " + parturient.lastName}</CardTitle>
+                    <CardText>Date of Birth:  {parturient.dob}  </CardText>
+                    <CardText>Last Delivery  </CardText>
+                    <CardText >Last Menstrual Period: {parturient.lmp} </CardText>
+                    <CardText >Significant Intrapartum Events: </CardText>
+                    <CardText className="card-body2">Hospital Id:{parturient.hospId} </CardText>
+            </Link>       
+        </Card>
 
     )
 }
 
 const Parturients = (props) => {
     const image = "assets/images/cx_3d_delivery.jpg";
-    const parturients = props.parturients.map((parturient ) => {
+    const parturients = props.parturients.map((parturient) => {
             
         return (
-            <div  key={parturient.hospId} className="col-12 col-md-5 m-1"> 
+            <div  key={parturient.hospId} className="col-12 col-md-10 m-1"> 
                 <RenderParturients parturient= {parturient} 
-                                   onClick={props.onClick}
+                                   
                                    image={image}
                                     />
             </div>
@@ -38,6 +40,18 @@ const Parturients = (props) => {
     return (
         <div className="container">
             <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to="/home">Home</Link>  </BreadcrumbItem>
+                    <BreadcrumbItem active>Parturients</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>Parturients</h3>
+                    <hr/>
+
+                </div>
+            </div>
+            <div className="row">
+                
                     {parturients}
             </div>
           
