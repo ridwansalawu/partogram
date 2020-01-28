@@ -8,6 +8,10 @@ export const initialState = {
     action_line: ACTION_LINE
   };
 
+
+
+  
+
 export const Reducer = (state=initialState, action) => {
     return state;
 }

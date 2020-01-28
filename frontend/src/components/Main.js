@@ -26,10 +26,6 @@ const mapStateToProps = state => {
 
 class Main extends Component {
 
-//   onParturientSelect = (parturientId) => {
-//     this.setState({ selectedParturient: parturientId})
-
-// }
 componentDidMount = () => {
   console.log(this.props.parturients)
 };
