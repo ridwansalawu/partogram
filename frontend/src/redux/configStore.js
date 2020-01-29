@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import {createForms} from "react-redux-form";
 import { Parturients } from "./parturients";
 import { AlertLine} from "./alertLine";
 import { ActionLine } from "./actionLine";
 import { InitialGraph } from "./initialGraph";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import { InitialFeedback } from "./forms";
 
 
 export const ConfigStore = () => {
@@ -13,7 +15,10 @@ export const ConfigStore = () => {
             parturients: Parturients,
             actionLine: ActionLine,
             alertLine: AlertLine,
-            initialGraph: InitialGraph
+            initialGraph: InitialGraph,
+            ...createForms({
+                feedback: InitialFeedback
+            })
 
         }),
         applyMiddleware(thunk, logger)

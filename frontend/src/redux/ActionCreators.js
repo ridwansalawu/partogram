@@ -5,7 +5,7 @@ import { PARTURIENTS } from "../testData/parturients";
 export const calculateBishop = (parturientId, dilatation, effacement, position, station, descent) => ({
     type: ActionTypes.CALCULATE_BISHOP,
     payload: {
-        parturientId: parturientId,
+    
         dilatation: dilatation, 
         effacement: effacement,
         position: position,

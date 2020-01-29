@@ -9,6 +9,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
 import {calculateBishop, fetchParturients} from "../redux/ActionCreators";
+import {actions} from "react-redux-form"
 
 const mapStateToProps = state => {
   return {
@@ -25,7 +26,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => ({
   calculateBishop: (parturientId, dilatation, effacement, position, station, descent) => 
         dispatch(calculateBishop(parturientId, dilatation, effacement, position, station, descent)),
-  fetchParturients: () => {dispatch(fetchParturients())}
+  fetchParturients: () => {dispatch(fetchParturients())},
+  resetFeedbackForm: () => {dispatch(actions.reset("feedback"))}
   
 
 })
@@ -69,8 +71,8 @@ componentDidMount = () => {
             <Route path="/home" component={Home} />
             <Route exact path="/parturients" component={() => <Parturients parturients={this.props.parturients} />} />
             <Route path="/parturients/:parturientId" component={ParturientWithHospId}/>
-            <Route exact path="/labourward" component={LabourWard}
-                                calculateBishop={this.props.calculateBishop}/>
+            <Route exact path="/labourward" component={() => <LabourWard resetFeebackForm={this.props.resetFeedbackForm} calculateBishop={this.props.calculateBishop}/>}/>
+                                
             <Route exact path="/patient" component={Patient}/>
 
             <Redirect to="/home"/>

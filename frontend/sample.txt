@@ -363,3 +363,73 @@ class Patient extends Component {
 }
 
 export default Patient;
+
+
+
+
+
+
+
+               <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
+                            <Row className="form-group">
+                                <Label htmlFor="hospId" md={2}>Hospital Number</Label>
+                                <Col md={10}>
+                                    <Control.text model=".hospId" id="hospId" name="hospId"
+                                        placeholder="Hospital number"
+                                        className="form-control"
+                                         />
+                                </Col>
+                            </Row>
+                            {/* <Row className="form-group">
+                                <Label htmlFor="dilatation" md={2}>Dilatation</Label>
+                                <Col md={10}>
+                                    <Control.text model=".dilatation" id="dilatation" name="dilatation"
+                                        placeholder="Dilatation"
+                                        className="form-control"
+                                         />
+                                </Col>
+                            </Row> */}
+                            <Row className="form-group">
+                                <Label htmlFor="middlename" md={2}>Effacement</Label>
+                                <Col md={10}>
+                                    <Control.text model=".middlename" id="middlename" name="middlename"
+                                        placeholder="Middle Name"
+                                        className="form-control"
+                                         />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="lastname" md={2}>Position</Label>
+                                <Col md={10}>
+                                    <Control.text model=".lastname" id="lastname" name="lastname"
+                                        placeholder="Last Name"
+                                        className="form-control"
+                                         />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
+                                <Col md={10}>
+                                    <Control.text model=".telnum" id="telnum" name="telnum"
+                                        placeholder="Tel. Number"
+                                        className="form-control"
+                                         />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="email" md={2}>Email</Label>
+                                <Col md={10}>
+                                    <Control.text model=".email" id="email" name="email"
+                                        placeholder="Email"
+                                        className="form-control" />
+                                </Col>
+                            </Row>
+                          
+                            <Row className="form-group">
+                                <Col md={{size:10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                    Submit
+                                    </Button>
+                                </Col>
+                            </Row>
+                          </Form>
