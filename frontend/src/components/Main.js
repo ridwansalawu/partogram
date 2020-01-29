@@ -8,6 +8,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
+import {calculateBishop, fetchParturients} from "../redux/ActionCreators";
 
 const mapStateToProps = state => {
   return {
@@ -21,13 +22,28 @@ const mapStateToProps = state => {
     
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  calculateBishop: (parturientId, dilatation, effacement, position, station, descent) => 
+        dispatch(calculateBishop(parturientId, dilatation, effacement, position, station, descent)),
+  fetchParturients: () => {dispatch(fetchParturients())}
+  
+
+})
+
 
 
 
 class Main extends Component {
+  constructor(props) {
+    super(props)
+
+    console.log("useless constructor?")
+
+  };
+  
 
 componentDidMount = () => {
-  console.log(this.props.parturients)
+  this.props.fetchParturients();
 };
 
 
@@ -36,7 +52,11 @@ componentDidMount = () => {
 
     const ParturientWithHospId = ({match}) => {
       return(
-        <ParturientDetail parturient= {this.props.parturients.filter((parturient) => parturient.hospId === parseInt(match.params.parturientId, 10))[0]}
+        <ParturientDetail parturient= {this.props.parturients.parturients.filter((parturient) => parturient.hospId === parseInt(match.params.parturientId, 10))[0]}
+        isLoading={this.props.parturients.isLoading}
+        errMsg={this.props.parturients.errMsg}
+        calculateBishop={this.props.calculateBishop}
+        
         />
       )
 
@@ -49,7 +69,8 @@ componentDidMount = () => {
             <Route path="/home" component={Home} />
             <Route exact path="/parturients" component={() => <Parturients parturients={this.props.parturients} />} />
             <Route path="/parturients/:parturientId" component={ParturientWithHospId}/>
-            <Route exact path="/labourward" component={LabourWard}/>
+            <Route exact path="/labourward" component={LabourWard}
+                                calculateBishop={this.props.calculateBishop}/>
             <Route exact path="/patient" component={Patient}/>
 
             <Redirect to="/home"/>
@@ -65,4 +86,4 @@ componentDidMount = () => {
 }
 
 
-export default withRouter((connect(mapStateToProps)(Main)));
+export default withRouter((connect(mapStateToProps, mapDispatchToProps)(Main)));

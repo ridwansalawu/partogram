@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardBody, CardTitle, CardText, BreadcrumbItem, Breadcrumb} from "reactstrap";
-
+import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import "../index.css";
 
@@ -9,7 +9,7 @@ import "../index.css";
 
 
 
-    function RenderParturient ({parturient}){
+    function RenderParturient ({parturient, parturientId, calculateBishop}){
         console.log( "from details" + typeof parturient )
         return(
             
@@ -51,7 +51,26 @@ import "../index.css";
     
 
     const ParturientDetail = (props) => {
-        if (props.parturient !== null)
+        if (props.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            )
+        }
+        else if (props.errMsg) {
+            return (
+                <div className="container">
+                    <div className="row">
+                      <h4>{props.errMsg}</h4>
+                    </div>
+                </div>
+            )
+            
+        }
+        else if (props.parturient !== null)
             return (
             <div className="container">
             <div className="row">
@@ -68,10 +87,10 @@ import "../index.css";
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
 
-                        <RenderParturient parturient={props.parturient} />
-                        {/* <RenderSummary summary={props.parturient.summary}
-                                       parturient={props.parturient}/> */}
-                       
+                        <RenderParturient parturient={props.parturient} 
+                                          calculateBishop= {props.calculateBishop}
+                                          parturientId={props.parturientId}/>
+
 
                     </div>
 

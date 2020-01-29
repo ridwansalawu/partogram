@@ -1,12 +1,30 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Row, Col, Label, Navbar, NavbarBrand, Jumbotron, NavItem, Nav, Collapse, NavbarToggler, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Card, CardBody, CardTitle } from "reactstrap";
 import { Control, LocalForm } from 'react-redux-form';
 
 class LabourWard extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         isModalOpen: false
+      };
+    };
+
+    toggleModal = () => {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        })
+
+    }
+    
+
+
     render() {
         return (
-            <div>
+            <div className="container">
                Welcome to the labour ward 
+               <div className="row row-content">
 
                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
@@ -18,17 +36,17 @@ class LabourWard extends Component {
                                          />
                                 </Col>
                             </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="firstname" md={2}>First Name</Label>
+                            {/* <Row className="form-group">
+                                <Label htmlFor="dilatation" md={2}>Dilatation</Label>
                                 <Col md={10}>
-                                    <Control.text model=".firstname" id="firstname" name="firstname"
-                                        placeholder="First Name"
+                                    <Control.text model=".dilatation" id="dilatation" name="dilatation"
+                                        placeholder="Dilatation"
                                         className="form-control"
                                          />
                                 </Col>
-                            </Row>
+                            </Row> */}
                             <Row className="form-group">
-                                <Label htmlFor="middlename" md={2}>First Name</Label>
+                                <Label htmlFor="middlename" md={2}>Effacement</Label>
                                 <Col md={10}>
                                     <Control.text model=".middlename" id="middlename" name="middlename"
                                         placeholder="Middle Name"
@@ -37,7 +55,7 @@ class LabourWard extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="lastname" md={2}>Last Name</Label>
+                                <Label htmlFor="lastname" md={2}>Position</Label>
                                 <Col md={10}>
                                     <Control.text model=".lastname" id="lastname" name="lastname"
                                         placeholder="Last Name"
@@ -71,6 +89,92 @@ class LabourWard extends Component {
                                 </Col>
                             </Row>
                           </LocalForm>
+                    </div>
+
+                <div className="row row-content">
+{/* ============================================================================================ */}
+
+<div className="container">
+    <div col-12 col-sm-3>
+<Card>
+     <CardTitle>                   
+                <Button outline onClick={this.toggleModal}>
+                               <span className="fa fa-sign-in fa-lg">Bishop's Scoring</span>
+                </Button>
+            
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Bishop Score</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleCalcBishop}>
+
+                        <Row className="form-group">
+                                <Label htmlFor="dilatation" md={2}>Dilatation</Label>
+                                <Col md={10}>
+                                    <Control.text model=".dilatation" id="dilatation" name="dilatation"
+                                        placeholder="Dilatation"
+                                        className="form-control"
+                                         />
+                                </Col>
+                        </Row>
+                        <Row className="form-group">
+                                <Label htmlFor="effacement" md={2}>Effacement</Label>
+                                <Col md={10}>
+                                    <Control.text model=".effacement" id="effacement" name="effacement"
+                                        placeholder="Effacement"
+                                        className="form-control"
+                                         />
+                                </Col>
+                        </Row>
+                        <Row className="form-group">
+                                <Label htmlFor="position" md={2}>Position</Label>
+                                <Col md={10}>
+                                    <Control.text model=".position" id="position" name="position"
+                                        placeholder="Position"
+                                        className="form-control"
+                                         />
+                                </Col>
+                        </Row>
+                        <Row className="form-group">
+                                <Label htmlFor="descent" md={2}>Descent</Label>
+                                <Col md={10}>
+                                    <Control.text model=".descent" id="descent" name="descent"
+                                        placeholder="Dilatation"
+                                        className="form-control"
+                                         />
+                                </Col>
+                        </Row>
+                        <Row className="form-group">
+                                <Label htmlFor="station" md={2}>Station</Label>
+                                <Col md={10}>
+                                    <Control.text model=".station" id="station" name="station"
+                                        placeholder="Station"
+                                        className="form-control"
+                                         />
+                                </Col>
+                        </Row>
+
+                            <FormGroup check>
+                                <Label check> 
+                                <Input type="checkbox"  name="remember"
+                                innerRef={(input) => this.remember = input} />
+                                Remember me
+                                </Label>
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">Bishop Score</Button>
+
+                        </Form>
+                    </ModalBody>
+                </Modal>
+
+                </CardTitle> 
+              <div col-12 col-sm-3>
+                <CardBody><img src="assets/images/cx_2cm.jpg"  height="100%" width="100%"    alt=""/> </CardBody> 
+                </div>
+                </Card>
+                </div>
+     </div>
+                </div>
+
             </div>
         )
     }
