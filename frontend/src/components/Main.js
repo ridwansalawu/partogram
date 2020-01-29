@@ -8,7 +8,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients} from "../redux/ActionCreators";
+import {calculateBishop, fetchParturients, fetchBishops} from "../redux/ActionCreators";
 import {actions} from "react-redux-form"
 
 const mapStateToProps = state => {
@@ -16,7 +16,8 @@ const mapStateToProps = state => {
     parturients: state.parturients,
     initial_graph: state.initial_graph,
     alert_line: state.alert_line,
-    action_line: state.action_line
+    action_line: state.action_line,
+    bishops: state.bishops
 
 
   }
@@ -27,7 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
   calculateBishop: (parturientId, dilatation, effacement, position, station, descent) => 
         dispatch(calculateBishop(parturientId, dilatation, effacement, position, station, descent)),
   fetchParturients: () => {dispatch(fetchParturients())},
-  resetFeedbackForm: () => {dispatch(actions.reset("feedback"))}
+  resetFeedbackForm: () => {dispatch(actions.reset("feedback"))},
+  fetchBishops: () => {dispatch(fetchBishops())},
   
 
 })
@@ -46,6 +48,7 @@ class Main extends Component {
 
 componentDidMount = () => {
   this.props.fetchParturients();
+  this.props.fetchBishops();
 };
 
 
@@ -71,7 +74,12 @@ componentDidMount = () => {
             <Route path="/home" component={Home} />
             <Route exact path="/parturients" component={() => <Parturients parturients={this.props.parturients} />} />
             <Route path="/parturients/:parturientId" component={ParturientWithHospId}/>
-            <Route exact path="/labourward" component={() => <LabourWard resetFeebackForm={this.props.resetFeedbackForm} calculateBishop={this.props.calculateBishop}/>}/>
+            <Route exact path="/labourward" component={() => <LabourWard resetFeebackForm={this.props.resetFeedbackForm} 
+                                                             bishop={this.props.bishops}
+                                                             addBishop= {this.props.addBishops}
+                                                             bishopErrorMsg={this.props.bishops.errMsg}
+                                                             
+                                                             calculateBishop={this.props.calculateBishop}/>}/>
                                 
             <Route exact path="/patient" component={Patient}/>
 
