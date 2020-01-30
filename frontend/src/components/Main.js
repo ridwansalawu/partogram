@@ -8,8 +8,10 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients, fetchBishops} from "../redux/ActionCreators";
-import {actions} from "react-redux-form"
+import {calculateBishop, fetchParturients, fetchBishops, postUser} from "../redux/ActionCreators";
+import {actions} from "react-redux-form";
+import {TransitionGroup, CSSTransition} from "react-transition-group"
+
 
 const mapStateToProps = state => {
   return {
@@ -30,6 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchParturients: () => {dispatch(fetchParturients())},
   resetFeedbackForm: () => {dispatch(actions.reset("feedback"))},
   fetchBishops: () => {dispatch(fetchBishops())},
+  postUser: (username, password) => {dispatch(postUser(username, password))} 
   
 
 })
@@ -70,6 +73,8 @@ componentDidMount = () => {
     return (
       <div>
         <Header />
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={3000}>
         <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/parturients" component={() => <Parturients parturients={this.props.parturients} />} />
@@ -77,15 +82,19 @@ componentDidMount = () => {
             <Route exact path="/labourward" component={() => <LabourWard resetFeebackForm={this.props.resetFeedbackForm} 
                                                              bishop={this.props.bishops}
                                                              addBishop= {this.props.addBishops}
-                                                             bishopErrorMsg={this.props.bishops.errMsg}
+                                                             postUser= {this.props.postUser}
+                                                           
+                                                           
                                                              
                                                              calculateBishop={this.props.calculateBishop}/>}/>
                                 
             <Route exact path="/patient" component={Patient}/>
 
             <Redirect to="/home"/>
-
+            
         </Switch>
+        </CSSTransition>
+        </TransitionGroup>
 
         <Footer />
         

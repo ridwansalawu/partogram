@@ -7,7 +7,8 @@ class LabourWard extends Component {
       super(props)
     
       this.state = {
-         isModalOpen: false
+         isModalOpen: false,
+         isModalOpen2: false
       };
     };
 
@@ -17,10 +18,25 @@ class LabourWard extends Component {
         })
 
     }
+    toggleModal2 = () => {
+        this.setState({
+            isModalOpen2: !this.state.isModalOpen2
+        })
+
+    }
     
     handleSubmit = (values)=> {
         console.log("currennt state is : " + JSON.stringify(values) );
         alert("currennt state is : " + JSON.stringify(values));
+
+        // this.props.resetFeedbackForm();
+    }
+    handleSubmit2 = (values)=> {
+        this.toggleModal2();
+        this.props.postUser(values.username, values.password)
+        console.log("currennt state is : " + JSON.stringify(values) );
+        alert("currennt state is : " + JSON.stringify(values));
+
 
         // this.props.resetFeedbackForm();
     }
@@ -112,8 +128,65 @@ render() {
 
                         </CardTitle> 
                         <div className="col-12 col-sm-3">
-                        <CardBody><img src="assets/images/cx_2cm.jpg"  height="100%" width="100%"    alt=""/> </CardBody> 
+                        <CardBody><img src="assets/images/cx_2cm.jpg"  height="100" width="100"    alt=""/> </CardBody> 
                         </div>
+                    </Card>
+                    </div>
+                </div>
+            </div>
+{/* ================================================================================================================================= */}
+
+            <div className="row row-content">
+
+
+                <div className="container">
+                    <div className="col-12 col-sm-3">
+                    <Card>
+                        <CardTitle>                   
+                            <Button outline onClick={this.toggleModal2}>
+                                <span className="fa fa-sign-in fa-lg">Sign Up</span>
+                            </Button>
+
+                            <Modal isOpen={this.state.isModalOpen2} toggle={this.toggleModal2}>
+                                <ModalHeader toggle={this.toggleModal2}>SignUp</ModalHeader>
+                                <ModalBody>
+                                    <Form model="signUp" onSubmit={(values) => this.handleSubmit2(values)}>
+
+                                        <Row className="form-group">
+                                            <Label htmlFor="username" md={2}>Username</Label>
+                                            <Col md={10}>
+                                            <Control.text model=".username" id="username" name="username"
+                                                placeholder="Username"
+                                                className="form-control"
+                                                    />
+                                            </Col>
+                                        </Row>
+                                        <Row className="form-group">
+                                            <Label htmlFor="password" md={2}>Password</Label>
+                                            <Col md={10}>
+                                            <Control.text model=".password" id="password" name="password"
+                                                placeholder="Password"
+                                                className="form-control"
+                                                    />
+                                            </Col>
+                                        </Row>
+                                        
+
+                                        <FormGroup check>
+                                        <Label check> 
+                                        <Input type="checkbox"  name="remember"
+                                        innerRef={(input) => this.remember = input} />
+                                        Remember me
+                                        </Label>
+                                        </FormGroup>
+                                        <Button type="submit" value="submit" color="primary">Register</Button>
+
+                                    </Form>
+                                </ModalBody>
+                            </Modal>
+
+                        </CardTitle> 
+                       
                     </Card>
                     </div>
                 </div>

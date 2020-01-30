@@ -14,8 +14,49 @@ export const calculateBishop = (parturientId, dilatation, effacement, position, 
 
     }
 });
+export const addUser = (user) => ({
+    type: ActionTypes.ADD_USER,
+    payload: user
+    
+});
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+export const postUser = (username, password) => (dispatch) => {
+    const newSignUp = {
+        username: username,
+        password: password
+    }
+    newSignUp.date = new Date().toISOString();
+    return fetch(baseUrl + "users", {
+        method: "POST",
+        body: JSON.stringify(newSignUp),
+        header: {
+            "Content-Type": "application/json"
+
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error("++Error++ "+ response.status + ": " + response.statusText);
+            error.response = response;
+            throw error;
+
+        }  
+    }, 
+    error => {
+        var errMsg = new Error(error.message);
+        throw errMsg;
+    })
+    .then(response => response.json)
+    .then(response => dispatch(addUser(response)))
+    .catch(error => {console.log("+++++++++++++++++++ " + error.message)})
+
+}
 
 export const  fetchParturients = () => (dispatch) => {
     dispatch(parturientsLoading(true));

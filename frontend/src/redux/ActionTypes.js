@@ -8,6 +8,10 @@ export const ADD_PARTURIENTS = "ADD_PARTURIENTS";
 export const BISHOPS_FAILED = "BISHOPS_FAILED";
 export const BISHOP_LOADING = "BISHOP_LOADING";
 export const ADD_BISHOPS = "ADD_BISHOPS"
+export const ADD_USERS = "ADD_USERS";
+export const USERS_FAILED = "USERS_FAILED";
+export const ADD_USER = "ADD_USER";
+
 
 
 

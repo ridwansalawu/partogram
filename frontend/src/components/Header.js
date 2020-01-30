@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Jumbotron, NavItem, Nav, Collapse, NavbarToggler, Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from "reactstrap";
+import { Navbar, NavbarBrand, Jumbotron, NavItem, Nav, Collapse, Form, NavbarToggler, Button, Modal, ModalHeader, ModalBody, Col, FormGroup, Label, Input } from "reactstrap";
 import {NavLink} from "react-router-dom"
+
 
 
 export default class Header extends Component {
@@ -111,6 +112,7 @@ export default class Header extends Component {
                         </Form>
                     </ModalBody>
                 </Modal>
+
 
                 </React.Fragment>
             </div>
