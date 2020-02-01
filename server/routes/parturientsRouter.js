@@ -12,7 +12,7 @@ parturientsRouter.use(bodyParser.json());
 parturientsRouter.route("/")
   .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
   .get(cors.cors, (req, res, next) => {
-    Parturients.find({})
+    Parturients.find(req.query)
       .populate('comments.author')
       .then((parturients) => {
         res.statusCode = 200;

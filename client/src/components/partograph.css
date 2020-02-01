@@ -102,7 +102,7 @@ div.navigation > nav {
 }
 
 .custom-line {
-    fill:black;
+    fill:none;
     stroke:#FFFFFF;
 
 }
