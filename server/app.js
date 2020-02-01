@@ -1,51 +1,52 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var bodyParser = require("body-parser")
-var http = require("http");
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require("express-session")
-var FileStore = require("session-file-store")(session);
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser")
+const http = require("http");
 
-var passport = require('passport');
-var authenticate = require('./authenticate');
-var config = require("./config")
+const logger = require('morgan');
+const session = require("express-session")
+const FileStore = require("session-file-store")(session);
+
+const passport = require('passport');
+const authenticate = require('./authenticate');
+const config = require("./config")
 
 
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require("./routes/users")
-var parturientsRouter = require("./routes/parturientsRouter");
-var uploadRouter = require("./routes/uploadRouter");
+const indexRouter = require('./routes/index');
+const usersRouter = require("./routes/users")
+const parturientsRouter = require("./routes/parturientsRouter");
+const uploadRouter = require("./routes/uploadRouter");
 
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
 
 const url = config.mongoUrl;
-const connect = mongoose.connect(url)
+const connect = mongoose.connect(url, {useNewUrlParser: true})
 
 connect.then((db) => {
     console.log("YaY🎃🤝... connected succesfully to the database");
 }, (err) => {
-    console.log(err);
+    console.log("***db Connection Error***" + err);
 })
 
-var app = express();
+const app = express();
 
-app.all("*", (req, res, next) => {
-  if (req.secure) {
-    return next();
-  }
-  else {
-    res.redirect(307, 'https://' + req.hostname + ":" + app.get("secPort") + req.url)
-  }
-})
+// app.all("*", (req, res, next) => {
+//   if (req.secure) {
+//     return next();
+//   }
+//   else {
+//     res.redirect(307, 'https://' + req.hostname + ":" + app.get("secPort") + req.url)
+//   }
+// })
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 
 // app.use(bodyParser.json())
@@ -53,7 +54,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use(cookieParser("123-45678-90-98848"));
+app.use(cookieParser());
 
 // app.use(session({
 //   name: "session-id",
@@ -66,15 +67,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 // app.use(passport.session());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 // function auth (req, res, next) {
 //   console.log(req.user);
 
 //   if (!req.user) {
-//     var err = new Error('You are not authenticated!');
+//     const err = new Error('You are not authenticated!');
 //     err.status = 403;
 //     next(err);
 //   }
@@ -99,7 +102,7 @@ app.use(function(req, res, next) {
   
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.send('error');
   });
 
 

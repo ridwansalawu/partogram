@@ -8,9 +8,10 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients, fetchBishops, postUser} from "../redux/ActionCreators";
+import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser,} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
-import {TransitionGroup, CSSTransition} from "react-transition-group"
+import {TransitionGroup, CSSTransition} from "react-transition-group";
+
 
 
 const mapStateToProps = state => {
@@ -19,7 +20,9 @@ const mapStateToProps = state => {
     initial_graph: state.initial_graph,
     alert_line: state.alert_line,
     action_line: state.action_line,
-    bishops: state.bishops
+    bishops: state.bishops,
+    auth: state.auth
+
 
 
   }
@@ -32,7 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchParturients: () => {dispatch(fetchParturients())},
   resetFeedbackForm: () => {dispatch(actions.reset("feedback"))},
   fetchBishops: () => {dispatch(fetchBishops())},
-  postUser: (username, password) => {dispatch(postUser(username, password))} 
+  postUser: (username, password) => {dispatch(postUser(username, password))},
+  loginUser: (credentials) => dispatch(loginUser(credentials)),
+  logoutUser: () => dispatch(logoutUser()), 
   
 
 })
@@ -51,7 +56,7 @@ class Main extends Component {
 
 componentDidMount = () => {
   this.props.fetchParturients();
-  this.props.fetchBishops();
+  // this.props.fetchBishops();
 };
 
 
@@ -72,7 +77,8 @@ componentDidMount = () => {
 
     return (
       <div>
-        <Header />
+        <Header auth={this.props.auth} loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}
+        />
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={3000}>
         <Switch>

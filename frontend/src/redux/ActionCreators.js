@@ -1,6 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
-import { baseUrl } from "../testData/baseUrl"
-
+import { baseUrl } from "../testData/baseUrl";
+import Axios from "axios";
 
 export const calculateBishop = (parturientId, dilatation, effacement, position, station, descent) => ({
     type: ActionTypes.CALCULATE_BISHOP,
@@ -136,3 +136,95 @@ export const addBishops = (bishops) => ({
     type: ActionTypes.ADD_BISHOPS,
     payload: bishops
 })
+
+
+// __________________________________________________________________________________________________________________________
+// AUTHENTICATION
+// -----------------------------------------------------------------------------------------------------------------------------
+
+export const requestLogin = (credentials) => {
+    return {
+        type: ActionTypes.LOGIN_REQUEST,
+        credentials
+    }
+}
+
+export const receiveLogin = (response) => {
+    return {
+        type: ActionTypes.LOGIN_SUCCESS,
+        token: response.token
+    }
+}
+export const loginError = (message) => {
+    return {
+        type: ActionTypes.LOGIN_FAILURE,
+        message
+    }
+}
+
+
+
+
+
+
+
+export const loginUser = (credentials) => (dispatch) => {
+    dispatch(requestLogin(credentials))
+
+    return fetch(baseUrl + "users/login", {
+        method: "POST",
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        throw error;
+    }
+    )
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("credentials", JSON.stringify(credentials));
+            dispatch(receiveLogin(response));
+        }
+        else {
+            var error = new Error("****Error " + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(loginError(error.message)))
+
+}
+
+export const requestLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_REQUEST
+    }
+}
+  
+export const receiveLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_SUCCESS
+    }
+}
+
+export const logoutUser = () => (dispatch) => {
+    dispatch(requestLogout())
+    localStorage.removeItem('token');
+    localStorage.removeItem('credentials');
+    // dispatch(favoritesFailed("Error 401: Unauthorized"));
+    dispatch(receiveLogout())
+}

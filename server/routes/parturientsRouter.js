@@ -2,7 +2,7 @@ var express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const authenticate = require("../authenticate");
-const cors = require("./cors")
+// const cors = require("./cors")
 const Parturients = require("../models/parturients");
 
 const parturientsRouter = express.Router();
@@ -10,9 +10,9 @@ const parturientsRouter = express.Router();
 parturientsRouter.use(bodyParser.json());
 
 parturientsRouter.route("/")
-  .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
-  .get(cors.cors, (req, res, next) => {
-    Parturients.find(req.query)
+  // .options((req, res) => { res.sendStatus(200)})
+  .get( async (req, res, next) => {
+    await Parturients.find(req.query)
       .populate('comments.author')
       .then((parturients) => {
         res.statusCode = 200;
@@ -22,7 +22,7 @@ parturientsRouter.route("/")
       (err) => next(err))
       .catch((err) => next(err))
   })
-  .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+  .post( authenticate.verifyUser, (req, res, next) => {
     Parturients.create(req.body)
       .then((parturient)=> {
         console.log("Another patient admitted into labour ward, ", parturient)
@@ -33,11 +33,11 @@ parturientsRouter.route("/")
       }, (err) => next(err) )
       .catch((err) => next(err))
   })
-  .put(cors.corsWithOptions, authenticate.verifyUser,(req,res,next) => {
+  .put( authenticate.verifyUser,(req,res,next) => {
     res.statusCode = 403;
     res.end("PUT operation not supported!")
 })
-.delete(cors.corsWithOptions, authenticate.verifyUser,(req,res,next) => {
+.delete(authenticate.verifyUser,(req,res,next) => {
    
   Parturients.remove({})
   .then((parturient) => {
@@ -51,8 +51,8 @@ parturientsRouter.route("/")
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route('/:parturientId')
-.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
-.get(cors.cors,(req,res,next) => {
+.options((req, res) => { res.sendStatus(200)})
+.get((req,res,next) => {
   Parturients.findById(req.params.parturientId)
     .populate("comments.author")
     .then((parturient) => {
@@ -62,11 +62,11 @@ parturientsRouter.route('/:parturientId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
+.post(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /dishes/'+ req.params.parturientId);
 })
-.put(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
+.put(authenticate.verifyUser,(req, res, next) => {
   Parturients.findByIdAndUpdate(req.params.parturientId, {
         $set: req.body
     }, { new: true })
@@ -77,7 +77,7 @@ parturientsRouter.route('/:parturientId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete(cors.corsWithOptions, authenticate.verifyUser,(req, res, next) => {
+.delete(authenticate.verifyUser,(req, res, next) => {
   Parturients.findByIdAndRemove(req.params.parturientId)
     .then((parturient) => {
         res.statusCode = 200;

@@ -1,14 +1,15 @@
-var passport = require("passport");
-var LocalStrategy = require("passport-local").Strategy;
-var User = require("./models/users");
-var JwtStrategy = require("passport-jwt").Strategy;
-var ExtractJwt = require("passport-jwt").ExtractJwt;
-var Jwt = require("jsonwebtoken");
-var FacebookTokenStrategy = require("passport-facebook-token");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/users");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const Jwt = require("jsonwebtoken");
+const FacebookTokenStrategy = require("passport-facebook-token");
 
-var config = require("./config");
+const config = require("./config.js");
 
-exports.local = passport.use(new LocalStrategy(User.authenticate()));
+// exports.local = 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -17,7 +18,7 @@ exports.getToken = function(user) {
         {expiresIn: 3600} );
 };
 
-var opts = {};
+const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.secretKey;
 
@@ -43,7 +44,7 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
     //     if (req.user.admin)
     //         next();
     //     else {
-    //         var err = new Error ("you are not authorized to perform this action, sorry!")
+    //         const err = new Error ("you are not authorized to perform this action, sorry!")
     //         err.status = 403;
     //         return next(err);
     //     }
@@ -75,4 +76,4 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
         })
     }
 
-    ))
+    ));

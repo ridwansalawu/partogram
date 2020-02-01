@@ -1,20 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
+// const express = require("express");
+// const cors = require("cors");
+// const app = express();
 
-const whitelist = ["http://localhost:1111", "https://localhost:1554", "http://localhost:3000"];
+// const whitelist = ["http://localhost:3000", "http://localhost:3001"];
 
-var corsOptionsDelegate = (req, callback) => {
-    var corsOptions;
-    if (whitelist.indexOf(req.header("origin")) !== -1) {
-        corsOptions = { origin: true };
-    }
-    else {
-        corsOptions = { origin: false };
+// var corsOptionsDelegate = (req, callback) => {
+//     var corsOptions;
+//     if (whitelist.indexOf(req.header("origin")) !== -1) {
+//         corsOptions = { origin: true };
+//     }
+//     else {
+//         corsOptions = { origin: false };
 
-    }
-    callback(null, corsOptions);
-};
+//     }
+//     callback(null, corsOptions);
+// };
 
-exports.cors = cors();
-exports.corsWithOptions = cors(corsOptionsDelegate);
+// exports.cors = cors();
+// exports.corsWithOptions = cors(corsOptionsDelegate);
