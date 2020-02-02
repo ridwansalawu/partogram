@@ -1,23 +1,23 @@
 import React from 'react';
-import { Card,  CardText, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { Card,  CardText, CardTitle, Breadcrumb, BreadcrumbItem, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import Loading from "./Loading"
 // import {col, Row, Button} from "reactstrap"
 // import {Control, LocalForm, Errors } from 'react-redux-form';
 import "../index.css"
 
-
+const ShowParturientDetails =( e, parturients )=> {
+    return console.log( parturients)
+}
 
 const RenderParturients = ({parturient}) => {
     return(
-        <Card>
+        <Card onClick={ShowParturientDetails} >
             <Link to={`/parturients/${parturient.hospId}`}>
-                <CardTitle className="bg-secondary"> {parturient.firstName + " " + parturient.lastName}</CardTitle>
-                    <CardText>Date of Birth:  {parturient.dob}  </CardText>
-                    <CardText>Last Delivery  </CardText>
-                    <CardText >Last Menstrual Period: {parturient.lmp} </CardText>
-                    <CardText >Significant Intrapartum Events: </CardText>
+                    <CardBody className="bg-light">
+                    <CardTitle className="text-bolder"> {parturient.firstName + " " + parturient.lastName}</CardTitle>
                     <CardText className="card-body2">Hospital Id:{parturient.hospId} </CardText>
+                    </CardBody>
             </Link>       
         </Card>
 
@@ -26,10 +26,10 @@ const RenderParturients = ({parturient}) => {
 
 const Parturients = (props) => {
     
-    const parturients = props.parturients.parturients.map((parturient) => {
+    const parturients = props.parturients.parturients.map((parturient, index) => {
             
         return (
-            <div  key={parturient.hospId} className="col-12 col-md-10 m-1"> 
+            <div  key={index} className="col-12 col-md-10 m-1"> 
                 <RenderParturients parturient= {parturient} />
             </div>
         );
@@ -69,8 +69,8 @@ const Parturients = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    
                         {parturients}
+                      
                 </div>
             
             </div>

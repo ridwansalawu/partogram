@@ -39,7 +39,7 @@ router.get("/",  (req, res, next) => {
         
         passport.authenticate("local")(req, res, () => {
           res.statusCode = 200;
-          res.setHeader = ("Content-Type", "application/json");
+          // res.setHeader = ("Content-Type", "application/json");
           res.json({success: true, status: "Registration Successful!"});
         })
       }
@@ -49,7 +49,7 @@ router.get("/",  (req, res, next) => {
   router.post('/login', passport.authenticate("local"), (req, res) => {
     const token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
+    // res.setHeader('Content-Type', 'application/json');
     res.json({success: true, token: token, status: 'You are successfully logged in!'});
 
     // passport.authenticate('local', (err, user, info) => {

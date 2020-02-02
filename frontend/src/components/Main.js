@@ -48,12 +48,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 class Main extends Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-    console.log("useless constructor?")
+  //   console.log("useless constructor?")
 
-  };
+  // };
   
 
 componentDidMount = () => {
@@ -67,10 +67,11 @@ componentDidMount = () => {
 
     const ParturientWithHospId = ({match}) => {
       return(
-        <ParturientDetail parturient= {this.props.parturients.parturients.filter((parturient) => parturient.hospId === parseInt(match.params.parturientId, 10))[0]}
+        
+        <ParturientDetail parturient= {this.props.parturients.parturients.filter((parturient) => parturient.hospId === match.params.parturientId)[0]}
         isLoading={this.props.parturients.isLoading}
         errMsg={this.props.parturients.errMsg}
-        calculateBishop={this.props.calculateBishop}
+       
         
         />
       )

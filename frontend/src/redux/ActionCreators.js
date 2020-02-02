@@ -231,8 +231,9 @@ export const loginUser = (credentials) => (dispatch) => {
             return response;
         }
         else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            var error = new Error('Error ' + response.status + ': ' + response.statusText + "_______" + response.message);
             error.response = response;
+            console.log(error)
             throw error;
         }
     },

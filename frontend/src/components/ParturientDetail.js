@@ -9,15 +9,21 @@ import "../index.css";
 
 
 
-    function RenderParturient ({parturient, parturientId, calculateBishop}){
-        console.log( "from details" + typeof parturient )
+    function RenderParturient ({parturient}){
+        
         return(
             
             <div className="col-12 col-md m-1">
             <Card>
-                <CardBody>
-                    <CardTitle>Title: {parturient}</CardTitle>
-                    <CardText className="card-body">Body: {parturient}</CardText>
+                <CardBody className="bg-light">
+                    <CardTitle className="text-danger font-weight-bolder font-italic ">{parturient.firstName + " " + parturient.lastName}</CardTitle>
+                    <CardText className="card-body">Body: {parturient.hospId}</CardText>
+                    <CardText className="card-body">Body: {parturient.middleName}</CardText>
+                    <CardText className="card-body">Body: {parturient.hospId}</CardText>
+                    <CardText>Date of Birth:  {parturient.dob}  </CardText>
+                    <CardText>Last Delivery  </CardText>
+                    <CardText >Last Menstrual Period: {parturient.lmp} </CardText>
+                    <CardText >Significant Intrapartum Events: </CardText>
                 </CardBody>
             </Card>
             </div>
@@ -70,42 +76,32 @@ import "../index.css";
             )
             
         }
-        else if (props.parturient !== null)
+        else if (props.parturient != null)
             return (
             <div className="container">
             <div className="row">
                 <Breadcrumb>
-                    <BreadcrumbItem><Link to="/home">Home</Link>  </BreadcrumbItem>
-                    <BreadcrumbItem active>{props.parturient}</BreadcrumbItem>
+                    <BreadcrumbItem><Link to="/parturients">Parturients</Link>  </BreadcrumbItem>
+                    <BreadcrumbItem active>{props.parturient.firstName}</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="col-12">
-                    <h3>Parturients</h3>
+                    <h3>{props.parturient.firstName}</h3>
                     <hr/>
 
                 </div>
             </div>
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-
-                        <RenderParturient parturient={props.parturient} 
-                                          calculateBishop= {props.calculateBishop}
-                                          parturientId={props.parturientId}/>
-
-
-                    </div>
+                        <RenderParturient parturient={props.parturient} />
 
                 </div>
-
-               
-
-                
+     
             </div>
         )
-        else{
+        else
             return(
                 <div></div>
-            )
-        }
+            );
+        
 
 
     }
