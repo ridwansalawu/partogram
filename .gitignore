@@ -56,3 +56,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 samples.js
+.envrc
+
+node_modules
+build
+
+
+.idea
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+*.env
+*.dev
+.DS_Store

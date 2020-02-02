@@ -10,7 +10,7 @@ var router = express.Router();
 router.use(bodyParser.json());
 
 /* GET users listing. */
-// router.options("*", corsWithOptions, (req, res) => {res.sendStatus(200)});
+router.options("*" ,(req, res) => {res.sendStatus(200)});
 router.get("/",  (req, res, next) => {
   res.send("respond with a resource")
     // User.find({})
@@ -27,20 +27,20 @@ router.get("/",  (req, res, next) => {
 });
 
 
-  router.post('/signup', (req, res, next) => {
+  router.post('/signup', (req, res) => {
     User.register(new User({username: req.body.username}), 
       req.body.password, (err, user) => {
       if(err) {
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
-        res.json({err: err});
+        res.send({err: err.message});
       }
       else {
         
-        passport.authenticate("local")(req, response, () => {
-          response.statusCode = 200;
-          response.setHeader = ("Content-Type", "application/json");
-          response.json({success: true, status: "Registration Successful!"});
+        passport.authenticate("local")(req, res, () => {
+          res.statusCode = 200;
+          res.setHeader = ("Content-Type", "application/json");
+          res.json({success: true, status: "Registration Successful!"});
         })
       }
     });

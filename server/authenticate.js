@@ -6,7 +6,7 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const Jwt = require("jsonwebtoken");
 const FacebookTokenStrategy = require("passport-facebook-token");
 
-const config = require("./config.js");
+// const config = require("./config.js");
 
 // exports.local = 
 passport.use(new LocalStrategy(User.authenticate()));
@@ -20,7 +20,7 @@ exports.getToken = function(user) {
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = config.secretKey;
+opts.secretOrKey = process.env.SECRET_KEY;
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts, 
     (jwt_payload, done) => {
@@ -51,8 +51,8 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
     // }
 
     exports.facebookPassport = passport.use(new FacebookTokenStrategy({
-        clientID: config.facebook.clientId,
-        clientSecret: config.facebook.clientSecret
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     }, (accessToken, refreshToken, profile, done) => {
         User,findOne({facebookId: profile.id}, (err, user) =>{
             if (err) {

@@ -8,7 +8,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser,} from "../redux/ActionCreators";
+import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
@@ -21,7 +21,8 @@ const mapStateToProps = state => {
     alert_line: state.alert_line,
     action_line: state.action_line,
     bishops: state.bishops,
-    auth: state.auth
+    auth: state.auth,
+    details: state.details
 
 
 
@@ -38,6 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
   postUser: (username, password) => {dispatch(postUser(username, password))},
   loginUser: (credentials) => dispatch(loginUser(credentials)),
   logoutUser: () => dispatch(logoutUser()), 
+  signupUser: (username, password) => {dispatch(signupUser(username, password))}
   
 
 })
@@ -89,6 +91,8 @@ componentDidMount = () => {
                                                              bishop={this.props.bishops}
                                                              addBishop= {this.props.addBishops}
                                                              postUser= {this.props.postUser}
+                                                             signupUser= {this.props.signupUser}
+                                                             details={this.props.details}
                                                            
                                                            
                                                              

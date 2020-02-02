@@ -5,7 +5,7 @@ export const InitialFeedback = {
     descent: "",
     station: ""
 };
-export const InitialSignUp = {
+export const InitialSignup = {
     username:"",
     password: ""
 }

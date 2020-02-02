@@ -6,7 +6,7 @@ import { ActionLine } from "./actionLine";
 import { InitialGraph } from "./initialGraph";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { InitialFeedback, InitialSignUp } from "./forms";
+import { InitialFeedback, InitialSignup } from "./forms";
 import {Auth} from "./auth";
 
 
@@ -20,7 +20,7 @@ export const ConfigStore = () => {
             auth: Auth,
             ...createForms({
                 feedback: InitialFeedback,
-                signUp: InitialSignUp
+                signUp: InitialSignup
             })
 
         }),

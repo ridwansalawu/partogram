@@ -31,15 +31,26 @@ class LabourWard extends Component {
 
         // this.props.resetFeedbackForm();
     }
+    // handleSubmit2 = (values)=> {
+    //     this.toggleModal2();
+    //     this.props.postUser(values.username, values.password)
+    //     console.log("currennt state is : " + JSON.stringify(values) );
+    //     alert("currennt state is : " + JSON.stringify(values));
+
+
+    //     // this.props.resetFeedbackForm();
+    // }
     handleSubmit2 = (values)=> {
         this.toggleModal2();
-        this.props.postUser(values.username, values.password)
+        this.props.signupUser(values)
         console.log("currennt state is : " + JSON.stringify(values) );
         alert("currennt state is : " + JSON.stringify(values));
 
 
         // this.props.resetFeedbackForm();
     }
+
+  
 
 
 render() {
@@ -138,6 +149,8 @@ render() {
 
             <div className="row row-content">
 
+                
+
 
                 <div className="container">
                     <div className="col-12 col-sm-3">
@@ -189,7 +202,7 @@ render() {
                        
                     </Card>
                     </div>
-                </div>
+                </div> 
             </div>
 
         </div>

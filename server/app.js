@@ -11,7 +11,7 @@ const FileStore = require("session-file-store")(session);
 
 const passport = require('passport');
 const authenticate = require('./authenticate');
-const config = require("./config")
+// const config = require("./config")
 
 
 
@@ -24,7 +24,8 @@ const uploadRouter = require("./routes/uploadRouter");
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
 
-const url = config.mongoUrl;
+// const url = config.mongoUrl;
+const url = process.env.DATABASE_URL;
 const connect = mongoose.connect(url, {useNewUrlParser: true})
 
 connect.then((db) => {
@@ -88,6 +89,11 @@ app.use('/users', usersRouter)
 // app.use(auth);
 app.use('/parturients', parturientsRouter)
 app.use('/imageUpload', uploadRouter)
+
+
+app.get('*', function(req, res) {
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

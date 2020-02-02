@@ -142,6 +142,23 @@ export const addBishops = (bishops) => ({
 // AUTHENTICATION
 // -----------------------------------------------------------------------------------------------------------------------------
 
+
+export const requestSignup = (details) => {
+    return {
+        type: ActionTypes.SIGNUP_REQUEST,
+        details
+    }
+}
+
+export const signupError = (message) => {
+    return {
+        type: ActionTypes.SIGNUP_FAILURE,
+        message
+    }
+}
+
+
+
 export const requestLogin = (credentials) => {
     return {
         type: ActionTypes.LOGIN_REQUEST,
@@ -162,6 +179,37 @@ export const loginError = (message) => {
     }
 }
 
+export const signupUser = (details) => (dispatch) => {
+    dispatch(requestSignup(details))
+
+    return fetch(baseUrl + "users/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(details)
+    })
+    .then(response => {
+
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+
+    },
+    error => {
+        throw error;
+    }
+    ).catch(error => dispatch(signupError(error.message)))
+
+
+
+
+}
 
 
 
