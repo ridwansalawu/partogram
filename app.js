@@ -26,7 +26,7 @@ const Parturients = require("./models/parturients")
 
 // const url = config.mongoUrl;
 const url = process.env.DATABASE_URL;
-const connect = mongoose.connect(MONGODB_URI, {useNewUrlParser: true})
+const connect = mongoose.connect("mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg", {useNewUrlParser: true})
 
 connect.then((db) => {
     console.log("YaY🎃🤝... connected succesfully to the database");
