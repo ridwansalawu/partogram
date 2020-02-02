@@ -20,7 +20,7 @@ exports.getToken = function(user) {
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.SECRET_KEY;
+opts.secretOrKey = process.env.SECRET_KEY || "12345-67890-12345-67890";
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts, 
     (jwt_payload, done) => {
