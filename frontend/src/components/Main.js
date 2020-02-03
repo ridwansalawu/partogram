@@ -62,7 +62,7 @@ class Main extends Component {
 
 componentDidMount = () => {
   this.props.fetchParturients();
-  // this.props.fetchBishops();
+  this.props.fetchBishops();
 };
 
 
@@ -102,8 +102,8 @@ componentDidMount = () => {
                                                            
                                                              
                                                              calculateBishop={this.props.calculateBishop}/>}/>
-            <Route path="/partograph" component={Visualize} />
-            {/* <Route exact path="/visualize" component={Visualize} />                  */}
+            <Route path="/partograph" component={Partograph} />
+            <Route path="/visualize" component={Visualize} />                 
             <Route exact path="/patient" component={Patient}/>
 
             <Redirect to="/home"/>

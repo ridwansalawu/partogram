@@ -16,6 +16,22 @@ export const calculateBishop = (parturientId, dilatation, effacement, position, 
     }
 });
 
+export const fetchBishops = () => (dispatch) => {
+    console.log("++++++++fetching the bishop shits")
+
+    return fetch("https://jsonplaceholder.typicode.com/posts")
+    
+                .then(res => res.json())
+                .then(data => dispatch({
+                    type: ActionTypes.FETCH_BISHOPS,
+                    payload: data
+
+                }))
+
+
+
+}
+
 export const addUser = (user) => ({
     type: ActionTypes.ADD_USER,
     payload: user
@@ -112,27 +128,27 @@ export const addParturients = (parturients) => ({
 
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-export const  fetchBishops = () => (dispatch) => {
-   return fetch(baseUrl + "bishops")
-   .then(response => {
-    if (response.ok) {
-        return response;
-    }
-    else {
-        var error = new Error("++Error++ "+ response.status + ": " + response.statusText);
-        error.response = response;
-        throw error;
+// export const  fetchBishops = () => (dispatch) => {
+//    return fetch(baseUrl + "bishops")
+//    .then(response => {
+//     if (response.ok) {
+//         return response;
+//     }
+//     else {
+//         var error = new Error("++Error++ "+ response.status + ": " + response.statusText);
+//         error.response = response;
+//         throw error;
 
-            }  
-        }, 
-        error => {
-            var errMsg = new Error(error.message);
-            throw errMsg;
-        })
-        .then(response => response.json())
-        .then(bishops => dispatch(addBishops(bishops)))
-        .catch(error => dispatch(bishopsFailed(error.message)))
-        }
+//             }  
+//         }, 
+//         error => {
+//             var errMsg = new Error(error.message);
+//             throw errMsg;
+//         })
+//         .then(response => response.json())
+//         .then(bishops => dispatch(addBishops(bishops)))
+//         .catch(error => dispatch(bishopsFailed(error.message)))
+//         }
 
 // export const parturientsLoading = () => ({
 //     type: ActionTypes.PARTURIENTS_LOADING

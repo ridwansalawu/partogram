@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { InitialFeedback, InitialSignup } from "./forms";
 import {Auth} from "./auth";
+import { Bishops } from "./bishops";
 
 
 export const ConfigStore = () => {
@@ -13,9 +14,7 @@ export const ConfigStore = () => {
         combineReducers({
             drawTemplate: drawTemplate,
             parturients: Parturients,
-            // actionLine: ActionLine,
-            // alertLine: AlertLine,
-            // initialGraph: InitialGraph,
+            bishop_params: Bishops,
             auth: Auth,
             ...createForms({
                 feedback: InitialFeedback,
