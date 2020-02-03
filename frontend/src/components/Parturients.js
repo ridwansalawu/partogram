@@ -6,13 +6,11 @@ import Loading from "./Loading"
 // import {Control, LocalForm, Errors } from 'react-redux-form';
 import "../index.css"
 
-const ShowParturientDetails =( e, parturients )=> {
-    return console.log( parturients)
-}
+
 
 const RenderParturients = ({parturient}) => {
     return(
-        <Card onClick={ShowParturientDetails} >
+        <Card >
             <Link to={`/parturients/${parturient.hospId}`}>
                     <CardBody className="bg-light">
                     <CardTitle className="text-bolder"> {parturient.firstName + " " + parturient.lastName}</CardTitle>

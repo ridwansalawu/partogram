@@ -1,0 +1,103 @@
+svg {
+    display: block;
+    margin: auto;
+   
+}
+
+.container{
+    justify-content: center;
+    align-content: center;
+
+}
+
+
+
+.header {
+    background-color: lightblue;
+}
+.navigation {
+    background-color: lightpink;
+}
+.left-sidebar {
+    background-color: lightslategray;
+}
+.main-page {
+    
+    background-color: limegreen;
+}
+.right-sidebar {
+    background-color: lightsalmon;
+}
+.display-zone {
+    background-color: lemonchiffon;
+}
+.footer {
+    background-color: lightskyblue;
+}
+
+#display-toggle {
+    margin: 95%;
+    padding: 0;
+}
+
+div.navigation > nav {
+    display: flex;
+    border: black solid 1px;
+    background-color: limegreen;
+    box-shadow: 10px 5px 5px whitesmoke;
+
+}
+
+.nav1 {
+  
+}
+.nav2 {
+    
+}
+.nav3 {
+    
+}
+.nav4 {
+    
+}
+.nav5 {
+    
+}
+
+.highlight {
+    background-color: cornflowerblue;
+}
+.main-page{
+  
+   
+}
+
+.y-axis-group-text {
+   color:red;
+}
+
+.line {
+    fill: none;
+    stroke: #0401E7;
+}
+.action-line {
+    fill:none;
+    stroke: red;
+}
+
+.custom-line {
+    fill:none;
+    stroke:#FFFFFF;
+
+}
+#custom-input {
+    border: red solid 1px;
+}
+
+.popover {
+    pointer-events: none;
+}
+
+.paper {
+    padding:1;
+}

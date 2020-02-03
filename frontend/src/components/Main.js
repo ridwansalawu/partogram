@@ -8,9 +8,11 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser} from "../redux/ActionCreators";
+import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser, drawInitialPartograph} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
+import Partograph from './Partograph';
+import Visualize from './Visualize';
 
 
 
@@ -22,7 +24,8 @@ const mapStateToProps = state => {
     action_line: state.action_line,
     bishops: state.bishops,
     auth: state.auth,
-    details: state.details
+    details: state.details,
+    drawTemplate: state.drawTemplate
 
 
 
@@ -39,7 +42,8 @@ const mapDispatchToProps = (dispatch) => ({
   postUser: (username, password) => {dispatch(postUser(username, password))},
   loginUser: (credentials) => dispatch(loginUser(credentials)),
   logoutUser: () => dispatch(logoutUser()), 
-  signupUser: (username, password) => {dispatch(signupUser(username, password))}
+  signupUser: (username, password) => {dispatch(signupUser(username, password))},
+  drawInitialPartograph: () => {dispatch(drawInitialPartograph)}
   
 
 })
@@ -98,7 +102,8 @@ componentDidMount = () => {
                                                            
                                                              
                                                              calculateBishop={this.props.calculateBishop}/>}/>
-                                
+            <Route path="/partograph" component={Visualize} />
+            {/* <Route exact path="/visualize" component={Visualize} />                  */}
             <Route exact path="/patient" component={Patient}/>
 
             <Redirect to="/home"/>

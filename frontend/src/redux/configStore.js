@@ -1,9 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import {createForms} from "react-redux-form";
 import { Parturients } from "./parturients";
-import { AlertLine} from "./alertLine";
-import { ActionLine } from "./actionLine";
-import { InitialGraph } from "./initialGraph";
+import { drawTemplate } from "./partographTemplate";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { InitialFeedback, InitialSignup } from "./forms";
@@ -13,10 +11,11 @@ import {Auth} from "./auth";
 export const ConfigStore = () => {
     const store = createStore(
         combineReducers({
+            drawTemplate: drawTemplate,
             parturients: Parturients,
-            actionLine: ActionLine,
-            alertLine: AlertLine,
-            initialGraph: InitialGraph,
+            // actionLine: ActionLine,
+            // alertLine: AlertLine,
+            // initialGraph: InitialGraph,
             auth: Auth,
             ...createForms({
                 feedback: InitialFeedback,

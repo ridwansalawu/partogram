@@ -1,6 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../testData/baseUrl";
 import Axios from "axios";
+import { drawTemplate } from "./partographTemplate";
 
 export const calculateBishop = (parturientId, dilatation, effacement, position, station, descent) => ({
     type: ActionTypes.CALCULATE_BISHOP,
@@ -14,11 +15,21 @@ export const calculateBishop = (parturientId, dilatation, effacement, position, 
 
     }
 });
+
 export const addUser = (user) => ({
     type: ActionTypes.ADD_USER,
     payload: user
     
 });
+
+export const requestInitialPartograph = (drawTemplate) => ({
+    type: ActionTypes.DRAW_PARTOGRAPH_TEMPLATE,
+    payload: drawTemplate 
+})
+
+export const drawInitialPartograph = (drawTemplate) => (dispatch) => {
+    dispatch(requestInitialPartograph(drawTemplate))
+}
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
