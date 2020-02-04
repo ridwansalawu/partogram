@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import {createForms} from "react-redux-form";
 import { Parturients } from "./parturients";
 import { drawTemplate } from "./partographTemplate";
@@ -22,7 +22,9 @@ export const ConfigStore = () => {
             })
 
         }),
-        applyMiddleware(thunk, logger)
+        compose(applyMiddleware(thunk, logger),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        )
         
     );
     return store;

@@ -25,8 +25,8 @@ const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
 
 // const url = mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg
-const url = process.env.DATABASE_URL;
-const connect = mongoose.connect("mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg", {useNewUrlParser: true})
+const url = process.env.MONGODB_URI || 'mongodb.localhost.xxx';
+const connect = mongoose.connect(url, {useNewUrlParser: true})
 
 connect.then((db) => {
     console.log("YaY🎃🤝... connected succesfully to the database");
@@ -36,20 +36,6 @@ connect.then((db) => {
 
 const app = express();
 
-// app.all("*", (req, res, next) => {
-//   if (req.secure) {
-//     return next();
-//   }
-//   else {
-//     res.redirect(307, 'https://' + req.hostname + ":" + app.get("secPort") + req.url)
-//   }
-// })
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-
-
 // app.use(bodyParser.json())
 app.use(logger('dev'));
 app.use(express.json());
@@ -57,13 +43,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
-// app.use(session({
-//   name: "session-id",
-//   secret: "848884848488858458488484",
-//   saveUninitialized: false,
-//   resave: false,
-//   store: new FileStore()
-// }));
 
 app.use(passport.initialize());
 // app.use(passport.session());
@@ -74,22 +53,13 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
 
-// function auth (req, res, next) {
-//   console.log(req.user);
-
-//   if (!req.user) {
-//     const err = new Error('You are not authenticated!');
-//     err.status = 403;
-//     next(err);
-//   }
-//   else {
-//         next();
-//   }
-// }
 // app.use(auth);
 app.use('/parturients', parturientsRouter)
 app.use('/imageUpload', uploadRouter)
 
+app.use('/environment_dump', (req, res) => {
+  res.send(process.env);
+});
 
 app.get('*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
@@ -112,14 +82,5 @@ app.use(function(req, res, next) {
   });
 
 
-//   app.listen(port, () => {
-//       console.log("Server running at port " + port)
-//   })
-
-// const server = http.createServer(app);
-
-// server.listen(port, hostname, () => {
-//     console.log("server running at port: " + port + "at " + hostname)
-// })
 
 module.exports = app;

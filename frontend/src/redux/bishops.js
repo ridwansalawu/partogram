@@ -3,13 +3,16 @@ import * as ActionTypes from "./ActionTypes";
 
 export const Bishops = (state = {
    
-    errMsg: null,
+    bishop: [],
     bishops: []
 
 }, action) => {
     switch(action.type) {
         case ActionTypes.FETCH_BISHOPS:
             return {...state, bishops:action.payload}
+
+        case ActionTypes.ADD_BISHOPS:
+            return {...state, bishop: action.payload}
 
         // case ActionTypes.BISHOPS_FAILED:
         //     return {...state, errMsg: action.payload}

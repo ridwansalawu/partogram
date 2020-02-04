@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Label, Modal, ModalHeader, ModalBody, FormGroup, Input, Card, CardBody, CardTitle } from "reactstrap";
 import { Control, Form } from 'react-redux-form';
+import { Formik } from "formik";
 
 class LabourWard extends Component {
     constructor(props) {
@@ -50,6 +51,12 @@ class LabourWard extends Component {
         // this.props.resetFeedbackForm();
     }
 
+    handleSubmit3 = (e) => {
+        e.preventDefault()
+
+
+    }
+
   
 
 
@@ -58,7 +65,7 @@ render() {
         <div className="container">
             Welcome to the labour ward 
             <div className="row row-content">
-                <img src="assets/images/black_preg.jpg" width="50%" height="50%" alt=""/>
+                <img src="assets/images/cx_3d_delivery.jpg" width="50%" height="50%" alt=""/>
 
             </div>
 
@@ -76,6 +83,129 @@ render() {
                             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                                 <ModalHeader toggle={this.toggleModal}>Bishop Score</ModalHeader>
                                 <ModalBody>
+
+                                    <form onSubmit={this.handleSubmit3}>
+                                        <input type="text"
+                                        name="dilatation"
+                                        value=""
+                                        onChange={this.handleChange3}
+                                        
+                                        />
+                                        <input type="text"
+                                        name="effacement"
+                                        onChange=""
+                                        
+                                        />
+                                        <button>submit</button>
+                                       
+                                    </form>
+
+                                    <Formik 
+                                        initialValues = {{ dilatation: "", effacement: "", station: "", descent: "", position: "" }}
+                                        validate = { values => {
+                                            let errors = {};
+                                            if (!values.dilatation) {
+                                                errors.dilatation = "This is an important entry please👺";
+                                            }
+                                            if (!values.effacement) {
+                                                errors.dilatation = "This is an required entry please👹";
+                                            }
+                                            return errors;
+
+                                        }}
+                                        onSubmit={(values, { setSubmitting }) => {
+                                            setTimeout(()=> {
+                                                alert(JSON.stringify(values, null, 2))
+                                            }, 2000)
+                                        }}
+                                    >
+
+                                    {({
+                                        values,
+                                        errors,
+                                        touched,
+                                        handleChange,
+                                        handleBlur,
+                                        handleSubmit,
+                                        isSubmitting
+                                    })=>(
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="form-group">
+                                                <label htmlFor="dilatation">Dilatation</label>
+                                                <input
+                                                 type="dilatation"
+                                                 name="dilatation"
+                                                 onChange={handleChange}
+                                                 onBlur={handleBlur}
+                                                 value={values.dilatation}
+                                                 />
+                                                 {errors.dilatation && touched.dilatation && errors.dilatation}
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="effacement">Effacement</label>
+                                                <input
+                                                 type="effacement"
+                                                 name="effacement"
+                                                 onChange={handleChange}
+                                                 onBlur={handleBlur}
+                                                 value={values.effacement}
+                                                 />
+                                                 {errors.effacement && touched.effacement && errors.effacement}
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="descent">Descent</label>
+                                                <input
+                                                 type="descent"
+                                                 name="descent"
+                                                 onChange={handleChange}
+                                                 onBlur={handleBlur}
+                                                 value={values.descent}
+                                                 />
+                                                 {errors.descent && touched.descent && errors.descent}
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="position">Position</label>
+                                                <input
+                                                 type="position"
+                                                 name="position"
+                                                 onChange={handleChange}
+                                                 onBlur={handleBlur}
+                                                 value={values.position}
+                                                 />
+                                                 {errors.position && touched.position && errors.position}
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="station ">Station </label>
+                                                <input
+                                                 type="station "
+                                                 name="station "
+                                                 onChange={handleChange}
+                                                 onBlur={handleBlur}
+                                                 value={values.station }
+                                                 />
+                                                 {errors.station  && touched.station  && errors.station }
+                                            </div>
+                                            <button type="submit" disabled={isSubmitting}>
+                                                {isSubmitting ? "Submitting" : "Submit"}
+
+                                            </button>
+
+
+
+                                        </form>
+                                    )
+                                    }
+
+
+
+
+
+
+                                    </Formik>
+
+
+
+{/*                                     
                                     <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
 
                                         <Row className="form-group">
@@ -133,7 +263,7 @@ render() {
                                         </FormGroup>
                                         <Button type="submit" value="submit" color="primary">Bishop Score</Button>
 
-                                    </Form>
+                                    </Form> */}
                                 </ModalBody>
                             </Modal>
 

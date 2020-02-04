@@ -8,7 +8,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
-import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser, drawInitialPartograph} from "../redux/ActionCreators";
+import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser, drawInitialPartograph, addBishops} from "../redux/ActionCreators";
 import {actions} from "react-redux-form";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 import Partograph from './Partograph';
@@ -43,7 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
   loginUser: (credentials) => dispatch(loginUser(credentials)),
   logoutUser: () => dispatch(logoutUser()), 
   signupUser: (username, password) => {dispatch(signupUser(username, password))},
-  drawInitialPartograph: () => {dispatch(drawInitialPartograph)}
+  drawInitialPartograph: () => {dispatch(drawInitialPartograph)},
+  addBishops: (bishopData) => {dispatch(addBishops(bishopData))}
   
 
 })

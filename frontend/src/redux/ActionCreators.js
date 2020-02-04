@@ -27,10 +27,33 @@ export const fetchBishops = () => (dispatch) => {
                     payload: data
 
                 }))
+}
 
+export const addBishops = (bishopData) => dispatch => {
+    console.log("action called+++++++++++++++++++++++++")
+    return fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+            "content-type" : "application/json"
+        },
+        body: JSON.stringify(bishopData)
+    })
+        .then(res => res.json())
+        .then(data => dispatch({
+            type: ActionTypes.ADD_BISHOPS,
+            payload: data
+        }));
 
 
 }
+
+
+// export const addBishops = (bishopData) => ({
+//     type: ActionTypes.ADD_BISHOPS,
+//     payload: bishops
+// })
+
+
 
 export const addUser = (user) => ({
     type: ActionTypes.ADD_USER,
@@ -159,10 +182,7 @@ export const bishopsFailed = (errMsg) => ({
     payload: errMsg
 })
 
-export const addBishops = (bishops) => ({
-    type: ActionTypes.ADD_BISHOPS,
-    payload: bishops
-})
+
 
 
 // __________________________________________________________________________________________________________________________
