@@ -11,10 +11,10 @@ import "../index.css"
 const RenderParturients = ({parturient}) => {
     return(
         <Card >
-            <Link to={`/parturients/${parturient.hospId}`}>
+            <Link to={`/parturients/${parturient.medId}`}>
                     <CardBody className="bg-light">
                     <CardTitle className="text-bolder"> {parturient.firstName + " " + parturient.lastName}</CardTitle>
-                    <CardText className="card-body2">Hospital Id:{parturient.hospId} </CardText>
+                    <CardText className="card-body2">Hospital Id:{parturient.medId} </CardText>
                     </CardBody>
             </Link>       
         </Card>

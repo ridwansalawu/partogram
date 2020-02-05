@@ -17,9 +17,9 @@ import "../index.css";
             <Card>
                 <CardBody className="bg-light">
                     <CardTitle className="text-danger font-weight-bolder font-italic ">{parturient.firstName + " " + parturient.lastName}</CardTitle>
-                    <CardText className="card-body">Hospital ID: {parturient.hospId}</CardText>
+                    <CardText className="card-body">Hospital ID: {parturient.medId}</CardText>
                     <CardText className="card-body">Middle Name: {parturient.middleName}</CardText>
-                    <CardText className="card-body">Hospital ID: {parturient.hospId}</CardText>
+                    <CardText className="card-body">Hospital ID: {parturient.medId}</CardText>
                     <CardText>Date of Birth:  {parturient.dob}  </CardText>
                     <CardText>Last Delivery  </CardText>
                     <CardText >Last Menstrual Period: {parturient.lmp} </CardText>
