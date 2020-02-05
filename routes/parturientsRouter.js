@@ -22,7 +22,7 @@ parturientsRouter.route("/")
       (err) => next(err))
       .catch((err) => next(err))
   })
-  .post( authenticate.verifyUser, (req, res, next) => {
+  .post(  (req, res, next) => {
     Parturients.create(req.body)
       .then((parturient)=> {
         console.log("Another patient admitted into labour ward, ", parturient)

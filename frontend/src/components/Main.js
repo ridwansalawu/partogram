@@ -14,6 +14,7 @@ import {TransitionGroup, CSSTransition} from "react-transition-group";
 import Partograph from './Partograph';
 import Visualize from './Visualize';
 import Signup from '../forms/Signup';
+import Parturient from '../forms/Parturient';
 
 
 
@@ -86,6 +87,7 @@ componentDidMount = () => {
 
     return (
       <div>
+       
         <Header auth={this.props.auth} loginUser={this.props.loginUser} logoutUser={this.props.logoutUser}
         />
         <TransitionGroup>

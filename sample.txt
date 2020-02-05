@@ -3,6 +3,44 @@ mongoimport -h ds259596.mlab.com:59596 -d heroku_txkzlqcg -c parturients -u <use
 
 
 
+<Card>
+                            <CardHeader role="tab" id="biodata-head">
+                                <h3 className="mb-0">
+                                    <a data-toggle="collapse" data-target="#biodata" >
+                                        Biodata
+                                    </a>
+                                </h3>
+                            </CardHeader>
+                                <div className="collapse" role="tabpanel" id="biodata" data-parent="#accordion">
+                                  
+                                        <CardBody>
+                                        <div className="form-group">
+                                        <Label className="control-label">Username</Label>
+                                        <input 
+                                
+                                            type="text"
+                                            name="username"
+                                    
+                                            className="form-control"
+                                        />
+                                        </div>
+                                        <div className="form-group">
+                                        <Label className="control-label">Password</Label>
+                                        <input 
+                                    
+                                            type="password"
+                                            name="password"
+                                        
+                                            className="form-control"
+                                        />
+                                         </div>
+                                        </CardBody>
+                                  
+
+                            </div>
+                        </Card>
+
+
 constructor(props) {
       super(props)
     

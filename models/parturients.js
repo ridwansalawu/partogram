@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const parturientSchema = new Schema({
-    hospitalId: {
+    medId: {
         type: String 
     },
     firstName: {
         type: String
     },
-    middleName: {
+    otherName: {
         type: String
     },
     lastName: {
@@ -21,6 +21,21 @@ const parturientSchema = new Schema({
     dob: {
         type: String
        
+    },
+    email: {
+        type: String
+    },
+    telnum: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    nok: {
+        type: String
+    },
+    email: {
+        type: String
     },
     cervix: {
         type: Number
