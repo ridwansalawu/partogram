@@ -37,13 +37,52 @@ const parturientSchema = new Schema({
     email: {
         type: String
     },
-    cervix: {
-        type: Number
+    dateAdmission: {
+        type: Date
         
     },
-    time: {
-        type: Number
+    dateDischarge: {
+        type: Date
     },
+    "intrapartum": {
+        labourStart: Number,
+        labourEnd: Number,
+        significantEvents:[
+
+        ]
+
+    },
+    deliveryOutcome: {
+        "babyStatus":String,
+        "babyWeight":Number,
+        "babyApgar":Number,
+        "babyGender":String
+    },
+    dateDischarge: {
+        type: Date
+    },
+
+    "partographDataset": {
+        "vagEx":[{
+            time: Number,
+            dilatation: Number
+        }
+            
+        ],
+        "matHeartRate":[],
+        "fetalHeartRate":[],
+        "fetalHeadDescent":[]
+
+    },
+    "bishopScore": [{
+        time: Number,
+        score: Number
+    }
+     
+    ],
+    
+    
+
     comment: {
         type: String,
        default: ""

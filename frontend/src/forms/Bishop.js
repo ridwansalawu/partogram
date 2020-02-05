@@ -1,111 +1,167 @@
-import React from 'react';
-import {Formik} from "formik";
-import YupValidate from './Yuppy';
-// import {FormGroup} from "reactstrap";
+import React, { Component } from 'react';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
 
-export default function Bishop() {
+
+class Bishop extends Component {
+   constructor(props) {
+     super(props)
+   
+     this.state = {
+        show: false,
+        dilatation: "",
+        effacement: "",
+        station: "",
+        consistency: "",
+        position: ""
+    
+     };
+   };
+
+   handleClose = () => {
+       this.setState({show: false})
+   }
+   handleShow = () => {
+       this.setState({show: true})
+   }
+
+   handleChange = (e) => {
+       this.setState({ [e.target.id]: e.target.value })
+       console.log(e.target.id)
+   }
+
+   handleSubmit = (e) => {
+       e.preventDefault();
+       console.log(JSON.stringify(this.state))
+   }
+
+   
+   
+
+   
+
+  
+
+
+render() {
     return (
-        <div>
-            <h1>Bishop Score</h1>
-        <Formik 
-            initialValues = {{ dilatation: "", effacement: "", station: "", descent: "", position: "" }}
-            validationSchema={YupValidate}
-            onSubmit={(values, { setSubmitting }) => {
-                setTimeout(()=> {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false)
-                }, 2000)
-            }}
-        >
+        <div className="container">
+           Welcome to the labour ward 
+            <div className="row row-content">
+                <Button variant="primary" onClick={this.handleShow}>
+                    Calculate Bishop's Score
+                </Button>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Bishops Score</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                       <Form onSubmit={this.handleSubmit}>
+                        <Form.Group controlId="dilatation" name= "dilatation" onChange={this.handleChange}>
+                            <Form.Label>Dilatation</Form.Label>
+                            <Form.Control as="select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </Form.Control>
+                        </Form.Group>
 
-        {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting
-        })=>(
-            <div className="container">
-            <form onSubmit={handleSubmit}>
-               
-                <div className="form-group">
-                    <label htmlFor="dilatation">Dilatation</label>
-                    <input
-                        type="dilatation"
-                        name="dilatation"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.dilatation}
-                        />
-                        {errors.dilatation && touched.dilatation && errors.dilatation}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="effacement">Effacement</label>
-                    <input
-                        type="effacement"
-                        name="effacement"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.effacement}
-                        />
-                        {errors.effacement && touched.effacement && errors.effacement}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="descent">Descent</label>
-                    <input
-                        type="descent"
-                        name="descent"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.descent}
-                        />
-                        {errors.descent && touched.descent && errors.descent}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="position">Position</label>
-                    <input
-                        type="position"
-                        name="position"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.position}
-                        />
-                        {errors.position && touched.position && errors.position}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="station ">Station </label>
-                    <input
-                        type="station"
-                        name="station"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.station }
-                        />
-                        {errors.station  && touched.station  && errors.station }
-                </div>
-                <button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting" : "Submit"}
+                        <Form.Group controlId="effacement" name= "effacement" onChange={this.handleChange}>
+                            <Form.Label>Effacement</Form.Label>
+                            <Form.Control as="select">
+                                <option>Not effaced</option>
+                                <option>10%</option>
+                                <option>20%</option>
+                                <option>30%</option>
+                                <option>40%</option>
+                                <option>50%</option>
+                                <option>60%</option>
+                                <option>70%</option>
+                                <option>80%</option>
+                                <option>90%</option>
+                                <option>100%</option>
+                            </Form.Control>
+                        </Form.Group>
 
-                </button>
+                        <Form.Group controlId="consistency" name= "consistency" onChange={this.handleChange}>
+                            <Form.Label>Consistency</Form.Label>
+                            <Form.Control as="select">
+                                <option>how soft is the cervix?</option>
+                                <option>soft</option>
+                                <option>medium</option>
+                                <option>hard</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group  controlId="position" name="position" onChange={this.handleChange}>
+                                <Form.Label>Position</Form.Label>
+                                <Form.Control as="select">
+                                    <option>what's the position cervix?</option>
+                                    <option>Anterior</option>
+                                    <option>Central</option>
+                                    <option>Posterior</option>
+                                </Form.Control>
+                        </Form.Group>
+                        <Form.Group  controlId="station" name="station" onChange={this.handleChange}>
+                                <Form.Label>Station</Form.Label>
+                                <Form.Control as="select">
+                                    <option>what's the distance from the ischial spine?</option>
+                                    <option>-3</option>
+                                    <option>-2</option>
+                                    <option>-1</option>
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group   onChange={this.handleChange}>
+                            <Button type="submit">Calculate</Button>
+                                
+                        </Form.Group>
+
+                        
+
+                        
+
+                       </Form>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleSubmit}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={this.handleClose}>
+                        Submit
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
 
 
+         
 
-            </form>
+
             </div>
+
+
+
+
+
+
+
+        </div>
         )
         }
+    }
 
-
-
-
-
-
-        </Formik>
-
-
-            
-        </div>
-    )
-}
+export default Bishop;
