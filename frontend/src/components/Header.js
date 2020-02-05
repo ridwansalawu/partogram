@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Jumbotron, NavItem, Nav, Collapse, Form, NavbarToggler, Button, Modal, ModalHeader, ModalBody, Col, FormGroup, Label, Input } from "reactstrap";
-import {NavLink} from "react-router-dom"
+import {NavLink, Link} from "react-router-dom"
 
 
 
@@ -81,23 +81,26 @@ export default class Header extends Component {
                     <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     { !this.props.auth.isAuthenticated ?
-                                        <Button outline onClick={this.toggleModal}>
-                                            <span className="fa fa-sign-in fa-lg"></span> Login
-                                            {this.props.auth.isFetching ?
-                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                : null
-                                            }
-                                        </Button>
-                                        :
-                                        <div>
-                                        <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                        <Button outline onClick={this.handleLogout}>
-                                            <span className="fa fa-sign-out fa-lg"></span> Logout
-                                            {this.props.auth.isFetching ?
-                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                : null
-                                            }
-                                        </Button>
+                                    <div>
+                                            <Button outline onClick={this.toggleModal}>
+                                                <span className="fa fa-sign-in fa-lg"></span> Login
+                                                {this.props.auth.isFetching ?
+                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                    : null
+                                                }
+                                            </Button>
+                                            <div>Not registered? <Link to="/signup">Sign Up</Link></div>
+                                    </div>
+                                            :
+                                            <div>
+                                            <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
+                                            <Button outline onClick={this.handleLogout}>
+                                                <span className="fa fa-sign-out fa-lg"></span> Logout
+                                                {this.props.auth.isFetching ?
+                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                    : null
+                                                }
+                                            </Button>
                                         </div>
                                     }
 

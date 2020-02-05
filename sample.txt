@@ -547,3 +547,36 @@ export const Reducer = (state=initialState, action) => {
                                         <Button type="submit" value="submit" color="primary">Bishop Score</Button>
 
                                     </Form> */}
+
+                                     {/* <Form model="signUp" onSubmit={(values) => this.handleSubmit(values)}>
+
+                    <Row className="form-group">
+                        <Label htmlFor="username" md={2}>Username</Label>
+                        <Col md={10}>
+                        <Control.text model="signUp.username" id="username" name="username"
+                            placeholder="Username"
+                            className="form-control"
+                                />
+                        </Col>
+                    </Row>
+                    <Row className="form-group">
+                        <Label htmlFor="password" md={2}>Password</Label>
+                        <Col md={10}>
+                        <Control.text model="signUp.password" id="password" name="password"
+                            placeholder="Password"
+                            className="form-control"
+                                />
+                        </Col>
+                    </Row>
+
+
+                    <FormGroup check>
+                    <Label check> 
+                    <Input type="checkbox"  name="remember"
+                    innerRef={(input) => this.remember = input} />
+                    Remember me
+                    </Label>
+                    </FormGroup>
+                    <Button type="submit" value="submit" color="primary">Register</Button>
+
+                </Form> */}

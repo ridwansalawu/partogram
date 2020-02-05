@@ -9,10 +9,11 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import LabourWard from './LabourWard';
 import {calculateBishop, fetchParturients, fetchBishops, postUser, loginUser, logoutUser, signupUser, drawInitialPartograph, addBishops} from "../redux/ActionCreators";
-import {actions} from "react-redux-form";
+import { actions } from "react-redux-form";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 import Partograph from './Partograph';
 import Visualize from './Visualize';
+import Signup from '../forms/Signup';
 
 
 
@@ -37,9 +38,9 @@ const mapDispatchToProps = (dispatch) => ({
   calculateBishop: (parturientId, dilatation, effacement, position, station, descent) => 
         dispatch(calculateBishop(parturientId, dilatation, effacement, position, station, descent)),
   fetchParturients: () => {dispatch(fetchParturients())},
-  resetFeedbackForm: () => {dispatch(actions.reset("feedback"))},
+  resetSignupForm: () => {dispatch(actions.reset("signUp"))},
   fetchBishops: () => {dispatch(fetchBishops())},
-  postUser: (username, password) => {dispatch(postUser(username, password))},
+  postUser: (signUp) => {dispatch(postUser(signUp))},
   loginUser: (credentials) => dispatch(loginUser(credentials)),
   logoutUser: () => dispatch(logoutUser()), 
   signupUser: (username, password) => {dispatch(signupUser(username, password))},
@@ -97,7 +98,7 @@ componentDidMount = () => {
                                                              bishop={this.props.bishops}
                                                              addBishop= {this.props.addBishops}
                                                              postUser= {this.props.postUser}
-                                                             signupUser= {this.props.signupUser}
+                                                            
                                                              details={this.props.details}
                                                            
                                                            
@@ -106,6 +107,9 @@ componentDidMount = () => {
             <Route path="/partograph" component={Partograph} />
             <Route path="/visualize" component={Visualize} />                 
             <Route exact path="/patient" component={Patient}/>
+            <Route path="/signup" component={Signup}/>
+            {/* <Route path="/signup" component={()=> <Signup  signupUser= {this.props.signupUser}
+                                                           resetSignupForm={this.props.resetSignupForm}/>}/> */}
 
             <Redirect to="/home"/>
             

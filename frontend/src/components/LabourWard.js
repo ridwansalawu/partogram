@@ -29,6 +29,7 @@ class LabourWard extends Component {
     handleSubmit = (values)=> {
         console.log("currennt state is : " + JSON.stringify(values) );
         alert("currennt state is : " + JSON.stringify(values));
+        this.props.resetFeedbackForm();
 
         // this.props.resetFeedbackForm();
     }
@@ -41,15 +42,15 @@ class LabourWard extends Component {
 
     //     // this.props.resetFeedbackForm();
     // }
-    handleSubmit2 = (values)=> {
-        this.toggleModal2();
-        this.props.signupUser(values)
-        console.log("currennt state is : " + JSON.stringify(values) );
-        alert("currennt state is : " + JSON.stringify(values));
+    // handleSubmit2 = (values)=> {
+    //     this.toggleModal2();
+    //     this.props.signupUser(values)
+    //     console.log("currennt state is : " + JSON.stringify(values) );
+    //     alert("currennt state is : " + JSON.stringify(values));
 
 
-        // this.props.resetFeedbackForm();
-    }
+    //     // this.props.resetFeedbackForm();
+    // }
 
     handleSubmit3 = (e) => {
         e.preventDefault()
@@ -293,7 +294,7 @@ render() {
                             <Modal isOpen={this.state.isModalOpen2} toggle={this.toggleModal2}>
                                 <ModalHeader toggle={this.toggleModal2}>SignUp</ModalHeader>
                                 <ModalBody>
-                                    <Form model="signUp" onSubmit={(values) => this.handleSubmit2(values)}>
+                                    {/* <Form model="signUp" onSubmit={(values) => this.handleSubmit2(values)}>
 
                                         <Row className="form-group">
                                             <Label htmlFor="username" md={2}>Username</Label>
@@ -324,7 +325,7 @@ render() {
                                         </FormGroup>
                                         <Button type="submit" value="submit" color="primary">Register</Button>
 
-                                    </Form>
+                                    </Form> */}
                                 </ModalBody>
                             </Modal>
 

@@ -1,184 +1,88 @@
 import React, { Component } from 'react';
-import {  Form, Button, Col, FormGroup, Label, Input, Row} from "reactstrap";
-import {NavLink} from "react-router-dom"
+import { Button, Row, Col, Label, Modal, ModalHeader, ModalBody, FormGroup, Input, Card, CardBody, CardTitle } from "reactstrap";
+import { Control, Form, Errors } from 'react-redux-form';
+import Axios from 'axios';
+import { baseUrl } from '../testData/baseUrl';
 
-import YupValidate from './Yuppy';
+const required = (val) => val && val.length;
 
-import {Control} from 'react-redux-form';
-import { Formik } from "formik";
-
-export default class Signup extends Component {
-
+class Signup extends Component {
     constructor(props) {
-        super(props)
-      
-        this.state = {
-          
-        };
+      super(props)
+    
+      this.state = {
+          username: "",
+          password: ""
+         
       };
-
-      handleSubmit2 = (values)=> {
-        this.toggleModal2();
-        this.props.signupUser(values)
-        console.log("currennt state is : " + JSON.stringify(values) );
-        alert("currennt state is : " + JSON.stringify(values));
-
-
-        // this.props.resetFeedbackForm();
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+    };
+    
+    handleChange (e) {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-   
-
-    // handleSubmit = (values, {setSubmitting}) => {
-    //     this.props.signupUser(values);
-    //     alert("clicked")
-    //     setSubmitting(false)
+    handleSubmit (e) {
+        e.preventDefault()
+        Axios.post(baseUrl + "users/signup", {username: this.state.username, password: this.state.password})
         
-    // } 
+        console.log("++++++++++++++++++++++" + "from SignUp page" + this.state.username)
+    }
+
+    
+
+
+
 
     render() {
         return (
-            <div className="signuup">
+            <div className="container">
+               
 
 
-
-
-
-
-
-
-
-            <Form model="signUp" onSubmit={(values) => this.handleSubmit2(values)}>
-
-<Row className="form-group">
-    <Label htmlFor="username" md={2}>Username</Label>
-    <Col md={10}>
-    <Control.text model=".username" id="username" name="username"
-        placeholder="Username"
-        className="form-control"
-            />
-    </Col>
-</Row>
-<Row className="form-group">
-    <Label htmlFor="password" md={2}>Password</Label>
-    <Col md={10}>
-    <Control.text model=".password" id="password" name="password"
-        placeholder="Password"
-        className="form-control"
-            />
-    </Col>
-</Row>
-
-
-<FormGroup check>
-<Label check> 
-<Input type="checkbox"  name="remember"
-innerRef={(input) => this.remember = input} />
-Remember me
-</Label>
-</FormGroup>
-<Button type="submit" value="submit" color="primary">Register</Button>
-
-</Form>
-{/*            
-                        <Formik
-                        initialValues = {{ username: "", password: ""}}
-                        validationSchema={YupValidate}
-                        onSubmit={(values, {props, setSubmitting}) => {
-                          props.signupUser(props.signupUser(values));
-       
-                               setSubmitting(false)
-        
-    } }
-                        >
-                        {
-                            ({
-                                values,
-                                errors,
-                                touched,
-                                handleChange,
-                                handleBlur,
-                                handleSubmit,
-                                isSubmitting
-                            }) => (
-                                <form onSubmit={handleSubmit}>
-                                <FormGroup>
-                                    <Label htmlFor="username"> Username </Label>
-                                    <Input 
-                                        type="username" 
-                                        name="username"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.username} 
-                                    />
-                                    {errors.username && touched.username && errors.username}
-
-                                </FormGroup>
-                                <FormGroup>
-                                <Label htmlFor="password"> Password </Label>
-                                    <Input 
-                                        type="password" 
-                                        name="password"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.password} 
-                                    />
-                                    {errors.password && touched.password && errors.password}
-                                        
-                                </FormGroup>
-                                <FormGroup check>
-                                        <Label check> 
-                                        <Input
-                                         type="checkbox"
-                                           name="remember"
-                                         />
-                                        Remember me
-                                        </Label>
-                                </FormGroup>
-                                <button type="submit" disabled={isSubmitting}>
-                                     {isSubmitting ? "Submitting" : "Submit"}
-
+                <div className="row">
+                    <div className="col-md-4 col-md-offset-4">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <Label className="control-label">Username</Label>
+                                <input 
+                                    value={this.state.username}
+                                    type="text"
+                                    name="username"
+                                    onChange={this.handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Label className="control-label">Password</Label>
+                                <input 
+                                    value={this.state.password}
+                                    type="password"
+                                    name="password"
+                                    onChange={this.handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-lg">
+                                    Sign Up
                                 </button>
-
-                                </form>
-                            )
-
+                            </div>
+                        </form>
 
 
+                    </div>
 
-
-
+                </div>
 
 
 
-                        }
-                        
-
-
-
-
-
-
-
-
-
-
-
-                        </Formik>
- */}
-
-
-
-
-
-
-
-
-
-
-                  
+                
                 
             </div>
         )
     }
 }
+
+export default Signup;
