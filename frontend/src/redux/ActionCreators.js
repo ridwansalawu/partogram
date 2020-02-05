@@ -1,5 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../testData/baseUrl";
+import Axios from "axios";
 
 
 export const calculateBishop = (parturientId, dilatation, effacement, position, station, descent) => ({
@@ -191,13 +192,14 @@ export const loginError = (message) => {
 export const signupUser = (details) => (dispatch) => {
     dispatch(requestSignup(details))
 
-    return fetch(baseUrl + "users/signup", {
-        method: "POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify(details)
-    })
+    // return fetch(baseUrl + "users/signup", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type":"application/json"
+    //     },
+    //     body: JSON.stringify(details)
+    // })
+    return Axios.post(baseUrl + "users/signup", details)
     .then(response => {
 
         if (response.ok) {
