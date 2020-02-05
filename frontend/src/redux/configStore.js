@@ -1,10 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { createForms, combineForms } from "react-redux-form";
 import { Parturients } from "./parturients";
 import { drawTemplate } from "./partographTemplate";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { InitialFeedback, InitialSignup } from "./forms";
+
 import {Auth} from "./auth";
 import { Bishops } from "./bishops";
 
@@ -12,15 +11,11 @@ import { Bishops } from "./bishops";
 export const ConfigStore = () => {
     const store = createStore(
         combineReducers({
-            // signUp: userDeatails,
+            signUp: {},
             drawTemplate: drawTemplate,
             parturients: Parturients,
             bishop_params: Bishops,
-            auth: Auth,
-            ...createForms({
-                
-                signUp: InitialSignup
-            })
+            auth: Auth
 
         }),
         compose(applyMiddleware(thunk, logger),

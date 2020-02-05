@@ -1,7 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../testData/baseUrl";
-import Axios from "axios";
-import { drawTemplate } from "./partographTemplate";
+
 
 export const calculateBishop = (parturientId, dilatation, effacement, position, station, descent) => ({
     type: ActionTypes.CALCULATE_BISHOP,
@@ -17,10 +16,7 @@ export const calculateBishop = (parturientId, dilatation, effacement, position, 
 });
 
 export const fetchBishops = () => (dispatch) => {
-    console.log("++++++++fetching the bishop shits")
-
     return fetch("https://jsonplaceholder.typicode.com/posts")
-    
                 .then(res => res.json())
                 .then(data => dispatch({
                     type: ActionTypes.FETCH_BISHOPS,
@@ -30,7 +26,6 @@ export const fetchBishops = () => (dispatch) => {
 }
 
 export const addBishops = (bishopData) => dispatch => {
-    console.log("action called+++++++++++++++++++++++++")
     return fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         headers: {
@@ -46,14 +41,6 @@ export const addBishops = (bishopData) => dispatch => {
 
 
 }
-
-
-// export const addBishops = (bishopData) => ({
-//     type: ActionTypes.ADD_BISHOPS,
-//     payload: bishops
-// })
-
-
 
 export const addUser = (user) => ({
     type: ActionTypes.ADD_USER,
@@ -151,31 +138,6 @@ export const addParturients = (parturients) => ({
 
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-// export const  fetchBishops = () => (dispatch) => {
-//    return fetch(baseUrl + "bishops")
-//    .then(response => {
-//     if (response.ok) {
-//         return response;
-//     }
-//     else {
-//         var error = new Error("++Error++ "+ response.status + ": " + response.statusText);
-//         error.response = response;
-//         throw error;
-
-//             }  
-//         }, 
-//         error => {
-//             var errMsg = new Error(error.message);
-//             throw errMsg;
-//         })
-//         .then(response => response.json())
-//         .then(bishops => dispatch(addBishops(bishops)))
-//         .catch(error => dispatch(bishopsFailed(error.message)))
-//         }
-
-// export const parturientsLoading = () => ({
-//     type: ActionTypes.PARTURIENTS_LOADING
-// });
 
 export const bishopsFailed = (errMsg) => ({
     type: ActionTypes.BISHOPS_FAILED,
@@ -258,11 +220,6 @@ export const signupUser = (details) => (dispatch) => {
 
 }
 
-
-
-
-
-
 export const loginUser = (credentials) => (dispatch) => {
     dispatch(requestLogin(credentials))
 
@@ -321,6 +278,5 @@ export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     localStorage.removeItem('token');
     localStorage.removeItem('credentials');
-    // dispatch(favoritesFailed("Error 401: Unauthorized"));
     dispatch(receiveLogout())
 }

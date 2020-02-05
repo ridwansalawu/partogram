@@ -32,30 +32,6 @@ import "../index.css";
     }
 
 
-    // const RenderSummary = ({summary}) => {
-    //    const parturient = parturient;
-    //     if (summary != null) {
-    //         summary.map(item => {
-    //             return (
-    //                 <div key ={parturient.hospId}>
-    //                    Labour Duration: <li>{item.labourDuration}</li>
-    //                    Baby Status: <li>{item.babyStatus}</li>
-
-    //                 </div>
-    //             )
-    //         })
-
-    //     }else {
-    //         return (
-    //             <div>
-
-    //             </div>
-    //         )
-    //     }
-
-    // }
-    
-
     const ParturientDetail = (props) => {
         if (props.isLoading) {
             return (

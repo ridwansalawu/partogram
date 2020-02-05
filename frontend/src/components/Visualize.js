@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {drawTemplate} from "../testData/partographTemplate"
-import { Card, CardTitle, CardBody, CardHeader } from 'reactstrap';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
 class Visualize extends Component {
 

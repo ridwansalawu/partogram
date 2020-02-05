@@ -1,7 +1,6 @@
-// import * as d3 from "d3";
 import "./template.css";
 const d3 = require("d3");
-const _ = require("lodash")
+// const _ = require("lodash")
 
 const graphData = require("../testData/graphData");
 
@@ -37,7 +36,7 @@ const alertDataSet = graphData.setAlertLineData();
           .domain(d3.extent(initData, d => d.dilatation))
           .range([drawingBoardHeight, 0])
 
-    const max = d3.extent(initData, d => d.labourTime)
+    
 
     const drawingBoard = mains
             .insert("svg", ":first-child")
@@ -87,83 +86,6 @@ const alertDataSet = graphData.setAlertLineData();
                 .datum(alertDataSet)
                 .attr("d", drawAlertLine)
 
-
-
-
-    
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function makeResponsive(drawingBoard) {
-        const container = d3.select(drawingBoard.node().parentNode),
-        width = parseInt(drawingBoard.style('width'), 10),
-        height = parseInt(drawingBoard.style('height'), 10),
-        aspect = width / height;
-
-        
-
-        drawingBoard.attr("viewBox", `0 0 ${width} ${height}`)
-            .attr("preserveAspectRatio", "xMinYMid")
-            .call(resize);
-        d3.select(window).on('resize.' + container.attr('id'), resize);
-
-        function resize() {
-            const targetWidth = parseInt(container.style('width'));
-            drawingBoard.attr('width', targetWidth)
-            drawingBoard.attr('height', Math.round(targetWidth / aspect));
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    console.log(alertDataSet)
-    console.log("=================================")
     return drawAlertLine;
 }
 

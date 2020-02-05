@@ -5,8 +5,8 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+// const isNumber = (val) => !isNaN(Number(val));
+// const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 // const required = (val) => val && val.length;
 // const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -36,39 +36,7 @@ class Patient extends Component {
    
     this.handleSubmit = this.handleSubmit.bind(this);
     };
-    // handleInputChange(event) {
-    //     const target = event.target;
-    //     const value = target.type === 'checkbox' ? target.checked : target.value;
-    //     const name = target.name;
-    
-    //     this.setState({
-    //       [name]: value
-    //     });
-    // }
-    
-    // handleBlur = (field) => e => {
-    //     this.setState({
-    //         touched: {...this.state.touched, [field]: true }
-    //     })
-    // }
-
-    // validate(hospId, username) {
-    //     const errors ={
-    //         hospId: "",
-    //         username: ""
-    //     };
-    //     if (this.state.touched.hospId && hospId.length < 3)
-    //         errors.firstname = 'Hospital ID should be >= 3 characters';
-    //     else if (this.state.touched.hospId && hospId.length > 10)
-    //         errors.hospId= 'Hospital ID should be <= 10 characters'; 
-
-    //     if (this.state.touched.username && username.length < 3)
-    //         errors.username = 'Hospital ID should be >= 3 characters';
-    //     else if (this.state.touched.username && username.length > 10)
-    //         errors.username= 'Hospital ID should be <= 10 characters'; 
-
-    //     return errors;
-    // }
+  
 
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));

@@ -1,6 +1,6 @@
 import "./template.css";
 const d3 = require("d3");
-const _ = require("lodash")
+// const _ = require("lodash")
 const graphData = require("../testData/graphData");
 
 const initData = graphData.setInitialGraphData();
@@ -37,14 +37,13 @@ const actionDataSet = graphData.setActionLineData();
           .domain(d3.extent(initData, d => d.dilatation))
           .range([drawingBoardHeight, 0])
 
-    const max = d3.extent(initData, d => d.labourTime)
+    // const max = d3.extent(initData, d => d.labourTime)
 
     const drawingBoard = mains
             // .insert("svg", ":first-child")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-
             .call(makeResponsive)
             .append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`)
@@ -98,34 +97,6 @@ const actionDataSet = graphData.setActionLineData();
 
 
 
-
-    
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function makeResponsive(drawingBoard) {
         const container = d3.select(drawingBoard.node().parentNode),
         width = parseInt(drawingBoard.style('width'), 10),
@@ -145,34 +116,6 @@ const actionDataSet = graphData.setActionLineData();
             drawingBoard.attr('height', Math.round(targetWidth / aspect));
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    console.log(alertDataSet)
-    console.log("=================================")
    
 }
 

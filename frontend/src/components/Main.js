@@ -107,9 +107,9 @@ componentDidMount = () => {
             <Route path="/partograph" component={Partograph} />
             <Route path="/visualize" component={Visualize} />                 
             <Route exact path="/patient" component={Patient}/>
-            <Route path="/signup" component={Signup}/>
-            {/* <Route path="/signup" component={()=> <Signup  signupUser= {this.props.signupUser}
-                                                           resetSignupForm={this.props.resetSignupForm}/>}/> */}
+            {/* <Route path="/signup" component={Signup}/> */}
+            <Route path="/signup" component={()=> <Signup  signupUser= {this.props.signupUser}
+                                                           />}/>
 
             <Redirect to="/home"/>
             

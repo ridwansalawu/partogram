@@ -580,3 +580,23 @@ export const Reducer = (state=initialState, action) => {
                     <Button type="submit" value="submit" color="primary">Register</Button>
 
                 </Form> */}
+
+                 function makeResponsive(drawingBoard) {
+        const container = d3.select(drawingBoard.node().parentNode),
+        width = parseInt(drawingBoard.style('width'), 10),
+        height = parseInt(drawingBoard.style('height'), 10),
+        aspect = width / height;
+
+        
+
+        drawingBoard.attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMinYMid")
+            .call(resize);
+        d3.select(window).on('resize.' + container.attr('id'), resize);
+
+        function resize() {
+            const targetWidth = parseInt(container.style('width'));
+            drawingBoard.attr('width', targetWidth)
+            drawingBoard.attr('height', Math.round(targetWidth / aspect));
+        }
+    }

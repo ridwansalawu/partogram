@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Label, Modal, ModalHeader, ModalBody, FormGroup, Input, Card, CardBody, CardTitle } from "reactstrap";
-import { Control, Form, Errors } from 'react-redux-form';
-import Axios from 'axios';
-import { baseUrl } from '../testData/baseUrl';
+import { Label } from "reactstrap";
 
-const required = (val) => val && val.length;
+// const required = (val) => val && val.length;
 
 class Signup extends Component {
     constructor(props) {
@@ -24,23 +21,17 @@ class Signup extends Component {
     }
 
     handleSubmit (e) {
+        const userDetails = {
+            username: this.state.username,
+            password: this.state.password
+        }
         e.preventDefault()
-        Axios.post(baseUrl + "users/signup", {username: this.state.username, password: this.state.password})
-        
-        console.log("++++++++++++++++++++++" + "from SignUp page" + this.state.username)
+        this.props.signupUser(userDetails)
     }
-
-    
-
-
-
 
     render() {
         return (
             <div className="container">
-               
-
-
                 <div className="row">
                     <div className="col-md-4 col-md-offset-4">
                         <form onSubmit={this.handleSubmit}>
@@ -70,16 +61,8 @@ class Signup extends Component {
                                 </button>
                             </div>
                         </form>
-
-
                     </div>
-
-                </div>
-
-
-
-                
-                
+                </div>      
             </div>
         )
     }

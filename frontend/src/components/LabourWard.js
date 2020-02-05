@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Label, Modal, ModalHeader, ModalBody, FormGroup, Input, Card, CardBody, CardTitle } from "reactstrap";
-import { Control, Form } from 'react-redux-form';
+import { Button,Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle } from "reactstrap";
 import { Formik } from "formik";
 
 class LabourWard extends Component {
@@ -33,24 +32,7 @@ class LabourWard extends Component {
 
         // this.props.resetFeedbackForm();
     }
-    // handleSubmit2 = (values)=> {
-    //     this.toggleModal2();
-    //     this.props.postUser(values.username, values.password)
-    //     console.log("currennt state is : " + JSON.stringify(values) );
-    //     alert("currennt state is : " + JSON.stringify(values));
-
-
-    //     // this.props.resetFeedbackForm();
-    // }
-    // handleSubmit2 = (values)=> {
-    //     this.toggleModal2();
-    //     this.props.signupUser(values)
-    //     console.log("currennt state is : " + JSON.stringify(values) );
-    //     alert("currennt state is : " + JSON.stringify(values));
-
-
-    //     // this.props.resetFeedbackForm();
-    // }
+  
 
     handleSubmit3 = (e) => {
         e.preventDefault()
