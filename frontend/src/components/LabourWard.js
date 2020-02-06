@@ -29,16 +29,19 @@ handleShow = () => {
 
 handleChange = (e) => {
     this.setState({ [e.target.id]: e.target.value })
-    console.log(e.target.id)
+    console.log(e.target.value)
 }
 
 handleSubmit = (e) => {
     e.preventDefault();
-    const vagEx = {hour: this.state.hour, dilatation: this.state.dilatation}
-    Axios.post(baseUrl + "parturients", vagEx)
+    const data = {hour: this.state.hour, dilatation: this.state.dilatation}
+    Axios.put(baseUrl + `parturients/${this.props.parturient._id}`, data )
+        .then(response => {
+            console.log( "9999999999" + JSON.stringify(data))
+        })
 
     
-    console.log(JSON.stringify(vagEx))
+    // console.log(JSON.stringify("_________+++++++++++========" + this.props.parturient._id))
 }
 
 
@@ -119,7 +122,7 @@ render() {
 
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={this.handleSubmit}>
+                    <Button variant="secondary" onClick={this.handleClose}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={this.handleClose}>

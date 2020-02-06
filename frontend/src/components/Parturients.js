@@ -12,10 +12,10 @@ const RenderParturients = ({parturient}) => {
     return(
         <Card >
             <Link to={`/parturients/${parturient.medId}`}>
-                    <CardBody className="bg-light">
+                <CardBody className="bg-light">
                     <CardTitle className="text-bolder"> {parturient.firstName + " " + parturient.lastName}</CardTitle>
                     <CardText className="card-body2">Hospital Id:{parturient.medId} </CardText>
-                    </CardBody>
+                </CardBody>
             </Link>       
         </Card>
 
@@ -61,6 +61,10 @@ const Parturients = (props) => {
                         <BreadcrumbItem active>Parturients</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
+                    <div>
+                        <input type="text" placeholder="Medical ID"/>
+                        <button>search</button>
+                    </div>
                         <h3>Parturients</h3>
                         <hr/>
 
@@ -70,6 +74,7 @@ const Parturients = (props) => {
                         {parturients}
                       
                 </div>
+                
             
             </div>
         )

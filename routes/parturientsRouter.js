@@ -33,10 +33,10 @@ parturientsRouter.route("/")
       }, (err) => next(err) )
       .catch((err) => next(err))
   })
-  .put( authenticate.verifyUser,(req,res,next) => {
-    res.statusCode = 403;
-    res.end("PUT operation not supported!")
-})
+//   .put((req,res,next) => {
+//     res.statusCode = 403;
+//     res.end("PUT operation not supported!")
+// })
 .delete(authenticate.verifyUser,(req,res,next) => {
    
   Parturients.remove({})
@@ -51,7 +51,7 @@ parturientsRouter.route("/")
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route('/:parturientId')
-.options((req, res) => { res.sendStatus(200)})
+// .options((req, res) => { res.sendStatus(200)})
 .get((req,res,next) => {
   Parturients.findById(req.params.parturientId)
     .populate("comments.author")
@@ -64,18 +64,25 @@ parturientsRouter.route('/:parturientId')
 })
 .post(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
-    res.end('POST operation not supported on /dishes/'+ req.params.parturientId);
+    res.end('POST operation not supported on /parturients/'+ req.params.parturientId);
 })
-.put(authenticate.verifyUser,(req, res, next) => {
+.put((req, res, next) => {
   Parturients.findByIdAndUpdate(req.params.parturientId, {
-        $set: req.body
-    }, { new: true })
+    
+    $push: {
+      "partographDataset.vagEx" : req.body
+    },
+   
+    
+        // $set: req.body
+    }, { new: true})
     .then((parturient) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(parturient);
     }, (err) => next(err))
     .catch((err) => next(err));
+    console.log(req.body.hour)
 })
 .delete(authenticate.verifyUser,(req, res, next) => {
   Parturients.findByIdAndRemove(req.params.parturientId)
@@ -87,52 +94,38 @@ parturientsRouter.route('/:parturientId')
     .catch((err) => next(err));
 });
 
+// ====================================================================================================
+parturientsRouter.route('/cervicogram/:parturientId')
+.get((req,res,next) => {
+  Parturients.findById(req.params.parturientId)
+    .populate("comments.author")
+    .then((parturient) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(parturient.partographDataset.vagEx);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.put((req,res,next) => {
+  Parturients.findByIdAndUpdate(req.params.parturientId, {
+    
+    $push: {
+      "partographDataset.vagEx" : req.body
+    },
+   
+    
+        // $set: req.body
+    }, { new: true})
+    .then((parturient) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(parturient.partographDataset.vagEx);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+    
+  
+})
 
 
 module.exports = parturientsRouter;

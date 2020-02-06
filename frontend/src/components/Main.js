@@ -73,13 +73,12 @@ componentDidMount = () => {
   render() {
 
     const ParturientWithHospId = ({match}) => {
+      console.log('hello there', this.props.parturients.parturients)
       return(
         
         <ParturientDetail parturient= {this.props.parturients.parturients.filter((parturient) => parturient.medId === match.params.parturientId)[0]}
         isLoading={this.props.parturients.isLoading}
-        errMsg={this.props.parturients.errMsg}
-       
-        
+        errMsg={this.props.parturients.errMsg} 
         />
       )
 

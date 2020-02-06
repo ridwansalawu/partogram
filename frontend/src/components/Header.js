@@ -93,7 +93,7 @@ export default class Header extends Component {
                                     </div>
                                             :
                                             <div>
-                                            <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
+                                            <div className="navbar-text mr-3 bg-dark text-white" >{this.props.auth.user.username}</div>
                                             <Button outline onClick={this.handleLogout}>
                                                 <span className="fa fa-sign-out fa-lg"></span> Logout
                                                 {this.props.auth.isFetching ?

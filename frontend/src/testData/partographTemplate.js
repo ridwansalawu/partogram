@@ -6,6 +6,7 @@ const graphData = require("../testData/graphData");
 const initData = graphData.setInitialGraphData();
 const alertDataSet = graphData.setAlertLineData();
 const actionDataSet = graphData.setActionLineData();
+const customDataSet = graphData.setCustomLineData();
 
 
 
@@ -94,6 +95,15 @@ const actionDataSet = graphData.setActionLineData();
         .attr("class", "action-line")
         .datum(actionDataSet)
         .attr("d", drawActionLine)
+
+    const drawCustomLine = d3.line()
+        .x(d => xScale(d.labourTime))
+        .y(d => yScale(d.dilatation))
+
+    drawingBoard.append("path")
+        .attr("class", "custom-line")
+        .datum(customDataSet)
+        .attr("d", drawCustomLine)
 
 
 

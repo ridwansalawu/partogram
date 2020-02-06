@@ -63,10 +63,7 @@ const parturientSchema = new Schema({
     },
 
     "partographDataset": {
-        "vagEx":[{
-            time: Number,
-            dilatation: Number
-        }
+        "vagEx":[
             
         ],
         "matHeartRate":[],

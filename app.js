@@ -20,6 +20,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require("./routes/users")
 const parturientsRouter = require("./routes/parturientsRouter");
 const uploadRouter = require("./routes/uploadRouter");
+const parturientRouter = require("./routes/parturientsRouter")
 
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
@@ -36,12 +37,22 @@ connect.then((db) => {
 
 const app = express();
 
+const cors = require("cors");
+
+app.use(cors());
+
 app.use((req,res,next) => {
-  res.header("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept');
+
   next();
 }) 
 
+// const router = express.router;
+// app.put("/parturient/:parturientId", (req,res,next) => {
+//   console.log(req)
+// })
 
 
 // app.use(bodyParser.json())
@@ -63,6 +74,7 @@ app.use('/users', usersRouter)
 
 // app.use(auth);
 app.use('/parturients', parturientsRouter)
+app.use("/parturients/:parturientId", parturientsRouter)
 app.use('/imageUpload', uploadRouter)
 
 app.use('/environment_dump', (req, res) => {
