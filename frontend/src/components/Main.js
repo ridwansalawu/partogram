@@ -94,7 +94,7 @@ componentDidMount = () => {
         <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/parturients" component={() => <Parturients parturients={this.props.parturients} />} />
-            <Route path="/parturients/:parturientId" component={ParturientWithHospId}/>
+            <Route path="/parturients/:parturientId" component={ParturientWithHospId} />
             <Route exact path="/labourward" component={() => <LabourWard resetFeebackForm={this.props.resetFeedbackForm} 
                                                              bishop={this.props.bishops}
                                                              addBishop= {this.props.addBishops}

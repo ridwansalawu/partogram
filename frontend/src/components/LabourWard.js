@@ -34,36 +34,25 @@ handleChange = (e) => {
 
 handleSubmit = (e) => {
     e.preventDefault();
-    const data = {labourTime: this.state.hour, dilatation: this.state.dilatation}
+    const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
     Axios.put(baseUrl + `parturients/${this.props.parturient._id}`, data )
         .then(response => {
             console.log( "9999999999" + JSON.stringify(data))
         })
-
-    
-    // console.log(JSON.stringify("_________+++++++++++========" + this.props.parturient._id))
 }
-
-
-   
-
-   
-
-  
-
 
 render() {
     return (
         <div className="container">
-            Welcome to the labour ward 
-            <div className="row row-content">
+           
+            {/* <div className="row row-content">
                 <img src="assets/images/cx_3d_delivery.jpg" width="50%" height="50%" alt=""/>
-            </div>
+            </div> */}
 
-            <div className="row row-content">
+            {/* <div className="row row-content">
                 <Bishop/>
-            </div>
-            <div className="row row-content">
+            </div> */}
+            <div>
                 <Button variant="primary" onClick={this.handleShow}>
                    VE finding
                 </Button>
@@ -110,16 +99,9 @@ render() {
                             </Form.Control>
                         </Form.Group>
 
-                        
-
                         <Form.Group   onChange={this.handleChange}>
-                            <Button type="submit">Calculate</Button>
-                                
+                            <Button type="submit">Calculate</Button>    
                         </Form.Group>
-
-                        
-
-                        
 
                        </Form>
 
@@ -133,19 +115,7 @@ render() {
                     </Button>
                     </Modal.Footer>
                 </Modal>
-
-
-         
-
-
             </div>
-
-
-
-
-
-
-
         </div>
         )
         }

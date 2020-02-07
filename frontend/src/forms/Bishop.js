@@ -48,8 +48,8 @@ class Bishop extends Component {
 render() {
     return (
         <div className="container">
-           Welcome to the labour ward 
-            <div className="row row-content">
+          
+           
                 <Button variant="primary" onClick={this.handleShow}>
                     Calculate Bishop's Score
                 </Button>
@@ -151,7 +151,6 @@ render() {
          
 
 
-            </div>
 
 
 

@@ -44,6 +44,6 @@ exports.setCustomLineData = () => {
 
 
 
-const customData = [];
+
 
 // module.exports = graphData;

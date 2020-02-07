@@ -5,7 +5,7 @@ svg {
 }
 
 .main-graph {
-    background-color: thistle;
+    background-color:rgb(204, 248, 7);
 }
 
 .container{
@@ -90,7 +90,7 @@ div.navigation > nav {
 }
 
 .custom-line {
-    fill:none;
+    fill:red;
     stroke:#FFFFFF;
 
 }
