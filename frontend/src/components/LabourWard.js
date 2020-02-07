@@ -44,14 +44,6 @@ handleSubmit = (e) => {
 render() {
     return (
         <div className="container">
-           
-            {/* <div className="row row-content">
-                <img src="assets/images/cx_3d_delivery.jpg" width="50%" height="50%" alt=""/>
-            </div> */}
-
-            {/* <div className="row row-content">
-                <Bishop/>
-            </div> */}
             <div>
                 <Button variant="primary" onClick={this.handleShow}>
                    VE finding

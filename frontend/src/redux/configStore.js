@@ -18,7 +18,7 @@ export const ConfigStore = () => {
             auth: Auth
 
         }),
-        compose(applyMiddleware(thunk, logger),
+        compose(applyMiddleware(thunk),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         )
         

@@ -9,11 +9,7 @@ class Visualize extends Component {
 
     componentDidMount () {
 
-        Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
-        .then( response => {
-            this.setState({ customDataSet: response.data})
-            console.log(this.state.customDataSet)
-        })
+        
 
        
         drawTemplate(this.props.customDataSet)
