@@ -38,8 +38,12 @@ exports.setCustomLineData = () => {
     const dataset = labourTime.map((item, index) => {
     return {"labourTime": item, "dilatation": dilatation[index]}
          })
-     
+     console.log("=================================from the fucking data" + JSON.stringify(dataset))
     return dataset
      }
+
+
+
+const customData = [];
 
 // module.exports = graphData;

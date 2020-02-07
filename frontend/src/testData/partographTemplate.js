@@ -6,11 +6,11 @@ const graphData = require("../testData/graphData");
 const initData = graphData.setInitialGraphData();
 const alertDataSet = graphData.setAlertLineData();
 const actionDataSet = graphData.setActionLineData();
-const customDataSet = graphData.setCustomLineData();
+// const customDataSet = graphData.setCustomLineData();
 
 
 
- export const drawTemplate = () => {
+ export const drawTemplate = (customDataSet) => {
     d3.select(".main-page > *").remove();
 
     const margin = {
@@ -104,6 +104,10 @@ const customDataSet = graphData.setCustomLineData();
         .attr("class", "custom-line")
         .datum(customDataSet)
         .attr("d", drawCustomLine)
+
+    console.log("000000" + JSON.stringify(alertDataSet))
+    console.log("000000" + JSON.stringify(actionDataSet))
+    console.log("000000" + JSON.stringify(customDataSet))
 
 
 

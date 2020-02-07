@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+// import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import Bishop from '../forms/Bishop';
@@ -34,7 +34,7 @@ handleChange = (e) => {
 
 handleSubmit = (e) => {
     e.preventDefault();
-    const data = {hour: this.state.hour, dilatation: this.state.dilatation}
+    const data = {labourTime: this.state.hour, dilatation: this.state.dilatation}
     Axios.put(baseUrl + `parturients/${this.props.parturient._id}`, data )
         .then(response => {
             console.log( "9999999999" + JSON.stringify(data))
@@ -69,13 +69,15 @@ render() {
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Bishops Score</Modal.Title>
+                    <Modal.Title>Cervicogram</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                        <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="dilatation"  onChange={this.handleChange}>
+                        <Form.Group controlId="dilatation"
+                                    onChange={this.handleChange}>
                             <Form.Label>Dilatation</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" required>
+                                <option></option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -91,7 +93,8 @@ render() {
 
                         <Form.Group controlId="hour"  onChange={this.handleChange}>
                             <Form.Label>Hour</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" required>
+                                <option></option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>

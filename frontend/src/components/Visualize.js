@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader } from 'reactstrap';
 class Visualize extends Component {
 
     componentDidMount () {
-        drawTemplate()
+        drawTemplate(this.props.customDataSet)
 
     }
 
