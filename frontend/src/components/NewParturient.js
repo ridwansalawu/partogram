@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
-import NewParturientForm from "../forms/NewParturient";
+import React, { Component } from "react";
+import SignupNewParturient from "../forms/SignupNewParturient";
+import Axios from "axios";
+import { baseUrl } from "../testData/baseUrl";
 
-export default function NewParturient(props) {
-  useEffect(() => {
-    console.log(props);
-    let id = props.match.params.parturientId;
-    console.log(id);
+class NewParturient extends Component {
+  componentDidMount() {
+    console.log(this.props.location.state.id);
+    // Axios.get(baseUrl + `parturients/${this.props.parturient._id}`)
+    //     .then(response => {
+    //         console.log(response)
+    //     })
+  }
 
-    return () => {};
-  }, [props]);
-
-  return (
-    <div className="container">
-      <NewParturientForm />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <SignupNewParturient />
+      </div>
+    );
+  }
 }
+
+export default NewParturient;

@@ -1,29 +1,23 @@
 import React, { Component } from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
- 
-} from "reactstrap";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import "../index.css";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-import { baseUrl } from "../testData/baseUrl"
+import { baseUrl } from "../testData/baseUrl";
 
 class Parturients extends Component {
   handleUpdate = parturient => {
-
-    console.log("Update Clicked",);
+    console.log("Update Clicked");
   };
 
   handleDelete = parturient => {
-    Axios.delete(baseUrl + `parturients/${parturient._id}`)
-    .then(response => {
-        console.log(response)
-    })
-  console.log("Deleted")
+    Axios.delete(baseUrl + `parturients/${parturient._id}`).then(response => {
+      console.log(response);
+    });
+    console.log("Deleted");
   };
   render() {
     const parturients = this.props.parturients.parturients.map(parturient => {
@@ -40,22 +34,24 @@ class Parturients extends Component {
               <br />
               <Row>
                 <Col md={3}>
-                <Link to={`/parturients/${parturient._id}/newParturient`}>
-                  <Button
-                    variant="primary"
-                    onClick={() => this.handleUpdate(parturient)}
+                  <Link
+                    to={{
+                      pathname: `/parturients/${parturient._id}/newParturient`,
+                      state: {
+                        id: parturient._id
+                      }
+                    }}
                   >
-                    Update
-                  </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => this.handleUpdate(parturient)}
+                    >
+                      Update
+                    </Button>
                   </Link>
                 </Col>
                 <Col md={3}>
-                  <Button
-                    variant="primary"
-                
-                  >
-                    Delete
-                  </Button>{" "}
+                  <Button variant="primary">Delete</Button>{" "}
                 </Col>
               </Row>
             </Card.Body>
