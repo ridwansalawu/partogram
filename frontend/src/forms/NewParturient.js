@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
-import {Card, Button } from "react-bootstrap";
+import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
+const _ = require("lodash");
 
 
 
@@ -15,6 +16,7 @@ export default class Parturient extends Component {
       super(props)
     
       this.state = {
+        disabled: false,
          medId:"",
          firstname:"",
          lastname: "",
@@ -29,6 +31,14 @@ export default class Parturient extends Component {
 
       };
     };
+
+    generateMedId = (e) => {
+        this.setState({medId: _.times(5, () => _.random(35).toString(36)).join('').toUpperCase(), disabled: true})
+        e.target.disabled = this.state.disabled;
+        console.log(this.state.medId)
+        console.log(e.target.disabled)
+
+    }
     
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value})
@@ -63,8 +73,14 @@ export default class Parturient extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h1>New Parturient</h1>
+            <Container>
+                <Row>
+                    <Col md={10}><h1>New Parturient</h1></Col>
+                    <Col><Button onClick={this.generateMedId} disabled={false}>generate Med ID</Button></Col>
+                    
+                    
+                </Row>
+                
                 <div id="accordion">
                     <form onSubmit={this.handleSubmit}>
                         <Accordion>
@@ -475,7 +491,7 @@ export default class Parturient extends Component {
                     </form>
                 </div>
                 
-            </div>
+            </Container>
         )
     }
 }

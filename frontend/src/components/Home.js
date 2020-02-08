@@ -1,5 +1,5 @@
 import React from 'react';
-import Parturient from '../forms/Parturient';
+import Parturient from '../forms/NewParturient';
 
 export default function Home() {
     return (

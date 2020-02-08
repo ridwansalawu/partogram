@@ -31,6 +31,17 @@ class ParturientDetail extends Component {
     const parturient = this.props.parturient;
   }
 
+  componentDidMount() {
+    if (this.props.parturient) {
+        Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
+        .then( response => {
+            this.setState({ customDataSet: response.data})
+            console.log(this.state.customDataSet)
+        })
+    }
+    console.log(this.props.parturient)
+  }
+
   handleShow = () => {
     this.setState({
       show: true
@@ -43,35 +54,27 @@ class ParturientDetail extends Component {
     });
   };
 
-  componentDidMount() {
-    if (this.props.parturient) {
-        Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
-        .then( response => {
-            this.setState({ customDataSet: response.data})
-            console.log(this.state.customDataSet)
+  handleUpdate = () => {
+      console.log("updated")
+  }
+  handleDelete = () => {
+      Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`)
+        .then(response => {
+            console.log(response)
         })
-    }
-
-    console.log(this.props);
+      console.log("Deleted")
   }
 
-  handleGetCervicogram = props => {
-    Axios(
-      baseUrl + `parturients/cervicogram/${this.props.parturient._id}`
-    ).then(response => {
-      console.log(response.data);
-      console.log("------------" + this.props.parturient._id);
-    });
+  refresh = (e) => {
+   window.location.reload()
+   e.preventDefault()
+
   };
 
-  refresh = async () => {
-    await Axios(
-      baseUrl + `parturients/cervicogram/${this.props.parturient._id}`
-    ).then(res => {
-      this.setState({ customDataSet: res.data });
-    });
-    console.log("_______" + JSON.stringify(this.state.customDataSet));
-  };
+
+
+
+
 
   render() {
     if (this.props.isLoading) {
@@ -111,6 +114,10 @@ class ParturientDetail extends Component {
                 " " +
                 this.props.parturient.lastName}
             </h3>
+          </Row>
+          <Row>
+                <Col md={1}><Button variant="primary" onClick={this.handleUpdate}>Update</Button></Col>
+                <Col md={1}><Button variant="primary" onClick={this.handleDelete}>Delete</Button>  </Col>
           </Row>
 
           <Row>

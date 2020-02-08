@@ -84,7 +84,7 @@ parturientsRouter.route('/:parturientId')
     .catch((err) => next(err));
     console.log(req.body.hour)
 })
-.delete(authenticate.verifyUser,(req, res, next) => {
+.delete((req, res, next) => {
   Parturients.findByIdAndRemove(req.params.parturientId)
     .then((parturient) => {
         res.statusCode = 200;
