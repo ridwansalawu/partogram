@@ -983,4 +983,12 @@ export default function Cervicogram() {
 
 
 
-
+medId:response.data.medId,
+            firstname:response.data.firstName,
+            lastname: response.data.lastName,
+            othername:response.data.otherNName,
+            email: response.data.emai,
+            telnum: response.data.telnum,
+            dob: response.data.dob,
+            address: response.data.address,
+            nok: response.data.nok

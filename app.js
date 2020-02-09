@@ -4,15 +4,17 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser")
 const http = require("http");
-
 const logger = require('morgan');
 const session = require("express-session")
 const FileStore = require("session-file-store")(session);
-
 const passport = require('passport');
 const authenticate = require('./authenticate');
-// const config = require("./config")
 
+
+
+const socketio = require("socket.io");
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./ioUsers");
+const chatRouter = require("./routes/chatRouter")
 
 
 
@@ -35,9 +37,37 @@ connect.then((db) => {
     console.log("***db Connection Error***" + err);
 })
 
+
+
+
 const app = express();
 
+const ioServer = http.createServer(app);
+const io = socketio(ioServer);
+
+
+
+
+
+
+
+
+
+
+
 const cors = require("cors");
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.use(cors());
 
@@ -49,10 +79,7 @@ app.use((req,res,next) => {
   next();
 }) 
 
-// const router = express.router;
-// app.put("/parturient/:parturientId", (req,res,next) => {
-//   console.log(req)
-// })
+
 
 
 // app.use(bodyParser.json())
@@ -68,6 +95,7 @@ app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(chatRouter)
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
@@ -103,4 +131,49 @@ app.use(function(req, res, next) {
 
 
 
+
+
+
+  io.on('connect', (socket) => {
+    console.log(" 👺there is a new socket connection");
+
+
+    socket.on('join', ({ name, room }, callback) => {
+      
+      const { error, user } = addUser({ id: socket.id, name, room });
+  
+      if(error) return callback(error);
+  
+      socket.join(user.room);
+    
+  
+      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+      socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+  
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+  
+      callback();
+    });
+  
+    socket.on('sendMessage', (message, callback) => {
+      const user = getUser(socket.id);
+  
+      io.to(user.room).emit('message', { user: user.name, text: message });
+  
+      callback();
+    });
+  
+    socket.on('disconnect', () => {
+      const user = removeUser(socket.id);
+      console.log(" 👹the niggah just left!!!!!!!")
+  
+      if(user) {
+        io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
+        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+      }
+    })
+  });
+
+
+ioServer.listen(5000, () => console.log(` 👺🤡 the IOSOCKET Server has started.`));
 module.exports = app;

@@ -67,11 +67,10 @@ parturientsRouter.route('/:parturientId')
     res.end('POST operation not supported on /parturients/'+ req.params.parturientId);
 })
 .put((req, res, next) => {
-  Parturients.findByIdAndUpdate(req.params.parturientId, {
+  Parturients.findOneAndUpdate(req.params.parturientId, {
     
-    $push: {
-      "partographDataset.vagEx" : req.body
-    },
+    $set:req.body
+    
    
     
         // $set: req.body

@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const parturientSchema = new Schema({
     medId: {
-        type: String 
+        type: String
+         
     },
     firstName: {
         type: String

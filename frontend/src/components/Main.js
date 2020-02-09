@@ -25,6 +25,8 @@ import Partograph from "./Partograph";
 import Visualize from "./Visualize";
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
+import Join from "./Join";
+import Chat from "./Chat";
 
 const mapStateToProps = state => {
   return {
@@ -158,9 +160,13 @@ class Main extends Component {
                 )}
               />
               <Route path="/partograph" component={Partograph} />
+             
               <Route path="/visualize" component={Visualize} />
               <Route path="/newpaturient" component={NewParturient} />
+              <Route path="/join" component={Join} />
+              <Route path="/chat" component={Chat} />
               <Route exact path="/patient" component={Patient} />
+
               <Route
                 path="/signup"
                 component={() => <Signup signupUser={this.props.signupUser} />}
