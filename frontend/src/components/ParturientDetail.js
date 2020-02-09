@@ -8,6 +8,8 @@ import Visualize from "./Visualize";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
+import { Alert } from "react-bootstrap";
+
 
 import { baseUrl } from "../testData/baseUrl";
 import {
@@ -26,9 +28,10 @@ class ParturientDetail extends Component {
 
     this.state = {
       show: false,
-      customDataSet: []
+      customDataSet: [],
+      showDelete:false
     };
-    const parturient = this.props.parturient;
+   
   }
 
   componentDidMount() {
@@ -36,10 +39,9 @@ class ParturientDetail extends Component {
         Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
         .then( response => {
             this.setState({ customDataSet: response.data})
-            console.log(this.state.customDataSet)
+           
         })
     }
-    console.log(this.props.parturient)
   }
 
   handleShow = () => {
@@ -57,26 +59,23 @@ class ParturientDetail extends Component {
   handleUpdate = () => {
       console.log("updated")
   }
-  handleDelete = () => {
+
+  handleDelete = async () => {
       Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`)
         .then(response => {
-            console.log(response)
         })
-      console.log("Deleted")
+        await this.refresh()
   }
 
   refresh = (e) => {
    window.location.reload()
+   this.handleShow()
    e.preventDefault()
-
   };
 
 
-
-
-
-
   render() {
+
     if (this.props.isLoading) {
       return (
         <div className="container">
@@ -117,7 +116,15 @@ class ParturientDetail extends Component {
           </Row>
           <Row>
                 <Col md={1}><Button variant="primary" onClick={this.handleUpdate}>Update</Button></Col>
-                <Col md={1}><Button variant="primary" onClick={this.handleDelete}>Delete</Button>  </Col>
+                <Col>
+                <Alert show={this.state.showDelete} onClose={()=>this.setState({showDelete:false})} variant="warning" dismissible>
+                  <Alert.Heading>Do you really want to remove this {this.props.parturient.firstName} ?</Alert.Heading>
+                  <div className="d-flex justify-content-end">
+                  <Button onClick={this.handleDelete}  variant="danger">Delete</Button>{" "}
+                  </div>
+                </Alert>
+                {!this.state.showDelete && <Button onClick={() => this.setState({showDelete:true})} variant="primary">Delete</Button>}  
+                </Col>
           </Row>
 
           <Row>
@@ -234,4 +241,3 @@ class ParturientDetail extends Component {
 export default ParturientDetail;
 
 
-// 5e3ac9f87f974c5a53185a21

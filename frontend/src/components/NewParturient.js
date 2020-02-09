@@ -4,6 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
+import { Redirect } from 'react-router-dom';
 const _ = require("lodash");
 
 
@@ -13,7 +14,8 @@ class NewParturient extends Component {
       super(props)
     
       this.state = {
-        disabled: "",
+         redirectToReferrer: false,
+         disabled:"",
          medId:"",
          firstname:"",
          lastname: "",
@@ -22,21 +24,20 @@ class NewParturient extends Component {
          telnum: "",
          dob: "",
          address: "",
-         nok: "",
-
-
-
+         nok: ""
       };
+      
     };
 
 
 
 
   componentDidMount() {
-    console.log("iiiiiiiiiiiii"+this.props.location.state.id);
+    
     Axios.get(baseUrl + `parturients/${this.props.location.state.id}`)
         .then(response => {
           this.setState({
+            disabled: true,
             medId:response.data.medId,
             firstname:response.data.firstName,
             lastname: response.data.lastName,
@@ -49,7 +50,7 @@ class NewParturient extends Component {
 
 
           })
-            console.log(response.data.firstName)
+           console.log(this.props.location.pathname)
         })
   }
 
@@ -58,9 +59,6 @@ class NewParturient extends Component {
     generateMedId = (e) => {
         this.setState({medId: _.times(5, () => _.random(35).toString(36)).join('').toUpperCase(), disabled: true})
         e.target.disabled = this.state.disabled;
-        console.log(this.state.medId)
-        console.log(e.target.disabled)
-
     }
     
     handleChange = (e) => {
@@ -81,25 +79,27 @@ class NewParturient extends Component {
             nok: this.state.nok
 
         }
-        // this.props.postParturient(parturientDetails)
         Axios.put(baseUrl + "parturients" + "/" + this.props.location.state.id, parturientDetails)
             .then(response => {
-                console.log(response)
+                if (response.status === 200) {
+                    alert(this.state.firstname + " has been updated")
+                    this.setState({redirectToReferrer: true})
+                }
+                
             })
         
 
     }
 
-
-
-
-
     render() {
+        if (this.state.redirectToReferrer === true) {
+            return <Redirect to="/parturients" />
+        }
         return (
             <Container>
                 <Row>
                     <Col md={10}><h1>New Parturient</h1></Col>
-                    <Col><Button onClick={this.generateMedId} disabled={false}>generate Med ID</Button></Col>
+                    <Col><Button onClick={this.generateMedId} disabled={true}>generate Med ID</Button></Col>
                     
                     
                 </Row>

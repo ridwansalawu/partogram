@@ -73,8 +73,8 @@ export default class Header extends Component {
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className="nav-link" to="/visualize">
-                            <span className="fa fa-table fa-lg">Visualize</span>
+                            <NavLink className="nav-link" to="/signupnewparturient">
+                            <span className="fa fa-table fa-lg">Admit Parturient</span>
                             </NavLink>
                         </NavItem>
                     </Nav>

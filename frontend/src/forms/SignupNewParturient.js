@@ -4,6 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
+import { Redirect } from 'react-router-dom';
 const _ = require("lodash");
 
 
@@ -16,7 +17,8 @@ export default class Parturient extends Component {
       super(props)
     
       this.state = {
-        disabled: false,
+         redirectToReferrer: false,
+         disabled: false,
          medId:"",
          firstname:"",
          lastname: "",
@@ -58,20 +60,16 @@ export default class Parturient extends Component {
             nok: this.state.nok
 
         }
-        // this.props.postParturient(parturientDetails)
         Axios.post(baseUrl + "parturients", parturientDetails)
             .then(response => {
-                console.log(response)
-            })
-        
-
+                this.setState({redirectToReferrer: true})
+            })    
     }
 
-
-
-
-
     render() {
+        if (this.state.redirectToReferrer === true) {
+            return <Redirect to="/parturients" />
+        }
         return (
             <Container>
                 <Row>

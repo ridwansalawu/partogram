@@ -35,7 +35,7 @@ handleChange = (e) => {
 handleSubmit = (e) => {
     e.preventDefault();
     const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
-    Axios.put(baseUrl + `parturients/${this.props.parturient._id}`, data )
+    Axios.put(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`, data )
         .then(response => {
             console.log( "9999999999" + JSON.stringify(data))
         })
@@ -54,23 +54,7 @@ render() {
                     </Modal.Header>
                     <Modal.Body>
                        <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="dilatation"
-                                    onChange={this.handleChange}>
-                            <Form.Label>Dilatation</Form.Label>
-                            <Form.Control as="select" required>
-                                <option></option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </Form.Control>
-                        </Form.Group>
+                       
 
                         <Form.Group controlId="hour"  onChange={this.handleChange}>
                             <Form.Label>Hour</Form.Label>
@@ -91,8 +75,22 @@ render() {
                             </Form.Control>
                         </Form.Group>
 
-                        <Form.Group   onChange={this.handleChange}>
-                            <Button type="submit">Calculate</Button>    
+                        <Form.Group controlId="dilatation"
+                                    onChange={this.handleChange}>
+                            <Form.Label>Dilatation</Form.Label>
+                            <Form.Control as="select" required>
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </Form.Control>
                         </Form.Group>
 
                        </Form>
@@ -102,7 +100,7 @@ render() {
                     <Button variant="secondary" onClick={this.handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={this.handleClose}>
+                    <Button variant="primary" onClick={this.handleSubmit}>
                         Submit
                     </Button>
                     </Modal.Footer>

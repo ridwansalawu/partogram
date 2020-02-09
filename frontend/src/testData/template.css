@@ -87,11 +87,15 @@ div.navigation > nav {
 .action-line {
     fill:none;
     stroke: red;
+    stroke-linecap: round;
 }
 
 .custom-line {
     fill:red;
     stroke:#FFFFFF;
+    stroke-linejoin: round;
+    stroke-width: 3;
+  
 
 }
 #custom-input {

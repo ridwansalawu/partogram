@@ -74,7 +74,7 @@ parturientsRouter.route('/:parturientId')
    
     
         // $set: req.body
-    }, { new: true})
+    })
     .then((parturient) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');

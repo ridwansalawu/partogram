@@ -22,7 +22,7 @@ import {
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Partograph from "./Partograph";
-import Visualize from "./Visualize";
+import SignupNewParturient from "../forms/SignupNewParturient"
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
 import Join from "./Join";
@@ -86,12 +86,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Main extends Component {
-  // constructor(props) {
-  //   super(props)
-
-  //   console.log("useless constructor?")
-
-  // };
 
   componentDidMount = () => {
     this.props.fetchParturients();
@@ -161,7 +155,7 @@ class Main extends Component {
               />
               <Route path="/partograph" component={Partograph} />
              
-              <Route path="/visualize" component={Visualize} />
+              <Route path="/signupnewparturient" component={SignupNewParturient} />
               <Route path="/newpaturient" component={NewParturient} />
               <Route path="/join" component={Join} />
               <Route path="/chat" component={Chat} />

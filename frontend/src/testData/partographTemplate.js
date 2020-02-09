@@ -90,20 +90,23 @@ const actionDataSet = graphData.setActionLineData();
     const drawActionLine = d3.line()
         .x(d => xScale(d.labourTime))
         .y(d => yScale(d.dilatation))
+      
 
     drawingBoard.append("path")
         .attr("class", "action-line")
         .datum(actionDataSet)
         .attr("d", drawActionLine)
 
-    const drawCustomLine = d3.line()
+    const drawCustomLine = d3.line()    
         .x(d => xScale(d.labourTime))
         .y(d => yScale(d.dilatation))
+       
 
     drawingBoard.append("path")
         .attr("class", "custom-line")
         .datum(customDataSet)
         .attr("d", drawCustomLine)
+        .attr("stroke-linecap", "round")
 
     console.log("000000" + JSON.stringify(alertDataSet))
     console.log("000000" + JSON.stringify(actionDataSet))

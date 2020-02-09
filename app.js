@@ -27,8 +27,7 @@ const parturientRouter = require("./routes/parturientsRouter")
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
 
-// const url = mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg
-const url = process.env.MONGODB_URI || 'mongodb.localhost.xxx';
+const url = process.env.MONGODB_URI;
 const connect = mongoose.connect(url, {useNewUrlParser: true})
 
 connect.then((db) => {

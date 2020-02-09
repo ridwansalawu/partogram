@@ -9,8 +9,27 @@ import Axios from "axios";
 import { baseUrl } from "../testData/baseUrl";
 
 class Parturients extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       showDelete: false
+    };
+  };
+
+  componentDidMount = () => {
+  
+  };
+  
+  
+  
+
+
+
+
+
   handleUpdate = parturient => {
-    console.log("Update Clicked");
+    
   };
 
   handleDelete = parturient => {
@@ -19,7 +38,11 @@ class Parturients extends Component {
     });
     console.log("Deleted");
   };
+
   render() {
+   
+
+
     const parturients = this.props.parturients.parturients.map(parturient => {
       return (
         <div key={parturient._id} className="col-12 col-md-10 m-1">
@@ -50,9 +73,7 @@ class Parturients extends Component {
                     </Button>
                   </Link>
                 </Col>
-                <Col md={3}>
-                  <Button variant="primary">Delete</Button>{" "}
-                </Col>
+                
               </Row>
             </Card.Body>
           </Card>
@@ -105,21 +126,3 @@ class Parturients extends Component {
 }
 
 export default Parturients;
-
-// const handleUpdate = (e) => {
-//     console.log("fucking updated")
-
-// }
-
-// const RenderParturients = ({parturient}) => {
-//     const parturientId = parturient._id;
-//     return(
-
-//     )
-// }
-
-// const Parturients = (props) => {
-
-// }
-
-// export default Parturients;
