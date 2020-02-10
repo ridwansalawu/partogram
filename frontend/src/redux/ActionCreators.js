@@ -192,13 +192,6 @@ export const loginError = (message) => {
 export const signupUser = (details) => (dispatch) => {
     dispatch(requestSignup(details))
 
-    // return fetch(baseUrl + "users/signup", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type":"application/json"
-    //     },
-    //     body: JSON.stringify(details)
-    // })
     return Axios.post(baseUrl + "users/signup", details)
     .then(response => {
 

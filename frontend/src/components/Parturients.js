@@ -3,33 +3,29 @@ import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import "../index.css";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import { baseUrl } from "../testData/baseUrl";
+import {Redirect} from "react-router-dom"
 
 class Parturients extends Component {
   constructor(props) {
     super(props)
   
     this.state = {
-       showDelete: false
+       redirectToReferrer: false,
+       showDelete: false,
+       firstname: "",
+       lastname: "",
+       medId: ""
+
     };
   };
 
-  componentDidMount = () => {
-  
-  };
-  
-  
-  
-
-
-
-
-
-  handleUpdate = parturient => {
-    
+  handleChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value })
+    console.log(e.target.value)
   };
 
   handleDelete = parturient => {
@@ -39,7 +35,30 @@ class Parturients extends Component {
     console.log("Deleted");
   };
 
+  handleSearch = (e) => {
+    e.preventDefault()
+    const searchParams = {
+       firstName: this.state.firstname,
+       lastName: this.state.lastname,
+       medId: this.state.medId
+    }
+
+
+
+    Axios(baseUrl + `parturients/search/${this.state.medId}`)
+      .then(response =>{
+        if(response.data){
+          this.setState({redirectToReferrer: true})
+        }
+       
+        console.log(response.data.medId)
+      })
+  }
+
   render() {
+    if (this.state.redirectToReferrer === true) {
+      return <Redirect to= {`/parturients/${this.state.medId}`}  />
+  }
    
 
 
@@ -109,8 +128,45 @@ class Parturients extends Component {
             </Breadcrumb>
           </Row>
           <Row>
-            <input type="text" placeholder="Medical ID" />
-            <button>search</button>
+
+
+            <Form onSubmit={this.handleSearch}>
+              <Form.Row>
+                <Col>
+                  <Form.Control 
+                  placeholder="First name" 
+                  name="firstname"
+                  value={this.state.firstname}
+                  onChange={this.handleChange}
+                  />
+                </Col>
+                <Col>
+                  <Form.Control 
+                  placeholder="Last name"
+                  name="lastname"
+                  value={this.state.lastname}
+                  onChange={this.handleChange} 
+                  />
+                </Col>
+                <Col>
+                  <Form.Control 
+                  placeholder="Medical ID"
+                  name="medId"
+                  value={this.state.medId}
+                  onChange={this.handleChange} 
+                  
+                  />
+                </Col>
+                <Col>
+                <Button type="submit">search </Button>
+                </Col>
+
+
+
+              </Form.Row>
+            </Form>
+           
+            
           </Row>
 
           <Row>

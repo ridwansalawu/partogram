@@ -9,6 +9,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert } from "react-bootstrap";
+import {Redirect } from "react-router-dom"
+import Join from "./Join"
 
 
 import { baseUrl } from "../testData/baseUrl";
@@ -21,6 +23,7 @@ import {
   Button
 } from "react-bootstrap";
 import Bishop from "../forms/Bishop";
+import Chat from "./Chat";
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -29,12 +32,19 @@ class ParturientDetail extends Component {
     this.state = {
       show: false,
       customDataSet: [],
-      showDelete:false
+      showDelete:false,
+      room: "",
+      user: ""
+     
     };
+    
    
   }
 
   componentDidMount() {
+
+   
+    console.log(this.props)
     if (this.props.parturient) {
         Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
         .then( response => {
@@ -42,7 +52,25 @@ class ParturientDetail extends Component {
            
         })
     }
+    if(this.state.room) {
+      console.log(this.state.room)
+    }else console.log("yet to arrive")
   }
+
+  
+
+
+
+
+handleAssign =()=> {
+
+  this.setState({room: `${this.props.parturient.firstName.toUpperCase()}, ${this.props.parturient.lastName}/${this.props.parturient.medId}`
+                        })
+  console.log(this.state.room)
+
+}
+
+
 
   handleShow = () => {
     this.setState({
@@ -118,7 +146,7 @@ class ParturientDetail extends Component {
                 <Col md={1}><Button variant="primary" onClick={this.handleUpdate}>Update</Button></Col>
                 <Col>
                 <Alert show={this.state.showDelete} onClose={()=>this.setState({showDelete:false})} variant="warning" dismissible>
-                  <Alert.Heading>Do you really want to remove this {this.props.parturient.firstName} ?</Alert.Heading>
+                  <Alert.Heading>Do you really want to remove {this.props.parturient.firstName} ?</Alert.Heading>
                   <div className="d-flex justify-content-end">
                   <Button onClick={this.handleDelete}  variant="danger">Delete</Button>{" "}
                   </div>
@@ -127,7 +155,7 @@ class ParturientDetail extends Component {
                 </Col>
           </Row>
 
-          <Row>
+          <Row className="details-section">
             <Col>
               <Card>
                 <Card.Header className="text-danger font-weight-bolder font-italic ">
@@ -166,13 +194,16 @@ class ParturientDetail extends Component {
             <Col>
               <Card>
                 <Card.Header className="text-danger font-weight-bolder font-italic ">
-                  Management Forum
+                Management discussion: {this.state.room} 
                 </Card.Header>
                 <Card.Body>
                   <Card.Text>
                     please offer some suggestion with regards to this patient's
                     management
                   </Card.Text>
+                  
+
+                 
                 </Card.Body>
                 <InputGroup>
                   <FormControl as="textarea"></FormControl>
@@ -198,8 +229,8 @@ class ParturientDetail extends Component {
               </Button>
             </Col>
             <Col>
-              <button onClick={this.handleGetCervicogram}>
-                get cervicogram
+              <button onClick={this.handleAssign}>
+                Start Conversation
               </button>
             </Col>
           </Row>

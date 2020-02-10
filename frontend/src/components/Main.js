@@ -22,11 +22,12 @@ import {
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Partograph from "./Partograph";
-import SignupNewParturient from "../forms/SignupNewParturient"
+import SignupNewParturient from "../forms/SignupNewParturient";
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
 import Join from "./Join";
 import Chat from "./Chat";
+
 
 const mapStateToProps = state => {
   return {
@@ -86,24 +87,26 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Main extends Component {
-
   componentDidMount = () => {
     this.props.fetchParturients();
     this.props.fetchBishops();
+    console.log(this.props.auth.user);
   };
 
   render() {
     const ParturientWithHospId = ({ match }) => {
       return (
-        <ParturientDetail
-          parturient={
-            this.props.parturients.parturients.filter(
-              parturient => parturient.medId === match.params.parturientId
-            )[0]
-          }
-          isLoading={this.props.parturients.isLoading}
-          errMsg={this.props.parturients.errMsg}
-        />
+        <div>
+          <ParturientDetail
+            parturient={
+              this.props.parturients.parturients.filter(
+                parturient => parturient.medId === match.params.parturientId
+              )[0]
+            }
+            isLoading={this.props.parturients.isLoading}
+            errMsg={this.props.parturients.errMsg}
+          />
+        </div>
       );
     };
 
@@ -154,11 +157,17 @@ class Main extends Component {
                 )}
               />
               <Route path="/partograph" component={Partograph} />
-             
-              <Route path="/signupnewparturient" component={SignupNewParturient} />
+
+              <Route
+                path="/signupnewparturient"
+                component={SignupNewParturient}
+              />
               <Route path="/newpaturient" component={NewParturient} />
               <Route path="/join" component={Join} />
-              <Route path="/chat" component={Chat} />
+              <Route
+                path="/chat"
+                component={() => <Chat user={this.props.auth.user.username} />}
+              />
               <Route exact path="/patient" component={Patient} />
 
               <Route

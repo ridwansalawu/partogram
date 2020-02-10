@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Label } from "reactstrap";
+import {Redirect} from "react-router-dom";
 
 // const required = (val) => val && val.length;
 
@@ -8,6 +9,7 @@ class Signup extends Component {
       super(props)
     
       this.state = {
+          redirectToReferrer: false,
           username: "",
           password: ""
          
@@ -27,9 +29,15 @@ class Signup extends Component {
         }
         e.preventDefault()
         this.props.signupUser(userDetails)
+        this.setState({redirectToReferrer: true})
+        console.log(this.state.redirectToReferrer)
     }
 
     render() {
+        if (this.state.redirectToReferrer === true) {
+            return <Redirect to="/home" />
+        }
+
         return (
             <div className="container">
                 <div className="row">

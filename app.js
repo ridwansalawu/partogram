@@ -27,7 +27,8 @@ const parturientRouter = require("./routes/parturientsRouter")
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
 
-const url = process.env.MONGODB_URI;
+// const url = mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg
+const url = process.env.MONGODB_URI || 'mongodb.localhost.xxx';
 const connect = mongoose.connect(url, {useNewUrlParser: true})
 
 connect.then((db) => {
@@ -140,7 +141,7 @@ app.use(function(req, res, next) {
     socket.on('join', ({ name, room }, callback) => {
       
       const { error, user } = addUser({ id: socket.id, name, room });
-  
+      console.log(" ==== " + user)
       if(error) return callback(error);
   
       socket.join(user.room);
@@ -156,6 +157,7 @@ app.use(function(req, res, next) {
   
     socket.on('sendMessage', (message, callback) => {
       const user = getUser(socket.id);
+      console.log(user)
   
       io.to(user.room).emit('message', { user: user.name, text: message });
   

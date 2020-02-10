@@ -50,7 +50,7 @@ class NewParturient extends Component {
 
 
           })
-           console.log(this.props.location.pathname)
+          
         })
   }
 

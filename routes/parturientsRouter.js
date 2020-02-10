@@ -126,6 +126,22 @@ parturientsRouter.route('/cervicogram/:parturientId')
   
 })
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+parturientsRouter.route("/search/:searchParams")
+.get((req, res, next) => {
+  Parturients.findOne({
+    medId: req.params.searchParams
+    
+  })
+  .then(parturient => {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.json(parturient)
+  }, (err) => next(err))
+  .catch((err) => next(err))
+})
+
 
 module.exports = parturientsRouter;
 
