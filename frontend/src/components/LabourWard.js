@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button'
 import Bishop from '../forms/Bishop';
 import Axios from 'axios';
 import { baseUrl } from '../testData/baseUrl';
+import { Container, Row } from 'react-bootstrap';
+import Visualize from "./Visualize"
 
 
 class LabourWard extends Component {
@@ -39,11 +41,22 @@ handleSubmit = (e) => {
         .then(response => {
             console.log( "9999999999" + JSON.stringify(data))
         })
+        .then(this.props.refresh)
 }
 
 render() {
     return (
-        <div className="container">
+        <Container>
+
+            {/* <Row>
+            <Visualize
+                  parturient={this.props.parturient}
+                  customDataSet={this.state.customDataSet}
+                  refresh={this.refresh}
+                />
+
+
+            </Row> */}
             <div>
                 <Button variant="primary" onClick={this.handleShow}>
                    VE finding
@@ -106,7 +119,7 @@ render() {
                     </Modal.Footer>
                 </Modal>
             </div>
-        </div>
+         </Container>
         )
         }
     }

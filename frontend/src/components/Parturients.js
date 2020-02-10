@@ -14,6 +14,7 @@ class Parturients extends Component {
     super(props)
   
     this.state = {
+       reload: true,
        redirectToReferrer: false,
        showDelete: false,
        firstname: "",
@@ -23,16 +24,16 @@ class Parturients extends Component {
     };
   };
 
+
+
   handleChange = (e) => {
     this.setState({ [e.target.name] : e.target.value })
-    console.log(e.target.value)
   };
 
   handleDelete = parturient => {
     Axios.delete(baseUrl + `parturients/${parturient._id}`).then(response => {
-      console.log(response);
+      console.log("deleted");
     });
-    console.log("Deleted");
   };
 
   handleSearch = (e) => {
@@ -43,17 +44,18 @@ class Parturients extends Component {
        medId: this.state.medId
     }
 
-
-
-    Axios(baseUrl + `parturients/search/${this.state.medId}`)
+    Axios(baseUrl + `parturients/search/${searchParams.medId}`)
       .then(response =>{
         if(response.data){
           this.setState({redirectToReferrer: true})
         }
-       
-        console.log(response.data.medId)
       })
   }
+
+
+  // handleUpdate = () => {
+  //   Axios.put(baseUrl + `parturients/search/${this.props.parturient.medId}`)
+  // }
 
   render() {
     if (this.state.redirectToReferrer === true) {
@@ -86,7 +88,6 @@ class Parturients extends Component {
                   >
                     <Button
                       variant="primary"
-                      onClick={() => this.handleUpdate(parturient)}
                     >
                       Update
                     </Button>
@@ -138,6 +139,7 @@ class Parturients extends Component {
                   name="firstname"
                   value={this.state.firstname}
                   onChange={this.handleChange}
+                  disabled
                   />
                 </Col>
                 <Col>
@@ -146,6 +148,7 @@ class Parturients extends Component {
                   name="lastname"
                   value={this.state.lastname}
                   onChange={this.handleChange} 
+                  disabled
                   />
                 </Col>
                 <Col>

@@ -4,15 +4,15 @@ const Schema = mongoose.Schema;
 const parturientSchema = new Schema({
     medId: {
         type: String,
-        required:true,
-        unique: true,
-        uniqueCaseInsensitive: true
+        required:true
+      
+       
          
     },
     firstName: {
         type: String,
-        required:true,
-        uniqueCaseInsensitive: true
+        required:true
+       
     },
     otherName: {
         type: String
@@ -20,8 +20,8 @@ const parturientSchema = new Schema({
     },
     lastName: {
         type: String,
-        required:true,
-        uniqueCaseInsensitive: true
+        required:true
+        
     },
     lmp: {
         type: String

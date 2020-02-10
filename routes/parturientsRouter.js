@@ -68,12 +68,11 @@ parturientsRouter.route('/:parturientId')
 })
 .put((req, res, next) => {
   Parturients.findOneAndUpdate(req.params.parturientId, {
-    
-    $set:req.body
-    
-   
-    
-        // $set: req.body
+    $set:req.body 
+    }, {useFindAndModify:false}, (error, result) => {
+      if (error) {
+        console.log(error)
+      }
     })
     .then((parturient) => {
         res.statusCode = 200;
@@ -81,7 +80,7 @@ parturientsRouter.route('/:parturientId')
         res.json(parturient);
     }, (err) => next(err))
     .catch((err) => next(err));
-    console.log(req.body.hour)
+   
 })
 .delete((req, res, next) => {
   Parturients.findByIdAndRemove(req.params.parturientId)
@@ -111,10 +110,7 @@ parturientsRouter.route('/cervicogram/:parturientId')
     
     $push: {
       "partographDataset.vagEx" : req.body
-    },
-   
-    
-        // $set: req.body
+    },   // $set: req.body
     }, { new: true})
     .then((parturient) => {
         res.statusCode = 200;

@@ -30,48 +30,41 @@ class ParturientDetail extends Component {
     super(props);
 
     this.state = {
+      redirectToReferrer: false,
       show: false,
       customDataSet: [],
       showDelete:false,
       room: "",
       user: ""
      
-    };
-    
-   
+    }; 
   }
 
   componentDidMount() {
-
-   
-    console.log(this.props)
     if (this.props.parturient) {
         Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
         .then( response => {
             this.setState({ customDataSet: response.data})
-           
+            this.setState({show:true})
         })
     }
     if(this.state.room) {
       console.log(this.state.room)
     }else console.log("yet to arrive")
   }
-
-  
-
-
-
+  refresh = (e) => {
+   
+    window.location.reload()
+    //  this.handleShow()
+    //  e.preventDefault()
+    };
 
 handleAssign =()=> {
-
   this.setState({room: `${this.props.parturient.firstName.toUpperCase()}, ${this.props.parturient.lastName}/${this.props.parturient.medId}`
                         })
   console.log(this.state.room)
 
 }
-
-
-
   handleShow = () => {
     this.setState({
       show: true
@@ -88,21 +81,23 @@ handleAssign =()=> {
       console.log("updated")
   }
 
-  handleDelete = async () => {
+  handleDelete = () => {
       Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`)
-        .then(response => {
-        })
-        await this.refresh()
-  }
+        .then(
+          this.setState({redirectToReferrer: true})
+          )
+        }
 
-  refresh = (e) => {
-   window.location.reload()
-   this.handleShow()
-   e.preventDefault()
-  };
+handleToParturient =() => {
+  this.setState({show:false})
+}
 
 
   render() {
+
+    if (this.state.redirectToReferrer === true) {
+      return <Redirect to= {`/parturients`}  />
+  }
 
     if (this.props.isLoading) {
       return (
@@ -120,7 +115,46 @@ handleAssign =()=> {
           </div>
         </div>
       );
-    } else if (this.props.parturient != null)
+    } 
+    else if(this.state.show) {
+      return <Col>
+                <Visualize
+                  parturient={this.props.parturient}
+                  customDataSet={this.state.customDataSet}
+                  refresh={this.refresh}
+                />
+
+                <Row>
+                  <Col>
+                    {" "}
+                    <LabourWard parturient={this.props.parturient} 
+                                refresh={this.refresh}/>
+                  </Col>
+                  <Col>
+                    {" "}
+                    <Bishop />
+                  </Col>
+                  <Col>
+                    <Button>Refer</Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={this.refresh}>Refresh</Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={this.handleToParturient}>back</Button>
+                  </Col>
+                </Row>
+              </Col>
+
+
+    }
+    
+//  ========================================================================================================================   
+    
+    
+    
+    else if (this.props.parturient != null)
+
       return (
         <Container>
           <Row>
@@ -143,7 +177,23 @@ handleAssign =()=> {
             </h3>
           </Row>
           <Row>
-                <Col md={1}><Button variant="primary" onClick={this.handleUpdate}>Update</Button></Col>
+                <Col md={1}> <Link
+                    to={{
+                      pathname: `/parturients/${this.props.parturient._id}/newParturient`,
+                      state: {
+                        id: this.props.parturient._id
+                      }
+                    }}
+                  >
+                    <Button
+                      variant="primary"
+                    >
+                      Update
+                    </Button>
+                  </Link></Col>
+
+
+
                 <Col>
                 <Alert show={this.state.showDelete} onClose={()=>this.setState({showDelete:false})} variant="warning" dismissible>
                   <Alert.Heading>Do you really want to remove {this.props.parturient.firstName} ?</Alert.Heading>
@@ -212,8 +262,12 @@ handleAssign =()=> {
                     Post{" "}
                   </Button>
                 </InputGroup>
+                <button onClick={this.handleAssign}>
+                Start Conversation
+              </button>
               </Card>
             </Col>
+            
           </Row>
 
           <Row>
@@ -228,14 +282,10 @@ handleAssign =()=> {
                 Transfer to Labour Ward{" "}
               </Button>
             </Col>
-            <Col>
-              <button onClick={this.handleAssign}>
-                Start Conversation
-              </button>
-            </Col>
+            
           </Row>
 
-          <Row>
+          {/* <Row>
             {this.state.show ? (
               <Col>
                 <Visualize
@@ -262,7 +312,7 @@ handleAssign =()=> {
                 </Row>
               </Col>
             ) : null}
-          </Row>
+          </Row> */}
         </Container>
       );
     else return <div></div>;

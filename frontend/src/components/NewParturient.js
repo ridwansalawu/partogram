@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
-import {Card, Button, Container, Row, Col } from "react-bootstrap";
+import {Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
 import { Redirect } from 'react-router-dom';
@@ -28,9 +28,6 @@ class NewParturient extends Component {
       };
       
     };
-
-
-
 
   componentDidMount() {
     
@@ -68,7 +65,7 @@ class NewParturient extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const parturientDetails = {
-            medId:this.state.medId,
+           
             firstName: this.state.firstname,
             lastName: this.state.lastname,
             otherName: this.state.othername,
@@ -79,8 +76,13 @@ class NewParturient extends Component {
             nok: this.state.nok
 
         }
-        Axios.put(baseUrl + "parturients" + "/" + this.props.location.state.id, parturientDetails)
-            .then(response => {
+
+        console.log("now what ========" + this.props.location.state.id)
+        Axios.put(baseUrl+`/parturients/${this.props.location.state.id}`, parturientDetails)
+            .then((response, err )=> {
+                if(err) {
+                    console.log(err)
+                }
                 if (response.status === 200) {
                     alert(this.state.firstname + " has been updated")
                     this.setState({redirectToReferrer: true})
@@ -105,7 +107,7 @@ class NewParturient extends Component {
                 </Row>
                 
                 <div id="accordion">
-                    <form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -162,7 +164,7 @@ class NewParturient extends Component {
                                             </div>
 
                                             <div className="form-group">
-                                            <Label className="control-label"></Label>
+                                            <Label className="control-label">Email</Label>
                                             <input 
                                                 type="email"
                                                 name="email"
@@ -213,6 +215,12 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                    
+                                <button type="submit" className="btn btn-primary btn-lg">
+                                    Submit
+                                </button>
+                            </div>
                                             
                                            
                                         </Card.Body>
@@ -221,6 +229,9 @@ class NewParturient extends Component {
                             </Card>
 
                         </Accordion>
+                        </Form>
+
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -246,12 +257,27 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
+
+                                         
+
+
+
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -277,12 +303,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -308,12 +342,21 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -339,12 +382,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -370,12 +421,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -401,12 +460,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -432,12 +499,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -463,12 +538,20 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
+                        <Form>
                         <Accordion>
                             <Card>
                                 <Card.Header>
@@ -494,24 +577,23 @@ class NewParturient extends Component {
                                                 className="form-control"
                                             />
                                             </div>
+                                            <div className="form-group">
+                                            <button className="btn btn-primary btn-lg">
+                                               Save
+                                            </button>
+
+                                            </div>
                                         </Card.Body>
                                 </Accordion.Collapse>
 
                             </Card>
 
                         </Accordion>
+                        </Form>
 
-                        <div className="form-group">
-                                <button className="btn btn-primary btn-lg">
-                                    Save
-                                </button>
-                                {" "}
-                                <button className="btn btn-primary btn-lg">
-                                    Submit
-                                </button>
-                            </div>
                         
-                    </form>
+                        
+                
                 </div>
                 
             </Container>

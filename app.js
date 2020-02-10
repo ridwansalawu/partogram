@@ -29,7 +29,7 @@ const Parturients = require("./models/parturients")
 
 // const url = mongodb://heroku_txkzlqcg:qi80oli0imv5ncm1bolj8dta9c@ds259596.mlab.com:59596/heroku_txkzlqcg
 const url = process.env.MONGODB_URI || 'mongodb.localhost.xxx';
-const connect = mongoose.connect(url, {useNewUrlParser: true})
+const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false } )
 
 connect.then((db) => {
     console.log("YaY🎃🤝... connected succesfully to the database");
@@ -178,3 +178,4 @@ app.use(function(req, res, next) {
 
 ioServer.listen(5000, () => console.log(` 👺🤡 the IOSOCKET Server has started.`));
 module.exports = app;
+// =========================================================

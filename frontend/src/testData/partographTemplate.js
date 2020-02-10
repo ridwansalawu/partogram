@@ -108,12 +108,6 @@ const actionDataSet = graphData.setActionLineData();
         .attr("d", drawCustomLine)
         .attr("stroke-linecap", "round")
 
-    console.log("000000" + JSON.stringify(alertDataSet))
-    console.log("000000" + JSON.stringify(actionDataSet))
-    console.log("000000" + JSON.stringify(customDataSet))
-
-
-
     function makeResponsive(drawingBoard) {
         const container = d3.select(drawingBoard.node().parentNode),
         width = parseInt(drawingBoard.style('width'), 10),
