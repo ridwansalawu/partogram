@@ -285,8 +285,8 @@ handleToParturient =() => {
             
           </Row>
 
-          {/* <Row>
-            {this.state.show ? (
+          <Row>
+           
               <Col>
                 <Visualize
                   parturient={this.props.parturient}
@@ -311,8 +311,8 @@ handleToParturient =() => {
                   </Col>
                 </Row>
               </Col>
-            ) : null}
-          </Row> */}
+          
+          </Row>
         </Container>
       );
     else return <div></div>;
