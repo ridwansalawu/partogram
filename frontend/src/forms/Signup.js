@@ -17,26 +17,36 @@ class Signup extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
     };
+
+
+
+    componentWillUnmount() {
+        
+    }
     
     handleChange (e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSubmit (e) {
+    handleSubmit =  (e) => {
+        
         const userDetails = {
             username: this.state.username,
             password: this.state.password
         }
-        e.preventDefault()
-        this.props.signupUser(userDetails)
-        this.setState({redirectToReferrer: true})
+       
+       this.props.signupUser(userDetails)
+       this.setState({redirectToReferrer: true})
         console.log(this.state.redirectToReferrer)
+        e.preventDefault()
+       
     }
 
     render() {
-        if (this.state.redirectToReferrer === true) {
-            return <Redirect to="/home" />
-        }
+        // if (this.state.redirectToReferrer === true) {
+        //     return <Redirect to="/login" />
+        // }
+
 
         return (
             <div className="container">
@@ -70,7 +80,14 @@ class Signup extends Component {
                             </div>
                         </form>
                     </div>
-                </div>      
+                </div> 
+
+                 <div>
+                    {this.state.redirectToReferrer === true ?
+                        <Redirect to= "/login" />:
+                        null
+                    }
+                </div>     
             </div>
         )
     }

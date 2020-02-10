@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Jumbotron, NavItem, Nav, Collapse, Form, NavbarToggler, Button, Modal, ModalHeader, ModalBody, FormGroup, Label, Input } from "reactstrap";
-import {NavLink, Link} from "react-router-dom"
+import {NavLink, Link, Redirect} from "react-router-dom"
 
 
 
@@ -9,6 +9,8 @@ export default class Header extends Component {
       super(props)
     
       this.state = {
+         redirectToReferrer: false,
+         redirectToReferrerSignup: false,
          isNavOpen:false,
          isModalOpen:false
       };
@@ -27,15 +29,18 @@ export default class Header extends Component {
     handleLogin =(event) => {
         this.toggleModal();
         this.props.loginUser({username: this.username.value, password: this.password.value});
-        event.preventDefault();
+        this.setState({redirectToReferrer: true})
 
     }
 
     handleLogout = () => {
         this.props.logoutUser();
+        this.setState({redirectToReferrer: true})
     }
     
     render() {
+
+       
         return (
             <div>
                 <React.Fragment>
@@ -146,10 +151,21 @@ export default class Header extends Component {
                         </Form>
                     </ModalBody>
                 </Modal>
-                
 
+                <div>
+                    {this.state.redirectToReferrer === true ?
+                        <Redirect to= "/home" />:
+                        null
+                    }
+                </div>
+
+
+
+                    
 
                 </React.Fragment>
+
+         
             </div>
         )
     }

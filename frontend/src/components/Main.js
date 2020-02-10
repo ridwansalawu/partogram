@@ -8,6 +8,9 @@ import Footer from "./Footer";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import LabourWard from "./LabourWard";
+import createHistory from 'history/createBrowserHistory';
+import{ ConnectedRouter }from "connected-react-router"
+
 import {
   calculateBishop,
   fetchParturients,
@@ -28,7 +31,7 @@ import NewParturient from "./NewParturient";
 import Join from "./Join";
 import Chat from "./Chat";
 
-
+const history = createHistory();
 const mapStateToProps = state => {
   return {
     parturients: state.parturients,
@@ -124,6 +127,7 @@ class Main extends Component {
             timeout={3000}
           >
             <Switch>
+             
               <Route path="/home" component={Home} />
               <Route
                 exact
@@ -136,6 +140,7 @@ class Main extends Component {
                 exact
                 path="/parturients/:parturientId"
                 component={ParturientWithHospId}
+                history={this.props.history}
               />
               <Route
                 exact
@@ -176,6 +181,7 @@ class Main extends Component {
               />
 
               <Redirect to="/home" />
+            
             </Switch>
           </CSSTransition>
         </TransitionGroup>

@@ -22,7 +22,11 @@ class Parturients extends Component {
        medId: ""
 
     };
+    
   };
+  componentDidMount() {
+
+  }
 
 
 

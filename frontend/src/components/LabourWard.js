@@ -22,7 +22,7 @@ class LabourWard extends Component {
      };
    };
 
-   handleClose = () => {
+handleClose = () => {
     this.setState({show: false})
 }
 handleShow = () => {

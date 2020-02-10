@@ -33,7 +33,7 @@ const url = process.env.MONGODB_URI || 'mongodb.localhost.xxx';
 const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false } )
 
 connect.then((db) => {
-    console.log("YaY🎃🤝... connected succesfully to the database");
+    console.log(`YaY🎃🤝... connected succesfully to the database at ${url}`);
 }, (err) => {
     console.log("***db Connection Error***" + err);
 })
