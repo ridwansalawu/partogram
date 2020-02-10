@@ -12,6 +12,7 @@ const authenticate = require('./authenticate');
 
 
 
+
 const socketio = require("socket.io");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./ioUsers");
 const chatRouter = require("./routes/chatRouter")
@@ -42,8 +43,8 @@ connect.then((db) => {
 
 const app = express();
 
-const ioServer = http.createServer(app);
-const io = socketio(ioServer);
+// const ioServer = http.createServer(app);
+// const io = socketio(ioServer);
 
 
 
@@ -134,48 +135,8 @@ app.use(function(req, res, next) {
 
 
 
-  io.on('connect', (socket) => {
-    console.log(" 👺there is a new socket connection");
+  
 
-
-    socket.on('join', ({ name, room }, callback) => {
-      
-      const { error, user } = addUser({ id: socket.id, name, room });
-      console.log(" ==== " + user)
-      if(error) return callback(error);
-  
-      socket.join(user.room);
-    
-  
-      socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-      socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
-  
-      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
-  
-      callback();
-    });
-  
-    socket.on('sendMessage', (message, callback) => {
-      const user = getUser(socket.id);
-      console.log(user)
-  
-      io.to(user.room).emit('message', { user: user.name, text: message });
-  
-      callback();
-    });
-  
-    socket.on('disconnect', () => {
-      const user = removeUser(socket.id);
-      console.log(" 👹the niggah just left!!!!!!!")
-  
-      if(user) {
-        io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
-        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
-      }
-    })
-  });
-
-
-ioServer.listen(5000, () => console.log(` 👺🤡 the IOSOCKET Server has started.`));
+// ioServer.listen(5000, () => console.log(` 👺🤡 the IOSOCKET Server has started.`));
 module.exports = app;
 // =========================================================

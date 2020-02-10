@@ -166,7 +166,7 @@ class Main extends Component {
               <Route path="/join" component={Join} />
               <Route
                 path="/chat"
-                component={() => <Chat user={this.props.auth.user.username} />}
+                component={Chat}
               />
               <Route exact path="/patient" component={Patient} />
 
