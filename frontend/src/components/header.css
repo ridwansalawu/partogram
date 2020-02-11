@@ -1,0 +1,32 @@
+/* .navigatio {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-top: 60px;
+    overflow: hidden;
+    background-color: #333;
+} */
+/* .navigation2 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-top: 60px;
+    overflow: hidden;
+    background-color: #333;
+} */
+
+.nav-title {
+    font-family: "Tangerine";
+    font-size: 48px;
+    text-shadow: 4px 4px 4px #aaa;
+}
+
+NavLink {
+    font-family: "Tangerine";
+    text-shadow: 4px 4px 4px #aaa;
+    text-decoration: none;
+    color: black;
+}
+.main-title {
+    font-family: "Monoton";
+}

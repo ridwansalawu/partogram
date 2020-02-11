@@ -9,16 +9,18 @@ import { Bishops } from "./bishops";
 
 
 export const ConfigStore = () => {
+   
     const store = createStore(
         combineReducers({
             signUp: {},
             drawTemplate: drawTemplate,
             parturients: Parturients,
             bishop_params: Bishops,
-            auth: Auth
+            auth: Auth,
+            // setRefer: {refer:false}
 
         }),
-        compose(applyMiddleware(thunk),
+        compose(applyMiddleware(thunk, logger),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         )
         

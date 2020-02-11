@@ -20,7 +20,8 @@ class Signup extends Component {
 
 
 
-    componentWillUnmount() {
+    componentDidMount() {
+    console.log(this.props)
         
     }
     
@@ -36,6 +37,7 @@ class Signup extends Component {
         }
        
        this.props.signupUser(userDetails)
+       this.props.setRefer(true)
        this.setState({redirectToReferrer: true})
         console.log(this.state.redirectToReferrer)
         e.preventDefault()
@@ -43,9 +45,9 @@ class Signup extends Component {
     }
 
     render() {
-        // if (this.state.redirectToReferrer === true) {
-        //     return <Redirect to="/login" />
-        // }
+        if (this.props.setRefer === true) {
+            return <Redirect to="/home" />
+        }
 
 
         return (
@@ -82,12 +84,7 @@ class Signup extends Component {
                     </div>
                 </div> 
 
-                 <div>
-                    {this.state.redirectToReferrer === true ?
-                        <Redirect to= "/login" />:
-                        null
-                    }
-                </div>     
+                   
             </div>
         )
     }

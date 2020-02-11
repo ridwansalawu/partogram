@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { drawTemplate } from "../testData/partographTemplate";
-import { Card, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 // import { Card, CardBody, CardHeader } from 'reactstrap';
-import Axios from "axios";
-import { baseUrl } from "../testData/baseUrl";
+// import Axios from "axios";
+// import { baseUrl } from "../testData/baseUrl";
 
 class Visualize extends Component {
   componentDidMount() {

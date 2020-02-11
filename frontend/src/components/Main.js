@@ -8,8 +8,8 @@ import Footer from "./Footer";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import LabourWard from "./LabourWard";
-import createHistory from 'history/createBrowserHistory';
-import{ ConnectedRouter }from "connected-react-router"
+
+// import{ ConnectedRouter }from "connected-react-router"
 
 import {
   calculateBishop,
@@ -20,7 +20,8 @@ import {
   logoutUser,
   signupUser,
   drawInitialPartograph,
-  addBishops
+  addBishops, 
+  setRefer
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -31,7 +32,10 @@ import NewParturient from "./NewParturient";
 import Join from "./Join";
 import Chat from "./Chat";
 
+export const createHistory = require("history").createBrowserHistory
+
 const history = createHistory();
+
 const mapStateToProps = state => {
   return {
     parturients: state.parturients,
@@ -81,6 +85,8 @@ const mapDispatchToProps = dispatch => ({
   signupUser: (username, password) => {
     dispatch(signupUser(username, password));
   },
+  setRefer: (refer) => dispatch(setRefer(refer)),
+
   drawInitialPartograph: () => {
     dispatch(drawInitialPartograph);
   },
@@ -92,8 +98,8 @@ const mapDispatchToProps = dispatch => ({
 class Main extends Component {
   componentDidMount = () => {
     this.props.fetchParturients();
-    this.props.fetchBishops();
-    console.log(this.props.auth.user);
+    
+    console.log(this.props.auth);
   };
 
   render() {
@@ -126,21 +132,25 @@ class Main extends Component {
             classNames="page"
             timeout={3000}
           >
-            <Switch>
+            <Switch history={history}>
              
-              <Route path="/home" component={Home} />
+              <Route path="/home" component={Home} history={history} />
               <Route
                 exact
                 path="/parturients"
                 component={() => (
-                  <Parturients parturients={this.props.parturients} />
+                  <Parturients parturients={this.props.parturients} 
+                  history={history}
+                  auth={this.props.auth}
+                  />
+                  
                 )}
               />
               <Route
                 exact
                 path="/parturients/:parturientId"
                 component={ParturientWithHospId}
-                history={this.props.history}
+                history={history}
               />
               <Route
                 exact
@@ -148,6 +158,7 @@ class Main extends Component {
                 component={NewParturient}
               />
               <Route
+              history={history}
                 exact
                 path="/labourward"
                 component={() => (
@@ -177,7 +188,9 @@ class Main extends Component {
 
               <Route
                 path="/signup"
-                component={() => <Signup signupUser={this.props.signupUser} />}
+                component={() => <Signup signupUser={this.props.signupUser} 
+                                          setRefer= {this.props.setRefer}
+                                          auth={this.props.auth}/>}
               />
 
               <Redirect to="/home" />

@@ -25,7 +25,7 @@ class Parturients extends Component {
     
   };
   componentDidMount() {
-
+  
   }
 
 
@@ -47,22 +47,20 @@ class Parturients extends Component {
        lastName: this.state.lastname,
        medId: this.state.medId
     }
-
-    Axios(baseUrl + `parturients/search/${searchParams.medId}`)
+      Axios(baseUrl + `parturients/search/${searchParams.medId}`)
       .then(response =>{
         if(response.data){
           this.setState({redirectToReferrer: true})
         }
       })
+
+    
+  
   }
 
-
-  // handleUpdate = () => {
-  //   Axios.put(baseUrl + `parturients/search/${this.props.parturient.medId}`)
-  // }
-
   render() {
-    if (this.state.redirectToReferrer === true) {
+   
+  if (this.state.redirectToReferrer === true) {
       return <Redirect to= {`/parturients/${this.state.medId}`}  />
   }
    

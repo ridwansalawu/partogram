@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+// import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 

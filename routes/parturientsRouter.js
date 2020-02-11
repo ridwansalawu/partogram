@@ -11,8 +11,8 @@ parturientsRouter.use(bodyParser.json());
 
 parturientsRouter.route("/")
   // .options((req, res) => { res.sendStatus(200)})
-  .get( async (req, res, next) => {
-    await Parturients.find(req.query)
+  .get( (req, res, next) => {
+     Parturients.find(req.query)
       .populate('comments.author')
       .then((parturients) => {
         res.statusCode = 200;
@@ -22,7 +22,7 @@ parturientsRouter.route("/")
       (err) => next(err))
       .catch((err) => next(err))
   })
-  .post(  (req, res, next) => {
+  .post( (req, res, next) => {
     Parturients.create(req.body)
       .then((parturient)=> {
         console.log("Another patient admitted into labour ward, ", parturient)

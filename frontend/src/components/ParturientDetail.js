@@ -10,7 +10,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert } from "react-bootstrap";
 import {Redirect } from "react-router-dom"
-import Join from "./Join"
+// import Join from "./Join"
 
 
 import { baseUrl } from "../testData/baseUrl";
@@ -23,7 +23,7 @@ import {
   Button
 } from "react-bootstrap";
 import Bishop from "../forms/Bishop";
-import Chat from "./Chat";
+// import Chat from "./Chat";
 
 class ParturientDetail extends Component {
   constructor(props) {

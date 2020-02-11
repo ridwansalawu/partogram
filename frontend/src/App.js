@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import './App.css';
 import Main from "./components/Main";
-import {Router} from "react-router";
+import {BrowserRouter} from "react-router-dom";
 import { Provider } from "react-redux";
 import { ConfigStore } from "./redux/configStore";
-import createHistory from 'history/createBrowserHistory';
+// import createHistory from 'history/createBrowserHistory';
+const createHistory = require("history").createBrowserHistory;
 
 
 const history = createHistory()
@@ -24,11 +25,11 @@ class App extends Component {
     return (
       <Provider store={store} >
       
-        <Router history={history} forceRefresh={true} >
+        <BrowserRouter >
           <div>
             <Main />
           </div>
-        </Router>
+        </BrowserRouter>
       </Provider>
     )
   }

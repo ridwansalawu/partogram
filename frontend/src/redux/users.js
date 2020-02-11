@@ -5,7 +5,7 @@ export const Users = (state = {
    
     errMsg: null,
     users: []
-
+    
 }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_USERS:
