@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Loading from "./Loading";
-import { Link } from "react-router-dom";
 import "../index.css";
 import LabourWard from "./LabourWard";
 import Visualize from "./Visualize";
@@ -9,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
-import {Redirect } from "react-router-dom"
+import {Redirect, Link } from "react-router-dom"
 // import Join from "./Join"
 
 
@@ -23,7 +22,8 @@ import {
   Button
 } from "react-bootstrap";
 import Bishop from "../forms/Bishop";
-// import Chat from "./Chat";
+import Chat from "./Chat";
+
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class ParturientDetail extends Component {
       customDataSet: [],
       showDelete:false,
       room: "",
-      user: ""
+      name: ""
      
     }; 
   }
@@ -49,9 +49,11 @@ class ParturientDetail extends Component {
             
         })
     }
-    if(this.state.room) {
-      console.log(this.state.room)
-    }else console.log("yet to arrive")
+    // if(this.state.room) {
+    //   console.log(this.state.room)
+    // }else console.log("yet to arrive")
+
+    console.log(this.props)
 
     
   }
@@ -63,9 +65,10 @@ class ParturientDetail extends Component {
     };
 
 handleAssign =()=> {
-  this.setState({room: `${this.props.parturient.firstName.toUpperCase()}, ${this.props.parturient.lastName}/${this.props.parturient.medId}`
+  this.setState({room: `${this.props.parturient.firstName}`,
+                             user: this.props.auth.user.username  
                         })
-  console.log(this.state.room)
+  console.log(this.state)
 
 }
   handleShow = () => {
@@ -94,7 +97,7 @@ handleAssign =()=> {
 handleToParturient =() => {
   this.setState({show:false})
 }
-handleClearPartograph =(e)=> {
+handleClearPartograph =()=> {
   
   Axios.put(baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`)
   .then(response => {
@@ -266,13 +269,16 @@ handleClearPartograph =(e)=> {
             <Col>
               <Card>
                 <Card.Header className="text-danger font-weight-bolder font-italic ">
+                <Link onClick={e => (!this.state.name || !this.state.room) ? e.preventDefault() : null} to={`/chat?name=${this.state.name}&room=${this.state.room}`}>
                 Management discussion: {this.state.room} 
+                </Link>
                 </Card.Header>
                 <Card.Body>
                   <Card.Text>
                     please offer some suggestion with regards to this patient's
                     management
                   </Card.Text>
+                  
                   
 
                  
@@ -291,6 +297,13 @@ handleClearPartograph =(e)=> {
             </Col>
             
           </Row>
+
+          <Row>
+            <Chat name={this.state.user}
+                  room={this.state.room}
+                  />
+              
+           </Row>
 
           <Row>
             <Col>

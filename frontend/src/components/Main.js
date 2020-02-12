@@ -114,6 +114,7 @@ class Main extends Component {
             }
             isLoading={this.props.parturients.isLoading}
             errMsg={this.props.parturients.errMsg}
+            auth={this.props.auth}
           />
         </div>
       );
@@ -182,7 +183,7 @@ class Main extends Component {
               <Route path="/join" component={Join} />
               <Route
                 path="/chat"
-                component={Chat}
+                component={() => <Chat auth={this.props.auth}/>}
               />
               <Route exact path="/patient" component={Patient} />
 
@@ -199,7 +200,7 @@ class Main extends Component {
           </CSSTransition>
         </TransitionGroup>
 
-        <Footer />
+       
       </div>
     );
   }

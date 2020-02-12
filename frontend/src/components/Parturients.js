@@ -27,9 +27,6 @@ class Parturients extends Component {
   componentDidMount() {
   
   }
-
-
-
   handleChange = (e) => {
     this.setState({ [e.target.name] : e.target.value })
   };
@@ -53,9 +50,6 @@ class Parturients extends Component {
           this.setState({redirectToReferrer: true})
         }
       })
-
-    
-  
   }
 
   render() {

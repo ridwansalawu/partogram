@@ -145,9 +145,9 @@ parturientsRouter.route("/search/:searchParams")
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route('/clearcervicogram/:parturientId')
-.put((req, res, next) => {
-  Parturients.findByIdAndUpdate(req.param.parturientId, {
-    $set: {'partographDataset.vagEx':[],
+.put(async (req, res) => {
+  await Parturients.findByIdAndUpdate(req.param.parturientId, {
+    $set: {"partographDataset.vagEx":[],
   }, 
   }, {new: true}, (err, res)=> {
     if(err) {

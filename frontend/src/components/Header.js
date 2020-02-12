@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
-  Navbar,
-  NavbarBrand,
-  Jumbotron,
+
   NavItem,
   Nav,
   Collapse,
@@ -19,6 +17,10 @@ import {
   Container,
   Col
 } from "reactstrap";
+
+import Navbar from 'react-bootstrap/Navbar'
+
+
 import { NavLink, Link, Redirect } from "react-router-dom";
 import "./header.css";
 
@@ -76,11 +78,19 @@ export default class Header extends Component {
     }
 
     return (
-      <div>
-        <React.Fragment>
           <Container>
-          <Navbar expand="md">
-            <Row>
+            <Row className="main-row">
+           
+              
+          <Navbar className="navigatio" bg="light" expand="lg" fixed="top">
+          <Col md={6}>
+          <Navbar.Brand>
+              <h1 className="main-title">The Digital Partogram</h1>
+                  <p className=" nav-title">Re-inventing the wheel!</p>
+          </Navbar.Brand>
+              </Col>
+          
+     
            
               <NavbarToggler onClick={this.toggleNav} />
               {/* <Col>
@@ -122,13 +132,6 @@ export default class Header extends Component {
                   </NavItem>
                   </Col>
 
-                  <Col>
-                  <NavItem>
-                    <NavLink  to="/labourward">
-                      <span className="nav-item" style={{color: 'black'}}>Labour Ward</span>
-                    </NavLink>
-                  </NavItem>
-                  </Col>
 
                   <Col>
                   <NavItem>
@@ -172,20 +175,11 @@ export default class Header extends Component {
                 </Nav>
               </Collapse>
           
-            </Row>
+         
           </Navbar>
 
-          </Container>
-          <Jumbotron>
-            <div className="container">
-              <div className="row row-header">
-                <div className="col-12 col-sm-6">
-                  <h1 className="main-title">The Digital Partogram</h1>
-                  <p className=" nav-title">Re-inventing the wheel!</p>
-                </div>
-              </div>
-            </div>
-          </Jumbotron>
+          
+
 
           <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
             <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
@@ -225,12 +219,8 @@ export default class Header extends Component {
               </Form>
             </ModalBody>
           </Modal>
-
-
-
-         
-        </React.Fragment>
-      </div>
+          </Row>
+          </Container>
     );
   }
 }
