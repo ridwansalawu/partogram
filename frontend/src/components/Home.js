@@ -1,5 +1,6 @@
 import React from 'react';
 import {Redirect} from "react-router-dom"
+import {Container, Row, Carousel} from "react-bootstrap"
 // import Parturient from '../forms/SignupNewParturient';
 
 
@@ -11,12 +12,42 @@ export default function Home(props) {
     
     return (
         
-        <div className="container">
-            Welcome to the labour ward 
-            <div className="row row-content">
-                <img src="assets/images/cx_3d_delivery.jpg" width="100%" height="100%" alt=""/>
-            </div>
+        
+        <Container>
+            <Row>
+                <Carousel>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_3d_delivery.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_2cm.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_2ndStage.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_4cm.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_closed.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/black_preg.jpg" width="75%" height="75%" alt=""/>
+                    </Carousel.Item>
+                </Carousel>
 
-        </div>
+            </Row>
+
+
+        </Container>
+
+
+
+
+
+
+
+
+
     )
 }

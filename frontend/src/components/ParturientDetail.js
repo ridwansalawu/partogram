@@ -143,10 +143,6 @@ handleClearPartograph =(e)=> {
         </Carousel.Item>
 
       </Carousel>
-
-
-                
-
                 <Row>
                   <Col>
                     {" "}
@@ -157,22 +153,22 @@ handleClearPartograph =(e)=> {
                     {" "}
                     <Bishop />
                   </Col>
+
+
                   <Col>
-                    <Button>Refer</Button>
+                    <Button variant="dark" size="sm" >Refer</Button>
                   </Col>
                   <Col>
-                    <Button onClick={this.handleClearPartograph}>Clear</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleClearPartograph}>Clear</Button>
                   </Col>
                   <Col>
-                    <Button onClick={this.refresh}>Refresh</Button>
+                    <Button variant="dark" size="sm" onClick={this.refresh}>Refresh</Button>
                   </Col>
                   <Col>
-                    <Button onClick={this.handleToParturient}>back</Button>
+                    <Button variant="dark" size="sm" onClick={this.handleToParturient}>back</Button>
                   </Col>
                 </Row>
               </Col>
-
-
     }
     
 //  ========================================================================================================================   

@@ -47,18 +47,8 @@ handleSubmit = (e) => {
 render() {
     return (
         <Container>
-
-            {/* <Row>
-            <Visualize
-                  parturient={this.props.parturient}
-                  customDataSet={this.state.customDataSet}
-                  refresh={this.refresh}
-                />
-
-
-            </Row> */}
             <div>
-                <Button variant="primary" onClick={this.handleShow}>
+                <Button variant="dark" size="sm" onClick={this.handleShow}>
                    VE finding
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>

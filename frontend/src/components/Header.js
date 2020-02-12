@@ -14,7 +14,10 @@ import {
   ModalBody,
   FormGroup,
   Label,
-  Input
+  Input,
+  Row,
+  Container,
+  Col
 } from "reactstrap";
 import { NavLink, Link, Redirect } from "react-router-dom";
 import "./header.css";
@@ -75,9 +78,12 @@ export default class Header extends Component {
     return (
       <div>
         <React.Fragment>
+          <Container>
           <Navbar expand="md">
-            <div className="container">
+            <Row>
+           
               <NavbarToggler onClick={this.toggleNav} />
+              {/* <Col>
               <NavbarBrand className="mr-auto" href="/">
                 <img
                   src="assets/images/cx_2cm.jpg"
@@ -86,41 +92,57 @@ export default class Header extends Component {
                   alt=""
                 />
               </NavbarBrand>
+              </Col> */}
+
               <Collapse isOpen={this.state.isNavOpen} navbar>
                 <Nav navbar>
+                  <Col>
                   <NavItem>
-                    <NavLink className="nav-link" to="/home">
-                      <span className="fa fa-home fa-lg" style={{color: 'black'}}>Home</span>
+                    <NavLink  to="/home">
+                      <span className="nav-item" style={{color: 'black'}}>Home</span>
                     </NavLink>
                   </NavItem>
+                  </Col>
+
+                  <Col>
                   <NavItem>
-                    <NavLink className="nav-link" to="/parturients">
-                      <span className="fa fa-list fa-lg" style={{color: 'black'}}>Parturients</span>
+                    <NavLink  to="/parturients">
+                      <span className="nav-item" style={{color: 'black'}}>Parturients</span>
                     </NavLink>
                   </NavItem>
+                  </Col>
+
+                  <Col>
                   <NavItem>
-                    <NavLink className="nav-link" to="/home">
-                      <span className="fa fa-question fa-lg" style={{color: 'black'}}>
+                    <NavLink  to="/home">
+                      <span className="nav-item" style={{color: 'black'}}>
                         About Partograph
                       </span>
                     </NavLink>
                   </NavItem>
+                  </Col>
+
+                  <Col>
                   <NavItem>
-                    <NavLink className="nav-link" to="/labourward">
-                      <span className="fa fa-bed fa-lg" style={{color: 'black'}}>Labour Ward</span>
+                    <NavLink  to="/labourward">
+                      <span className="nav-item" style={{color: 'black'}}>Labour Ward</span>
                     </NavLink>
                   </NavItem>
+                  </Col>
 
+                  <Col>
                   <NavItem>
-                    <NavLink className="nav-link" to="/signupnewparturient">
-                      <span className="fa fa-table fa-lg" style={{color: 'black'}}>
+                    <NavLink to="/signupnewparturient">
+                      <span className="nav-item" style={{color: 'black'}}>
                         Admit Parturient
                       </span>
                     </NavLink>
                   </NavItem>
+                  </Col>
+
                 </Nav>
                 <Nav className="ml-auto" navbar>
-                  <NavItem>
+                  <NavItem  className="col">
                     {!this.props.auth.isAuthenticated ? 
                       <div>
                         <Button outline onClick={this.toggleModal}>
@@ -130,7 +152,7 @@ export default class Header extends Component {
                           ) : null}
                         </Button>
                         <div>
-                          Not registered? <Link to="/signup" style={{color: 'black'}}>Sign Up</Link>
+                          <span className="nav-item">Not registered?</span>  <Link to="/signup" style={{color: 'black'}}>Sign Up</Link>
                         </div>
                       </div>
                      : 
@@ -149,8 +171,11 @@ export default class Header extends Component {
                   </NavItem>
                 </Nav>
               </Collapse>
-            </div>
+          
+            </Row>
           </Navbar>
+
+          </Container>
           <Jumbotron>
             <div className="container">
               <div className="row row-header">
@@ -200,6 +225,8 @@ export default class Header extends Component {
               </Form>
             </ModalBody>
           </Modal>
+
+
 
          
         </React.Fragment>

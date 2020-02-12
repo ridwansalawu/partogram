@@ -21,12 +21,20 @@
     text-shadow: 4px 4px 4px #aaa;
 }
 
-NavLink {
+/* NavLink {
     font-family: "Tangerine";
     text-shadow: 4px 4px 4px #aaa;
     text-decoration: none;
     color: black;
-}
+} */
 .main-title {
-    font-family: "Monoton";
+    font-family: "Concert One";
 }
+
+.nav-item {
+    font-family: "Montserrat";
+    color: black;
+
+}
+
+

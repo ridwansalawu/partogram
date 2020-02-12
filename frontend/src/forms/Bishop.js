@@ -50,8 +50,8 @@ render() {
         <div className="container">
           
            
-                <Button variant="primary" onClick={this.handleShow}>
-                    Calculate Bishop's Score
+                <Button variant="dark" size="sm" onClick={this.handleShow}>
+                    Bishop's
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

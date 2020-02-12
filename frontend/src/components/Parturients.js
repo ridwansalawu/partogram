@@ -175,7 +175,7 @@ class Parturients extends Component {
           </Row>
 
           <Row>
-            <h3>Parturients</h3>
+            <h3 style={{"fontFamily": "Montserrat"}}>Parturients</h3>
           </Row>
 
           <Row>

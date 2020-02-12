@@ -14,7 +14,7 @@ class Visualize extends Component {
   render() {
     return (
       <React.Fragment>
-        <Card bg="light" style={{}}>
+        <Card bg="light">
           <Card.Header>
             Name:{this.props.parturient.firstName.toUpperCase()},{" "}
             {this.props.parturient.lastName} {""} {""} Medical ID:
