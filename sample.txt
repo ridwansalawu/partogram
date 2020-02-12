@@ -3,6 +3,207 @@ mongoimport -h ds259596.mlab.com:59596 -d heroku_txkzlqcg -c parturients -u <use
 
 
 
+
+
+parRouter.route('/cleargraph/:parId')
+.put((req, res, next) => {
+  Par.findByIdAndUpdate(req.param.parId, {
+    $pull: {"vigDataset.vigMovt"}
+  })
+  .then((par) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(par);
+}, (err) => next(err))
+.catch((err) => next(err));
+})
+
+
+
+
+
+handleClearGraph =(e)=> {
+  Axios.put(baseUrl + `par/cleargraph/${this.props.par._id}`)
+  .then(response => {
+    console.log( response)
+})
+
+
+
+
+
+
+
+
+
+{
+    "_id": {
+        "$oid": "5e3ff34551c1a940d23251d1"
+    },
+    "inter": {
+        "significantEvents": []
+    },
+    "VigDataset": {
+        "vigMovt": [
+            {
+                "Time": 2,
+                "movt": 3
+            },
+            {
+                "Time": 4,
+                "movt": 5
+            },
+            {
+                "Time": 6,
+                "movt": 8
+            },
+            {
+                "Time": 8,
+                "movt": 8
+            },
+            {
+                "Time": 9,
+                "movt": 9
+            },
+            {
+                "Time": 5,
+                "movt": 5
+            },
+            {
+                "Time": 10,
+                "movt": 4
+            },
+            {
+                "Time": 5,
+                "movt": 6
+            },
+            {
+                "Time": 9,
+                "movt": 6
+            },
+            {
+                "Time": 12,
+                "movt": 3
+            }
+        ]
+        "rad": [],
+        "diam": [],
+        "circ": []
+    },
+    "comment": "",
+    "medId": "1W8E9",
+    "firstName": "Meryl b",
+    "lastName": "Streep",
+    "otherName": "charles",
+    "email": "",
+    "telnum": "098473663",
+    "dob": "2020-02-17",
+    "address": "",
+    "nok": "kkkk",
+    "Score": [],
+    "__v": 0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Col>
+                <Visualize
+                  parturient={this.props.parturient}
+                  customDataSet={this.state.customDataSet}
+                  refresh={this.refresh}
+                />
+
+                <Row>
+                  <Col>
+                    {" "}
+                    <LabourWard parturient={this.props.parturient} 
+                                refresh={this.refresh}/>
+                  </Col>
+                  <Col>
+                    {" "}
+                    <Bishop />
+                  </Col>
+                  <Col>
+                    <Button>Refer</Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={this.refresh}>Refresh</Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={this.handleToParturient}>back</Button>
+                  </Col>
+                </Row>
+              </Col>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <Card>
                             <CardHeader role="tab" id="biodata-head">
                                 <h3 className="mb-0">
@@ -424,10 +625,10 @@ export default Patient;
                                 </Col>
                             </Row>
                             {/* <Row className="form-group">
-                                <Label htmlFor="dilatation" md={2}>Dilatation</Label>
+                                <Label htmlFor="movt" md={2}>movt</Label>
                                 <Col md={10}>
-                                    <Control.text model=".dilatation" id="dilatation" name="dilatation"
-                                        placeholder="Dilatation"
+                                    <Control.text model=".movt" id="movt" name="movt"
+                                        placeholder="movt"
                                         className="form-control"
                                          />
                                 </Col>
@@ -513,11 +714,11 @@ export const Reducer = (state=initialState, action) => {
 
                                             validate = { values => {
                 let errors = {};
-                if (!values.dilatation) {
-                    errors.dilatation = "This is an important entry please👺";
+                if (!values.movt) {
+                    errors.movt = "This is an important entry please👺";
                 }
                 if (!values.effacement) {
-                    errors.dilatation = "This is an required entry please👹";
+                    errors.movt = "This is an required entry please👹";
                 }
                 return errors;
 
@@ -530,10 +731,10 @@ export const Reducer = (state=initialState, action) => {
                                     <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
 
                                         <Row className="form-group">
-                                            <Label htmlFor="dilatation" md={2}>Dilatation</Label>
+                                            <Label htmlFor="movt" md={2}>movt</Label>
                                             <Col md={10}>
-                                            <Control.text model=".dilatation" id="dilatation" name="dilatation"
-                                                placeholder="Dilatation"
+                                            <Control.text model=".movt" id="movt" name="movt"
+                                                placeholder="movt"
                                                 className="form-control"
                                                     />
                                             </Col>
@@ -652,7 +853,7 @@ export const Reducer = (state=initialState, action) => {
 
                                     <form onSubmit={this.handleSubmit3}>
                                         <input type="text"
-                                        name="dilatation"
+                                        name="movt"
                                         value=""
                                         onChange={this.handleChange3}
                                         
@@ -667,14 +868,14 @@ export const Reducer = (state=initialState, action) => {
                                     </form>
 
                                     <Formik 
-                                        initialValues = {{ dilatation: "", effacement: "", station: "", descent: "", position: "" }}
+                                        initialValues = {{ movt: "", effacement: "", station: "", descent: "", position: "" }}
                                         validate = { values => {
                                             let errors = {};
-                                            if (!values.dilatation) {
-                                                errors.dilatation = "This is an important entry please👺";
+                                            if (!values.movt) {
+                                                errors.movt = "This is an important entry please👺";
                                             }
                                             if (!values.effacement) {
-                                                errors.dilatation = "This is an required entry please👹";
+                                                errors.movt = "This is an required entry please👹";
                                             }
                                             return errors;
 
@@ -697,15 +898,15 @@ export const Reducer = (state=initialState, action) => {
                                     })=>(
                                         <form onSubmit={handleSubmit}>
                                             <div className="form-group">
-                                                <label htmlFor="dilatation">Dilatation</label>
+                                                <label htmlFor="movt">movt</label>
                                                 <input
-                                                 type="dilatation"
-                                                 name="dilatation"
+                                                 type="movt"
+                                                 name="movt"
                                                  onChange={handleChange}
                                                  onBlur={handleBlur}
-                                                 value={values.dilatation}
+                                                 value={values.movt}
                                                  />
-                                                 {errors.dilatation && touched.dilatation && errors.dilatation}
+                                                 {errors.movt && touched.movt && errors.movt}
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="effacement">Effacement</label>
@@ -775,10 +976,10 @@ export const Reducer = (state=initialState, action) => {
                                     <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
 
                                         <Row className="form-group">
-                                            <Label htmlFor="dilatation" md={2}>Dilatation</Label>
+                                            <Label htmlFor="movt" md={2}>movt</Label>
                                             <Col md={10}>
-                                            <Control.text model=".dilatation" id="dilatation" name="dilatation"
-                                                placeholder="Dilatation"
+                                            <Control.text model=".movt" id="movt" name="movt"
+                                                placeholder="movt"
                                                 className="form-control"
                                                     />
                                             </Col>
@@ -924,9 +1125,9 @@ export default function Cervicogram() {
                     </Modal.Header>
                     <Modal.Body>
                        <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="dilatation"
+                        <Form.Group controlId="movt"
                                     onChange={this.handleChange}>
-                            <Form.Label>Dilatation</Form.Label>
+                            <Form.Label>movt</Form.Label>
                             <Form.Control as="select" required>
                                 <option></option>
                                 <option>1</option>

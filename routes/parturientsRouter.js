@@ -122,6 +122,7 @@ parturientsRouter.route('/cervicogram/:parturientId')
   
 })
 
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route("/search/:searchParams")
@@ -137,6 +138,36 @@ parturientsRouter.route("/search/:searchParams")
   }, (err) => next(err))
   .catch((err) => next(err))
 })
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+parturientsRouter.route('/clearcervicogram/:parturientId')
+.put((req, res, next) => {
+  Parturients.findByIdAndUpdate(req.param.parturientId, {
+    $set: {'partographDataset.vagEx':[],
+  }, 
+  }, {new: true}, (err, res)=> {
+    if(err) {
+      console.log(err.errMsg)
+      console.log(res)
+    }
+  })
+  .then((parturient) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(parturient);
+}, (err) => next(err))
+.catch((err) => next(err));
+})
+
+
+
+
+
+
 
 
 module.exports = parturientsRouter;

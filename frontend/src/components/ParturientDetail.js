@@ -8,7 +8,7 @@ import Visualize from "./Visualize";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
-import { Alert } from "react-bootstrap";
+import { Alert, Carousel } from "react-bootstrap";
 import {Redirect } from "react-router-dom"
 // import Join from "./Join"
 
@@ -46,11 +46,14 @@ class ParturientDetail extends Component {
         .then( response => {
             this.setState({ customDataSet: response.data})
             this.setState({show:true})
+            
         })
     }
     if(this.state.room) {
       console.log(this.state.room)
     }else console.log("yet to arrive")
+
+    
   }
   refresh = (e) => {
    
@@ -91,6 +94,14 @@ handleAssign =()=> {
 handleToParturient =() => {
   this.setState({show:false})
 }
+handleClearPartograph =(e)=> {
+  
+  Axios.put(baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`)
+  .then(response => {
+    console.log( response)
+})
+
+}
 
 
   render() {
@@ -117,12 +128,24 @@ handleToParturient =() => {
       );
     } 
     else if(this.state.show) {
+
+
       return <Col>
-                <Visualize
+
+      <Carousel indicators={false} controls={false}>
+        <Carousel.Item>
+        <Visualize
                   parturient={this.props.parturient}
                   customDataSet={this.state.customDataSet}
                   refresh={this.refresh}
                 />
+
+        </Carousel.Item>
+
+      </Carousel>
+
+
+                
 
                 <Row>
                   <Col>
@@ -136,6 +159,9 @@ handleToParturient =() => {
                   </Col>
                   <Col>
                     <Button>Refer</Button>
+                  </Col>
+                  <Col>
+                    <Button onClick={this.handleClearPartograph}>Clear</Button>
                   </Col>
                   <Col>
                     <Button onClick={this.refresh}>Refresh</Button>
@@ -287,30 +313,7 @@ handleToParturient =() => {
 
           <Row>
            
-              <Col>
-                <Visualize
-                  parturient={this.props.parturient}
-                  customDataSet={this.state.customDataSet}
-                  refresh={this.refresh}
-                />
-
-                <Row>
-                  <Col>
-                    {" "}
-                    <LabourWard parturient={this.props.parturient} />
-                  </Col>
-                  <Col>
-                    {" "}
-                    <Bishop />
-                  </Col>
-                  <Col>
-                    <Button>Refer</Button>
-                  </Col>
-                  <Col>
-                    <Button onClick={this.refresh}>Refresh</Button>
-                  </Col>
-                </Row>
-              </Col>
+             
           
           </Row>
         </Container>
