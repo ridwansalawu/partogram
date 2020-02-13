@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const authenticate = require("../authenticate");
@@ -9,166 +9,199 @@ const parturientsRouter = express.Router();
 
 parturientsRouter.use(bodyParser.json());
 
-parturientsRouter.route("/")
+parturientsRouter
+  .route("/")
   // .options((req, res) => { res.sendStatus(200)})
-  .get( (req, res, next) => {
-     Parturients.find(req.query)
-      .populate('comments.author')
-      .then((parturients) => {
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json(parturients)
-      },
-      (err) => next(err))
-      .catch((err) => next(err))
+  .get((req, res, next) => {
+    Parturients.find(req.query)
+      .populate("comments.author")
+      .then(
+        parturients => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturients);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
   })
-  .post( (req, res, next) => {
+  .post((req, res, next) => {
     Parturients.create(req.body)
-      .then((parturient)=> {
-        console.log("Another patient admitted into labour ward, ", parturient)
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json(parturient)
-
-      }, (err) => next(err) )
-      .catch((err) => next(err))
+      .then(
+        parturient => {
+          console.log(
+            "Another patient admitted into labour ward, ",
+            parturient
+          );
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
   })
-//   .put((req,res,next) => {
-//     res.statusCode = 403;
-//     res.end("PUT operation not supported!")
-// })
-.delete(authenticate.verifyUser,(req,res,next) => {
-   
-  Parturients.remove({})
-  .then((parturient) => {
-   res.statusCode = 200;
-   res.setHeader("Content-Type", "application/json");
-   res.json(resp)
-  }, (err) => next(err))
-  .catch((err) => next(err));
-});
+  //   .put((req,res,next) => {
+  //     res.statusCode = 403;
+  //     res.end("PUT operation not supported!")
+  // })
+  .delete(authenticate.verifyUser, (req, res, next) => {
+    Parturients.remove({})
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(resp);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-parturientsRouter.route('/:parturientId')
-// .options((req, res) => { res.sendStatus(200)})
-.get((req,res,next) => {
-  Parturients.findById(req.params.parturientId)
-    .populate("comments.author")
-    .then((parturient) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(parturient);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-})
-.post(authenticate.verifyUser,(req, res, next) => {
+parturientsRouter
+  .route("/:parturientId")
+  // .options((req, res) => { res.sendStatus(200)})
+  .get((req, res, next) => {
+    Parturients.findById(req.params.parturientId)
+      .populate("comments.author")
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  })
+  .post(authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
-    res.end('POST operation not supported on /parturients/'+ req.params.parturientId);
-})
-.put((req, res, next) => {
-  Parturients.findOneAndUpdate(req.params.parturientId, {
-    $set:req.body 
-    }, {useFindAndModify:false}, (error, result) => {
-      if (error) {
-        console.log(error)
+    res.end(
+      "POST operation not supported on /parturients/" + req.params.parturientId
+    );
+  })
+  .put((req, res, next) => {
+    Parturients.findOneAndUpdate(
+      req.params.parturientId,
+      {
+        $set: req.body
+      },
+      { useFindAndModify: false },
+      (error, result) => {
+        if (error) {
+          console.log(error);
+        }
       }
-    })
-    .then((parturient) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(parturient);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-   
-})
-.delete((req, res, next) => {
-  Parturients.findByIdAndRemove(req.params.parturientId)
-    .then((parturient) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(parturient);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-});
+    )
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  })
+  .delete((req, res, next) => {
+    Parturients.findByIdAndRemove(req.params.parturientId)
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
 
 // ====================================================================================================
-parturientsRouter.route('/cervicogram/:parturientId')
-.get((req,res,next) => {
-  Parturients.findById(req.params.parturientId)
-    .populate("comments.author")
-    .then((parturient) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(parturient.partographDataset.vagEx);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-})
+parturientsRouter
+  .route("/cervicogram/:parturientId")
+  .get((req, res, next) => {
+    Parturients.findById(req.params.parturientId)
+      .populate("comments.author")
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient.partographDataset.vagEx);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  })
 
-.put((req,res,next) => {
-  Parturients.findByIdAndUpdate(req.params.parturientId, {
-    
-    $push: {
-      "partographDataset.vagEx" : req.body
-    },   // $set: req.body
-    }, { new: true})
-    .then((parturient) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(parturient.partographDataset.vagEx);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-    
-  
-})
-
+  .put((req, res, next) => {
+    Parturients.findByIdAndUpdate(
+      req.params.parturientId,
+      {
+        $push: {
+          "partographDataset.vagEx": req.body
+        } // $set: req.body
+      },
+      { new: true }
+    )
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient.partographDataset.vagEx);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route("/search/:searchParams")
-.get((req, res, next) => {
+.get(authenticate.verifyUser,(req, res, next) => {
   Parturients.findOne({
     medId: req.params.searchParams
-    
   })
-  .then(parturient => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "application/json");
-    res.json(parturient)
-  }, (err) => next(err))
-  .catch((err) => next(err))
-})
-
-
-
+    .then(
+      parturient => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(parturient);
+      },
+      err => next(err)
+    )
+    .catch(err => next(err));
+});
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-parturientsRouter.route('/clearcervicogram/:parturientId')
-.put(async (req, res, next) => {
-  await Parturients.findByIdAndUpdate(req.param.parturientId, {
-    $set: {"partographDataset.vagEx":[],
-  }, 
-  }, {new: true}, (err, res)=> {
-    if(err) {
-      console.log(err.errMsg)
-      console.log(res)
-    }
-  })
-  .then((parturient) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(response);
-}, (err) => next(err))
-.catch((err) => next(err));
-})
-
-
-
-
-
-
-
+parturientsRouter
+  .route("/clearcervicogram/:parturientId")
+  .put(async (req, res, next) => {
+    console.log("parturient id", req.params.parturientId);
+    await Parturients.findByIdAndUpdate(
+      req.params.parturientId,
+      {
+        $set: { "partographDataset.vagEx": [] }
+      },
+      { new: true },
+      (err, res) => {
+        if (err) {
+          console.log("is this error?", err.errMsg);
+          console.log("show me res:", res);
+        }
+      }
+    )
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
 
 module.exports = parturientsRouter;
-

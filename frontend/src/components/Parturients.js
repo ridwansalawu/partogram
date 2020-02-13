@@ -7,29 +7,31 @@ import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import { baseUrl } from "../testData/baseUrl";
-import {Redirect} from "react-router-dom";
-import "./parturients.css"
+import { withRouter } from "react-router-dom";
+import "./parturients.css";
 
 class Parturients extends Component {
   constructor(props) {
-    super(props)
-  
-    this.state = {
-       reload: true,
-       redirectToReferrer: false,
-       showDelete: false,
-       firstname: "",
-       lastname: "",
-       medId: ""
+    super(props);
 
+    this.state = {
+      reload: true,
+      redirectToReferrer: false,
+      showDelete: false,
+      firstname: "",
+      lastname: "",
+      medId: ""
     };
-    
-  };
-  componentDidMount() {
-  
   }
-  handleChange = (e) => {
-    this.setState({ [e.target.name] : e.target.value })
+  componentDidMount() {
+    
+    if (!this.props.auth.isAuthenticated) {
+      console.log(this.props.history.push("/home"));
+    }
+    console.log(this.props.auth.token)
+  }
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleDelete = parturient => {
@@ -38,41 +40,44 @@ class Parturients extends Component {
     });
   };
 
-  handleSearch = (e) => {
-    e.preventDefault()
+  handleSearch = e => {
+    e.preventDefault();
     const searchParams = {
-       firstName: this.state.firstname,
-       lastName: this.state.lastname,
-       medId: this.state.medId
-    }
-      Axios(baseUrl + `parturients/search/${searchParams.medId}`)
-      .then(response =>{
-        if(response.data){
-          this.setState({redirectToReferrer: true})
-        }
-      })
-  }
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      medId: this.state.medId
+    };
+
+    const token = `Bearer ${this.props.auth.token}`;
+    Axios(baseUrl + `parturients/search/${searchParams.medId}`, 
+    {}, 
+    {
+      headers: {'Authorization': token }
+    })
+    .then(
+      response => {
+       console.log(response)
+      }
+    );
+  };
 
   render() {
-   
-  if (this.state.redirectToReferrer === true) {
-      return <Redirect to= {`/parturients/${this.state.medId}`}  />
-  }
-   
-
-
     const parturients = this.props.parturients.parturients.map(parturient => {
       return (
         <div key={parturient._id} className="col-12 col-md-12">
           <Card bg="light">
             <Card.Body className="card-body">
               <Card.Header>
-              <Link to={`/parturients/${parturient.medId}`}>
-                <Card.Title>
-                  <span className="title-text">{parturient.firstName + " " + parturient.lastName}</span>
-                </Card.Title>
-                <Card.Subtitle className="subtitle-text">Medical Id:{parturient.medId} </Card.Subtitle>
-              </Link>
+                <Link to={`/parturients/${parturient.medId}`}>
+                  <Card.Title>
+                    <span className="title-text">
+                      {parturient.firstName + " " + parturient.lastName}
+                    </span>
+                  </Card.Title>
+                  <Card.Subtitle className="subtitle-text">
+                    Medical Id:{parturient.medId}{" "}
+                  </Card.Subtitle>
+                </Link>
               </Card.Header>
               <br />
               <Row>
@@ -85,15 +90,9 @@ class Parturients extends Component {
                       }
                     }}
                   >
-                    <Button
-                    className="button-update"
-                      
-                    >
-                      Update
-                    </Button>
+                    <Button className="button-update">Update</Button>
                   </Link>
                 </Col>
-                
               </Row>
             </Card.Body>
           </Card>
@@ -122,61 +121,56 @@ class Parturients extends Component {
         <Container className="main-content">
           <Row>
             <Col>
-            <Breadcrumb>
-              <BreadcrumbItem>
-                <Link to="/home">Home</Link>{" "}
-              </BreadcrumbItem>
-              <BreadcrumbItem active>Parturients</BreadcrumbItem>
-            </Breadcrumb>
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/home">Home</Link>{" "}
+                </BreadcrumbItem>
+                <BreadcrumbItem active>Parturients</BreadcrumbItem>
+              </Breadcrumb>
             </Col>
           </Row>
 
           <Row>
             <Col>
-            <Form onSubmit={this.handleSearch}>
-              <Form.Row>
-                <Col>
-                  <Form.Control 
-                  placeholder="First name" 
-                  name="firstname"
-                  value={this.state.firstname}
-                  onChange={this.handleChange}
-                  disabled
-                  />
-                </Col>
-                <Col>
-                  <Form.Control 
-                  placeholder="Last name"
-                  name="lastname"
-                  value={this.state.lastname}
-                  onChange={this.handleChange} 
-                  disabled
-                  />
-                </Col>
-                <Col>
-                  <Form.Control 
-                  placeholder="Medical ID"
-                  name="medId"
-                  value={this.state.medId}
-                  onChange={this.handleChange} 
-                  
-                  />
-                </Col>
-                <Col>
-                <Button type="submit">search </Button>
-                </Col>
-
-
-
-              </Form.Row>
-            </Form>
-           
+              <Form onSubmit={this.handleSearch}>
+                <Form.Row>
+                  <Col>
+                    <Form.Control
+                      placeholder="First name"
+                      name="firstname"
+                      value={this.state.firstname}
+                      onChange={this.handleChange}
+                      disabled
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      placeholder="Last name"
+                      name="lastname"
+                      value={this.state.lastname}
+                      onChange={this.handleChange}
+                      disabled
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      placeholder="Medical ID"
+                      name="medId"
+                      value={this.state.medId}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                  <Col>
+                    <Button type="submit">search </Button>
+                  </Col>
+                </Form.Row>
+              </Form>
             </Col>
           </Row>
 
           <Row>
             <Col>
-            <h3 className="sub-header">Parturients</h3>
+              <h3 className="sub-header">Parturients</h3>
             </Col>
           </Row>
 
@@ -188,4 +182,4 @@ class Parturients extends Component {
   }
 }
 
-export default Parturients;
+export default withRouter(Parturients);

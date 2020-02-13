@@ -98,7 +98,7 @@ export default class Header extends Component {
                   <Col>
                   <NavItem>
                     <NavLink  to="/home">
-                      <span className="nav-item" style={{color: 'black'}}>Home</span>
+                      <span className="nav-item" >Home</span>
                     </NavLink>
                   </NavItem>
                   </Col>
@@ -106,15 +106,15 @@ export default class Header extends Component {
                   <Col>
                   <NavItem>
                     <NavLink  to="/parturients">
-                      <span className="nav-item" style={{color: 'black'}}>Parturients</span>
+                      <span className="nav-item" >Parturients</span>
                     </NavLink>
                   </NavItem>
                   </Col>
 
                   <Col>
                   <NavItem>
-                    <NavLink  to="/home">
-                      <span className="nav-item" style={{color: 'black'}}>
+                    <NavLink  to="/aboutpartograph">
+                      <span className="nav-item" >
                         About Partograph
                       </span>
                     </NavLink>
@@ -125,7 +125,7 @@ export default class Header extends Component {
                   <Col>
                   <NavItem>
                     <NavLink to="/signupnewparturient">
-                      <span className="nav-item" style={{color: 'black'}}>
+                      <span className="nav-item" >
                         Admit Parturient
                       </span>
                     </NavLink>
@@ -139,26 +139,31 @@ export default class Header extends Component {
                     {!this.props.auth.isAuthenticated ? 
                       <div>
                         <Button outline onClick={this.toggleModal}>
-                          <span className="fa fa-sign-in fa-lg" style={{color: 'black'}}></span> Login
+                          <span className="fa fa-sign-in fa-lg" ></span> Login
                           {this.props.auth.isFetching ? (
                             <span className="fa fa-spinner fa-pulse fa-fw"></span>
                           ) : null}
                         </Button>
                         <div>
-                          <span className="nav-item">Not registered?</span>  <Link to="/signup" style={{color: 'black'}}>Sign Up</Link>
+                          <span className="nav-item">Not registered?</span>  <Link to="/signup" >Sign Up</Link>
                         </div>
                       </div>
                      : 
                       <div>
-                        <div className="navbar-text mr-3 bg-dark text-white">
-                          {this.props.auth.user.username}
-                        </div>
+                        
                         <Button outline onClick={this.handleLogout}>
-                          <span className="fa fa-sign-out fa-lg" style={{color: 'black'}}></span> Logout
+                          <span className="fa fa-sign-out fa-lg" ></span> <span className="buttoncolor">Logout</span> 
+
                           {this.props.auth.isFetching ? (
                             <span className="fa fa-spinner fa-pulse fa-fw"></span>
                           ) : null}
                         </Button>
+                        {" "}
+                        {" "}
+
+                        <div className="navbar-text" >
+                          <span className="navtext">{this.props.auth.user.username}</span>
+                        </div>
                       </div>
                     }
                   </NavItem>

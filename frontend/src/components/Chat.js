@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import io from "socket.io-client";
 import { baseUrl } from "../testData/baseUrl";
+import "./Chat.css"
+import { text } from 'body-parser';
+import Messages from './Messages/Messages';
+// import InfoBar from './InfoBar/InfoBar';
+import Input from './Input/Input';
+import {Redirect, withRouter} from "react-router-dom";
+let socket;
 
 
 
@@ -24,35 +31,114 @@ class Chat extends Component {
       };
 
       this.ENDPOINT = baseUrl;
+      socket = io()
+      this.name = this.props.name;
+      this.room = this.props.room;
+      this.setState({name: this.name, room: this.room})
+
+
+
+      
     };
 
     componentDidMount = () => {
+     
 
-      
-      const name = this.props.name;
-      const room = this.props.room;
+      setTimeout(()=>{
+        this.intro()
+        this.later()
+      }
+      ,6000)
 
-      
 
-      this.setState({name: name, room: room})
-      const socket = io()
 
-      console.log(this.props)
-
-      socket.emit("chat message", "this is the fucking message")
-      
-
-    //   socket.emit("join", {name, room}, (error) => {
-    //       console.log("socket connected")
-    //       if (error) {
-    //           alert(error);
-    //       }
-    //   })
 
     
 
+     
+
+
+
+   
+
+      
+    console.log(this.state.messages)
 
     };
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+
+
+intro =()=> {
+  let name = this.name;
+  let room = this.room;
+  socket.emit("chat message", "this is the first message")
+  console.log(socket.id)
+  socket.emit("join", {name, room}, (error) => {
+      console.log("socket connected")
+      if (error) {
+          alert(error);
+      }
+  })
+        
+}
+
+later =() => {
+  socket.on("message", (message) => {
+    this.setState(prevState => ({
+      messages: [...prevState.messages, message]
+    }))
+
+    socket.on('roomData', ({ users }) => {
+      this.setState({users})
+    })
+
+    return () => {
+      socket.emit('disconnect');
+
+      socket.off();
+    }
+  })
+}
+
+
+
+
+
+
+
+
+    sendMessage = (event) => {
+      event.preventDefault();
+      const socket = io()
+      
+  
+      if(this.state.message) {
+          console.log(this.state.message)
+        socket.emit('sendMessage', this.state.message, () => this.setState({message: ""}));
+      }
+      console.log(this.state.users)
+    }
+
+   
+
+    // Message = ( this.state.message: (text, user), this.state.name) => {
+    //   let isSentByCurrentUser = false;
+    //   const trimmedName = name.trim(toLowerCase());
+      
+    //   if(this.state.user === trimmedName) {
+    //     isSentByCurrentUser = true;
+    //   }
+    // }
+handleChange = (e) => {
+  this.setState({message: e.target.value})
+}
+
+handleSubmit =(e) => {
+  this.sendMessage(e)
+
+}
+  
     
     
 
@@ -60,12 +146,44 @@ class Chat extends Component {
 
 
     render() {
+
+      // const Messages = () => {
+      //   this.state.messages.map((message, i) => {
+      //     <div key={i}>
+
+
+      //     </div>
+      //   })
+      // }
+
+
+
+
+
         return (
-            <div>
+            <div className="content">
+
+              <input 
+              type="text"
+              placeholder="what do you have in mind....?"
+              value={this.state.message}
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+              
+              />
+              <button onClick={this.handleSubmit}> Send</button>
+
+              <h1>{this.state.room}</h1>
+                <p>msg</p>
+                <Messages messages={this.state.messages}
+                            name = {this.state.name}/>
+                            <div className="rightInnerContainer">
+      <a href="/">Leave</a>
+    </div>
                 
             </div>
         )
     }
 }
 
-export default Chat;
+export default withRouter(Chat);

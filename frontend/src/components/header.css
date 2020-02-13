@@ -17,8 +17,9 @@
 
 .nav-title {
     font-family: "Tangerine";
-    font-size: 48px;
+    font-size: 75px;
     text-shadow: 4px 4px 4px #aaa;
+    color: #0004BF;
 }
 
 /* NavLink {
@@ -29,11 +30,13 @@
 } */
 .main-title {
     font-family: "Concert One";
+    font-size: 75px;
 }
 
 .nav-item {
     font-family: "Montserrat";
-    color: black;
+    color: #590212;
+    font-size: x-large;
 
 }
 .main-row {
@@ -45,6 +48,23 @@
     text-align: center;
     text-justify: auto;
     margin-bottom: 500px;
+}
+
+.navbar-text {
+    font-family: "Lemonada";
+    font-weight: bolder ;
+    font-size: x-large;
+    margin-left: 100px;
+    color: red;
+
+}
+
+.navtext {
+    color: #161510;
+}
+
+.buttoncolor {
+    color:#590212;
 }
 
 

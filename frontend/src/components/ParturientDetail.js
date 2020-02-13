@@ -8,9 +8,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
-import {Redirect, Link } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom";
 // import Join from "./Join"
-
 
 import { baseUrl } from "../testData/baseUrl";
 import {
@@ -24,7 +23,6 @@ import {
 import Bishop from "../forms/Bishop";
 import Chat from "./Chat";
 
-
 class ParturientDetail extends Component {
   constructor(props) {
     super(props);
@@ -33,44 +31,33 @@ class ParturientDetail extends Component {
       redirectToReferrer: false,
       show: false,
       customDataSet: [],
-      showDelete:false,
+      showDelete: false,
       room: "",
       name: ""
-     
-    }; 
+    };
   }
 
   componentDidMount() {
     if (this.props.parturient) {
-        Axios(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`)
-        .then( response => {
-            this.setState({ customDataSet: response.data})
-            this.setState({show:true})
-            
-        })
+      Axios(
+        baseUrl + `parturients/cervicogram/${this.props.parturient._id}`
+      ).then(response => {
+        this.setState({ customDataSet: response.data });
+        this.setState({ show: true });
+      });
     }
-    // if(this.state.room) {
-    //   console.log(this.state.room)
-    // }else console.log("yet to arrive")
-
-    console.log(this.props)
-
-    
   }
-  refresh = (e) => {
-   
-    window.location.reload()
-    //  this.handleShow()
-    //  e.preventDefault()
-    };
+  refresh = e => {
+    window.location.reload();
+  };
 
-handleAssign =()=> {
-  this.setState({room: `${this.props.parturient.firstName}`,
-                             user: this.props.auth.user.username  
-                        })
-  console.log(this.state)
-
-}
+  handleAssign = () => {
+    this.setState({
+      room: `${this.props.parturient.firstName}`,
+      user: this.props.auth.user.username
+    });
+    console.log(this.state);
+  };
   handleShow = () => {
     this.setState({
       show: true
@@ -84,34 +71,31 @@ handleAssign =()=> {
   };
 
   handleUpdate = () => {
-      console.log("updated")
-  }
+    console.log("updated");
+  };
 
   handleDelete = () => {
-      Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`)
-        .then(
-          this.setState({redirectToReferrer: true})
-          )
-        }
+    Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`).then(
+      this.setState({ redirectToReferrer: true })
+    );
+  };
 
-handleToParturient =() => {
-  this.setState({show:false})
-}
-handleClearPartograph =()=> {
-  
-  Axios.put(baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`)
-  .then(response => {
-    console.log(response)
-})
-
-}
-
+  handleToParturient = () => {
+    this.setState({ show: false });
+  };
+  handleClearPartograph = () => {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    Axios.put(
+      baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`, {}, {headers: {'Authorzation': token }}
+    ).then(response => {
+      console.log("this is the response", response);
+    });
+  };
 
   render() {
-
     if (this.state.redirectToReferrer === true) {
-      return <Redirect to= {`/parturients`}  />
-  }
+      return <Redirect to={`/parturients`} />;
+    }
 
     if (this.props.isLoading) {
       return (
@@ -129,57 +113,66 @@ handleClearPartograph =()=> {
           </div>
         </div>
       );
-    } 
-    else if(this.state.show) {
+    } else if (this.state.show) {
+      return (
+        <Col>
+          <Carousel indicators={false} controls={false}>
+            <Carousel.Item>
+              <Visualize
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                refresh={this.refresh}
+              />
+            </Carousel.Item>
+          </Carousel>
+          <Row>
+            <Col>
+              {" "}
+              <LabourWard
+                parturient={this.props.parturient}
+                refresh={this.refresh}
+              />
+            </Col>
+            <Col>
+              {" "}
+              <Bishop />
+            </Col>
 
-
-      return <Col>
-
-      <Carousel indicators={false} controls={false}>
-        <Carousel.Item>
-        <Visualize
-                  parturient={this.props.parturient}
-                  customDataSet={this.state.customDataSet}
-                  refresh={this.refresh}
-                />
-
-        </Carousel.Item>
-
-      </Carousel>
-                <Row>
-                  <Col>
-                    {" "}
-                    <LabourWard parturient={this.props.parturient} 
-                                refresh={this.refresh}/>
-                  </Col>
-                  <Col>
-                    {" "}
-                    <Bishop />
-                  </Col>
-
-
-                  <Col>
-                    <Button variant="dark" size="sm" >Refer</Button>
-                  </Col>
-                  <Col>
-                    <Button variant="dark" size="sm" onClick={this.handleClearPartograph}>Clear</Button>
-                  </Col>
-                  <Col>
-                    <Button variant="dark" size="sm" onClick={this.refresh}>Refresh</Button>
-                  </Col>
-                  <Col>
-                    <Button variant="dark" size="sm" onClick={this.handleToParturient}>back</Button>
-                  </Col>
-                </Row>
-              </Col>
+            <Col>
+              <Button variant="dark" size="sm">
+                Refer
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                variant="dark"
+                size="sm"
+                onClick={this.handleClearPartograph}
+              >
+                Clear
+              </Button>
+            </Col>
+            <Col>
+              <Button variant="dark" size="sm" onClick={this.refresh}>
+                Refresh
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                variant="dark"
+                size="sm"
+                onClick={this.handleToParturient}
+              >
+                back
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      );
     }
-    
-//  ========================================================================================================================   
-    
-    
-    
-    else if (this.props.parturient != null)
 
+    //  ========================================================================================================================
+    else if (this.props.parturient != null)
       return (
         <Container>
           <Row>
@@ -202,32 +195,46 @@ handleClearPartograph =()=> {
             </h3>
           </Row>
           <Row>
-                <Col md={1}> <Link
-                    to={{
-                      pathname: `/parturients/${this.props.parturient._id}/newParturient`,
-                      state: {
-                        id: this.props.parturient._id
-                      }
-                    }}
-                  >
-                    <Button
-                      variant="primary"
-                    >
-                      Update
-                    </Button>
-                  </Link></Col>
+            <Col md={1}>
+              {" "}
+              <Link
+                to={{
+                  pathname: `/parturients/${this.props.parturient._id}/newParturient`,
+                  state: {
+                    id: this.props.parturient._id
+                  }
+                }}
+              >
+                <Button variant="primary">Update</Button>
+              </Link>
+            </Col>
 
-
-
-                <Col>
-                <Alert show={this.state.showDelete} onClose={()=>this.setState({showDelete:false})} variant="warning" dismissible>
-                  <Alert.Heading>Do you really want to remove {this.props.parturient.firstName} ?</Alert.Heading>
-                  <div className="d-flex justify-content-end">
-                  <Button onClick={this.handleDelete}  variant="danger">Delete</Button>{" "}
-                  </div>
-                </Alert>
-                {!this.state.showDelete && <Button onClick={() => this.setState({showDelete:true})} variant="primary">Delete</Button>}  
-                </Col>
+            <Col>
+              <Alert
+                show={this.state.showDelete}
+                onClose={() => this.setState({ showDelete: false })}
+                variant="warning"
+                dismissible
+              >
+                <Alert.Heading>
+                  Do you really want to remove {this.props.parturient.firstName}{" "}
+                  ?
+                </Alert.Heading>
+                <div className="d-flex justify-content-end">
+                  <Button onClick={this.handleDelete} variant="danger">
+                    Delete
+                  </Button>{" "}
+                </div>
+              </Alert>
+              {!this.state.showDelete && (
+                <Button
+                  onClick={() => this.setState({ showDelete: true })}
+                  variant="primary"
+                >
+                  Delete
+                </Button>
+              )}
+            </Col>
           </Row>
 
           <Row className="details-section">
@@ -269,19 +276,25 @@ handleClearPartograph =()=> {
             <Col>
               <Card>
                 <Card.Header className="text-danger font-weight-bolder font-italic ">
-                <Link onClick={e => (!this.state.name || !this.state.room) ? e.preventDefault() : null} to={`/chat?name=${this.state.name}&room=${this.state.room}`}>
-                Management discussion: {this.state.room} 
-                </Link>
+                  <Link
+                    onClick={e =>
+                      !this.state.name || !this.state.room
+                        ? e.preventDefault()
+                        : null
+                    }
+                    to={`/
+                    
+                    ?name=${this.state.name}&room=${this.state.room}`}
+                  >
+                    Management discussion: {this.state.room}
+                  </Link>
                 </Card.Header>
                 <Card.Body>
                   <Card.Text>
-                    please offer some suggestion with regards to this patient's
-                    management
+                    {this.state.user && this.state.room ? (
+                      <Chat name={this.state.user} room={this.state.room} />
+                    ) : null}
                   </Card.Text>
-                  
-                  
-
-                 
                 </Card.Body>
                 <InputGroup>
                   <FormControl as="textarea"></FormControl>
@@ -290,20 +303,11 @@ handleClearPartograph =()=> {
                     Post{" "}
                   </Button>
                 </InputGroup>
-                <button onClick={this.handleAssign}>
-                Start Conversation
-              </button>
+                <button onClick={this.handleAssign}>Start Conversation</button>
               </Card>
             </Col>
-            
           </Row>
 
-          <Row>
-            <Chat name={this.state.user}
-                  room={this.state.room}
-                  />
-              
-           </Row>
 
           <Row>
             <Col>
@@ -317,14 +321,9 @@ handleClearPartograph =()=> {
                 Transfer to Labour Ward{" "}
               </Button>
             </Col>
-            
           </Row>
 
-          <Row>
-           
-             
-          
-          </Row>
+          <Row></Row>
         </Container>
       );
     else return <div></div>;
@@ -332,5 +331,3 @@ handleClearPartograph =()=> {
 }
 
 export default ParturientDetail;
-
-
