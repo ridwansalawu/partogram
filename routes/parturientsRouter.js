@@ -145,7 +145,7 @@ parturientsRouter.route("/search/:searchParams")
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route('/clearcervicogram/:parturientId')
-.put(async (req, res) => {
+.put(async (req, res, next) => {
   await Parturients.findByIdAndUpdate(req.param.parturientId, {
     $set: {"partographDataset.vagEx":[],
   }, 
@@ -158,7 +158,7 @@ parturientsRouter.route('/clearcervicogram/:parturientId')
   .then((parturient) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    res.json(parturient);
+    res.json(response);
 }, (err) => next(err))
 .catch((err) => next(err));
 })

@@ -7,7 +7,8 @@ import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import { baseUrl } from "../testData/baseUrl";
-import {Redirect} from "react-router-dom"
+import {Redirect} from "react-router-dom";
+import "./parturients.css"
 
 class Parturients extends Component {
   constructor(props) {
@@ -62,18 +63,20 @@ class Parturients extends Component {
 
     const parturients = this.props.parturients.parturients.map(parturient => {
       return (
-        <div key={parturient._id} className="col-12 col-md-10 m-1">
+        <div key={parturient._id} className="col-12 col-md-12">
           <Card bg="light">
-            <Card.Body>
+            <Card.Body className="card-body">
+              <Card.Header>
               <Link to={`/parturients/${parturient.medId}`}>
                 <Card.Title>
-                  {parturient.firstName + " " + parturient.lastName}
+                  <span className="title-text">{parturient.firstName + " " + parturient.lastName}</span>
                 </Card.Title>
-                <Card.Subtitle>Hospital Id:{parturient.medId} </Card.Subtitle>
+                <Card.Subtitle className="subtitle-text">Medical Id:{parturient.medId} </Card.Subtitle>
               </Link>
+              </Card.Header>
               <br />
               <Row>
-                <Col md={3}>
+                <Col sm={12} md={3}>
                   <Link
                     to={{
                       pathname: `/parturients/${parturient._id}/newParturient`,
@@ -83,7 +86,8 @@ class Parturients extends Component {
                     }}
                   >
                     <Button
-                      variant="primary"
+                    className="button-update"
+                      
                     >
                       Update
                     </Button>
@@ -115,18 +119,20 @@ class Parturients extends Component {
       );
     } else
       return (
-        <Container>
+        <Container className="main-content">
           <Row>
+            <Col>
             <Breadcrumb>
               <BreadcrumbItem>
                 <Link to="/home">Home</Link>{" "}
               </BreadcrumbItem>
               <BreadcrumbItem active>Parturients</BreadcrumbItem>
             </Breadcrumb>
+            </Col>
           </Row>
+
           <Row>
-
-
+            <Col>
             <Form onSubmit={this.handleSearch}>
               <Form.Row>
                 <Col>
@@ -165,15 +171,17 @@ class Parturients extends Component {
               </Form.Row>
             </Form>
            
-            
+            </Col>
           </Row>
 
           <Row>
-            <h3 style={{"fontFamily": "Montserrat"}}>Parturients</h3>
+            <Col>
+            <h3 className="sub-header">Parturients</h3>
+            </Col>
           </Row>
 
           <Row>
-            <Col md={6}>{parturients}</Col>
+            <Col md={12}>{parturients}</Col>
           </Row>
         </Container>
       );

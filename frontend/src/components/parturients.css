@@ -1,0 +1,37 @@
+.card-body {
+    background-color: #404040;
+}
+
+.card-header {
+    background-color: #D9D9D9;
+    color: black;
+}
+
+.title-text {
+    color: #0D0D0D;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+.subtitle-text {
+    color :#404040;
+    font-family: "Roboto";
+}
+
+.button-update {
+    background-color: #D9D9D9;
+    color : #0D0D0D;
+}
+
+.main-content {
+    margin: 0 auto;
+}
+
+.sub-header {
+    color: #0D0D0D;
+    font-family: "Montserrat";
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+    /* margin: 0px 1px 0px 50%; */
+
+}

@@ -83,28 +83,17 @@ export default class Header extends Component {
            
               
           <Navbar className="navigatio" bg="light" expand="lg" fixed="top">
-          <Col md={6}>
+          <Col md={4}>
           <Navbar.Brand>
               <h1 className="main-title">The Digital Partogram</h1>
                   <p className=" nav-title">Re-inventing the wheel!</p>
           </Navbar.Brand>
               </Col>
           
-     
+     <Col>
            
               <NavbarToggler onClick={this.toggleNav} />
-              {/* <Col>
-              <NavbarBrand className="mr-auto" href="/">
-                <img
-                  src="assets/images/cx_2cm.jpg"
-                  height="50"
-                  width="60"
-                  alt=""
-                />
-              </NavbarBrand>
-              </Col> */}
-
-              <Collapse isOpen={this.state.isNavOpen} navbar>
+             <Collapse isOpen={this.state.isNavOpen} navbar>
                 <Nav navbar>
                   <Col>
                   <NavItem>
@@ -144,8 +133,9 @@ export default class Header extends Component {
                   </Col>
 
                 </Nav>
+                <Col>
                 <Nav className="ml-auto" navbar>
-                  <NavItem  className="col">
+                  <NavItem>
                     {!this.props.auth.isAuthenticated ? 
                       <div>
                         <Button outline onClick={this.toggleModal}>
@@ -173,7 +163,10 @@ export default class Header extends Component {
                     }
                   </NavItem>
                 </Nav>
+                </Col>
               </Collapse>
+              
+            </Col>
           
          
           </Navbar>

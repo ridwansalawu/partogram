@@ -101,7 +101,7 @@ handleClearPartograph =()=> {
   
   Axios.put(baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`)
   .then(response => {
-    console.log( response)
+    console.log(response)
 })
 
 }
