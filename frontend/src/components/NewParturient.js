@@ -5,6 +5,7 @@ import {Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
 import { Redirect } from 'react-router-dom';
+import "./parturients.css";
 const _ = require("lodash");
 
 
@@ -109,14 +110,14 @@ class NewParturient extends Component {
                 <div id="accordion">
                     <Form onSubmit={this.handleSubmit}>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Biodata
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                        <Card.Body>
+                                        <Card.Body className="body-card-inside">
                                         <div className="form-group">
                                             <Label className="control-label">Medical ID</Label>
                                             <input 
@@ -217,7 +218,7 @@ class NewParturient extends Component {
                                             </div>
                                             <div className="form-group">
                     
-                                <button type="submit" className="btn btn-primary btn-lg">
+                                <button type="submit" className="button-update">
                                     Submit
                                 </button>
                             </div>
@@ -233,7 +234,7 @@ class NewParturient extends Component {
 
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card"> 
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Obstetric History
@@ -279,7 +280,7 @@ class NewParturient extends Component {
 
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Gynaecologic History
@@ -318,7 +319,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Past Medical History
@@ -358,7 +359,7 @@ class NewParturient extends Component {
 
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Current Pregnancy
@@ -397,7 +398,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Significant Examination Findings
@@ -436,7 +437,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                        Significant Investigations
@@ -475,7 +476,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         Labour Ward
@@ -514,7 +515,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                         others
@@ -553,7 +554,7 @@ class NewParturient extends Component {
                         </Form>
                         <Form>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                        others

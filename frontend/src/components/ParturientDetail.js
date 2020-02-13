@@ -9,6 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
+import "./parturients.css"
 // import Join from "./Join"
 
 import { baseUrl } from "../testData/baseUrl";
@@ -187,14 +188,13 @@ class ParturientDetail extends Component {
           </Row>
 
           <Row>
-            <h3 className="text-capitalize  col-md-4 ">
+            <h3 className="text-capitalize  col-md-4 title-text">
               {this.props.parturient.firstName +
                 "," +
                 " " +
                 this.props.parturient.lastName}
             </h3>
-          </Row>
-          <Row>
+          
             <Col md={1}>
               {" "}
               <Link
@@ -205,7 +205,7 @@ class ParturientDetail extends Component {
                   }
                 }}
               >
-                <Button variant="primary">Update</Button>
+                <Button className="button-update">Update</Button>
               </Link>
             </Col>
 
@@ -229,7 +229,7 @@ class ParturientDetail extends Component {
               {!this.state.showDelete && (
                 <Button
                   onClick={() => this.setState({ showDelete: true })}
-                  variant="primary"
+                  className="button-update"
                 >
                   Delete
                 </Button>
@@ -245,7 +245,7 @@ class ParturientDetail extends Component {
                     " " +
                     this.props.parturient.lastName}
                 </Card.Header>
-                <ListGroup variant="flush">
+                <ListGroup variant="flush" className="title-text">
                   <ListGroup.Item>
                     Hospital ID: {this.props.parturient.medId}
                   </ListGroup.Item>
@@ -312,7 +312,7 @@ class ParturientDetail extends Component {
           <Row>
             <Col>
               <Button
-                variant="primary"
+                className="button-update"
                 size="lg"
                 block
                 onClick={this.handleShow}

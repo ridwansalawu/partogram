@@ -9,16 +9,7 @@ import Input from './Input/Input';
 import {Redirect, withRouter} from "react-router-dom";
 let socket;
 
-
-
-
-
-
-
-
-
 class Chat extends Component {
-
     constructor(props) {
       super(props)
     
@@ -35,40 +26,18 @@ class Chat extends Component {
       this.name = this.props.name;
       this.room = this.props.room;
       this.setState({name: this.name, room: this.room})
-
-
-
-      
     };
 
     componentDidMount = () => {
-     
 
       setTimeout(()=>{
         this.intro()
         this.later()
       }
-      ,6000)
-
-
-
-
-    
-
-     
-
-
-
-   
-
-      
-    console.log(this.state.messages)
-
+      ,0)      
     };
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-
-
 intro =()=> {
   let name = this.name;
   let room = this.room;
@@ -100,14 +69,6 @@ later =() => {
     }
   })
 }
-
-
-
-
-
-
-
-
     sendMessage = (event) => {
       event.preventDefault();
       const socket = io()
@@ -119,9 +80,6 @@ later =() => {
       }
       console.log(this.state.users)
     }
-
-   
-
     // Message = ( this.state.message: (text, user), this.state.name) => {
     //   let isSentByCurrentUser = false;
     //   const trimmedName = name.trim(toLowerCase());
@@ -136,15 +94,7 @@ handleChange = (e) => {
 
 handleSubmit =(e) => {
   this.sendMessage(e)
-
 }
-  
-    
-    
-
-
-
-
     render() {
 
       // const Messages = () => {
@@ -181,7 +131,7 @@ handleSubmit =(e) => {
       <a href="/">Leave</a>
     </div>
                 
-            </div>
+          </div>
         )
     }
 }
