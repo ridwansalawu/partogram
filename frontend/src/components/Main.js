@@ -17,7 +17,6 @@ import {
   drawInitialPartograph,
   setRefer
 } from "../redux/ActionCreators";
-import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Partograph from "./Partograph";
 import SignupNewParturient from "../forms/SignupNewParturient";
@@ -46,9 +45,7 @@ const mapDispatchToProps = dispatch => ({
   fetchParturients: () => {
     dispatch(fetchParturients());
   },
-  resetSignupForm: () => {
-    dispatch(actions.reset("signUp"));
-  },
+
   postUser: signUp => {
     dispatch(postUser(signUp));
   },
