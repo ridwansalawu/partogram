@@ -3,8 +3,7 @@ import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 import {Label} from "reactstrap";
-
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import "./parturients.css";
 const _ = require("lodash");
 
@@ -86,10 +85,15 @@ class NewParturient extends Component {
                 }
                 if (response.status === 200) {
                     alert(this.state.firstname + " has been updated")
-                    this.setState({redirectToReferrer: true})
                 }
                 
-            })
+            }).then(response => {
+                console.log(response)
+               
+                this.props.history.push(`/parturients`)
+            }
+                
+            )
         
 
     }
@@ -99,7 +103,7 @@ class NewParturient extends Component {
             return <Redirect to="/parturients" />
         }
         return (
-            <Container>
+            <Container className="comp-container">
                 <Row>
                     <Col md={10}><h1>New Parturient</h1></Col>
                     <Col><Button onClick={this.generateMedId} disabled={true}>generate Med ID</Button></Col>
@@ -602,4 +606,4 @@ class NewParturient extends Component {
     }
 }
 
-export default NewParturient;
+export default withRouter(NewParturient);

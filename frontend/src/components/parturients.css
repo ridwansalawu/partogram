@@ -56,3 +56,7 @@
     max-height: 100vh;
     margin: 50vh auto 0 auto;
 }
+
+.comp-container {
+    margin: 250px auto 0 auto;
+}

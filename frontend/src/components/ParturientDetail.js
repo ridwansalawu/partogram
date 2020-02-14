@@ -8,9 +8,10 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, withRouter } from "react-router-dom";
 import "./parturients.css"
 import {saveAs} from "file-saver";
+import "./parturients.css";
 
 // import { baseUrl } from "../testData/baseUrl";
 import {
@@ -29,7 +30,7 @@ class ParturientDetail extends Component {
     super(props);
 
     this.state = {
-      redirectToReferrer: false,
+
       show: false,
       customDataSet: [],
       showDelete: false,
@@ -84,12 +85,16 @@ class ParturientDetail extends Component {
   handleToParturient = () => {
     this.setState({ show: false });
   };
+
   handleClearPartograph = () => {
     const token = `Bearer ${localStorage.getItem('token')}`;
     Axios.put(
       `parturients/clearcervicogram/${this.props.parturient._id}`, {}, {headers: {'Authorzation': token }}
     ).then(response => {
-      console.log("this is the response", response);
+      console.log(response)
+      let res = response.data.medId;
+     this.props.history.push(`/parturients/${res}`)
+      
     });
   };
 
@@ -98,12 +103,8 @@ class ParturientDetail extends Component {
 
   }
 
-
-
   render() {
-    if (this.state.redirectToReferrer === true) {
-      return <Redirect to={`/parturients`} />;
-    }
+   
 
     if (this.props.isLoading) {
       return (
@@ -123,7 +124,7 @@ class ParturientDetail extends Component {
       );
     } else if (this.state.show) {
       return (
-        <Col>
+        <Col className="comp-container">
           <Carousel indicators={false} controls={false}>
             <Carousel.Item>
               <Visualize
@@ -182,7 +183,7 @@ class ParturientDetail extends Component {
     //  ========================================================================================================================
     else if (this.props.parturient != null)
       return (
-        <Container>
+        <Container className="comp-container">
           <Row>
             <Breadcrumb>
               <BreadcrumbItem>
@@ -337,4 +338,4 @@ class ParturientDetail extends Component {
   }
 }
 
-export default ParturientDetail;
+export default withRouter(ParturientDetail);

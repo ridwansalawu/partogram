@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 // import Bishop from '../forms/Bishop';
 import Axios from 'axios';
 import { Container} from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 // import Visualize from "./Visualize"
 
 
@@ -38,9 +39,11 @@ handleSubmit = (e) => {
     const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
     Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
         .then(response => {
-            console.log( "9999999999" + JSON.stringify(data))
+            console.log( "9999999999" + JSON.stringify(response))
+            console.log(this.props.history)
+            this.props.history.push(`${this.props.history.location.pathname}`)
         })
-        .then(this.props.refresh)
+       
 }
 
 render() {
@@ -113,4 +116,4 @@ render() {
         }
     }
 
-export default LabourWard;
+export default withRouter(LabourWard);

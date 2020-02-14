@@ -13,8 +13,8 @@ parturientsRouter.use(bodyParser.json());
 parturientsRouter
   .route("/")
   // .options((req, res) => { res.sendStatus(200)})
-  .get((req, res, next) => {
-    Parturients.find(req.query)
+  .get(async(req, res, next) => {
+    await Parturients.find(req.query)
       .then(
         parturients => {
           res.statusCode = 200;
@@ -25,8 +25,8 @@ parturientsRouter
       )
       .catch(err => next(err));
   })
-  .post((req, res, next) => {
-    Parturients.create(req.body)
+  .post(async(req, res, next) => {
+    await Parturients.create(req.body)
       .then(
         parturient => {
           console.log(
@@ -59,8 +59,8 @@ parturientsRouter
 
 parturientsRouter
   .route("/:parturientId")
-  .get((req, res, next) => {
-    Parturients.findById(req.params.parturientId)
+  .get(async(req, res, next) => {
+    await Parturients.findById(req.params.parturientId)
       .then(
         parturient => {
           res.statusCode = 200;
@@ -77,8 +77,8 @@ parturientsRouter
       "POST operation not supported on /parturients/" + req.params.parturientId
     );
   })
-  .put((req, res, next) => {
-    Parturients.findOneAndUpdate(
+  .put(async(req, res, next) => {
+    await Parturients.findOneAndUpdate(
       req.params.parturientId,
       {
         $set: req.body
@@ -116,8 +116,8 @@ parturientsRouter
 // ====================================================================================================
 parturientsRouter
   .route("/cervicogram/:parturientId")
-  .get((req, res, next) => {
-    Parturients.findById(req.params.parturientId)
+  .get(async(req, res, next) => {
+    await Parturients.findById(req.params.parturientId)
       .populate("comments.author")
       .then(
         parturient => {
@@ -131,7 +131,7 @@ parturientsRouter
   })
 
   .put((req, res, next) => {
-    Parturients.findByIdAndUpdate(
+     Parturients.findByIdAndUpdate(
       req.params.parturientId,
       {
         $push: {
@@ -154,8 +154,8 @@ parturientsRouter
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route("/search/:searchParams")
-.get((req, res, next) => {
-  Parturients.findOne({
+.get(async(req, res, next) => {
+  await Parturients.findOne({
     medId: req.params.searchParams
   })
     .then(

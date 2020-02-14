@@ -120,7 +120,7 @@ class Parturients extends Component {
       );
     } else
       return (
-        <Container className="main-content">
+        <Container className="comp-container">
           <Row>
             <Col>
               <Breadcrumb>
