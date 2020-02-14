@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 // import Bishop from '../forms/Bishop';
 import Axios from 'axios';
-import { baseUrl } from '../testData/baseUrl';
 import { Container} from 'react-bootstrap';
 // import Visualize from "./Visualize"
 
@@ -37,7 +36,7 @@ handleChange = (e) => {
 handleSubmit = (e) => {
     e.preventDefault();
     const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
-    Axios.put(baseUrl + `parturients/cervicogram/${this.props.parturient._id}`, data )
+    Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
         .then(response => {
             console.log( "9999999999" + JSON.stringify(data))
         })

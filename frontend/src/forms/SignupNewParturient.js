@@ -61,7 +61,7 @@ export default class Parturient extends Component {
             nok: this.state.nok
 
         }
-        Axios.post(baseUrl + "parturients", parturientDetails)
+        Axios.post("parturients", parturientDetails)
             .then(response => {
                 this.setState({redirectToReferrer: true})
             })    

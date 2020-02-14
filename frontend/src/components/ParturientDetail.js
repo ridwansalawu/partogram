@@ -94,7 +94,7 @@ class ParturientDetail extends Component {
   };
 
   handleDownload = () => {
-    Axios.post(`baseUrl/downloadPartographPdf`)
+    Axios.post(`/downloadPartographPdf`)
 
   }
 

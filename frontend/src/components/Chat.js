@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import io from "socket.io-client";
-import { baseUrl } from "../testData/baseUrl";
+// import { baseUrl } from "../testData/baseUrl";
 import "./Chat.css"
 import Messages from './Messages/Messages';
 import {withRouter} from "react-router-dom";
@@ -18,7 +18,7 @@ class Chat extends Component {
          messages: []
       };
 
-      this.ENDPOINT = baseUrl;
+      this.ENDPOINT = process.env.PORT;
       socket = io()
       this.name = this.props.name;
       this.room = this.props.room;

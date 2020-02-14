@@ -3,7 +3,7 @@ import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 import {Label} from "reactstrap";
-import {baseUrl} from "../testData/baseUrl"
+
 import { Redirect } from 'react-router-dom';
 import "./parturients.css";
 const _ = require("lodash");
@@ -32,7 +32,7 @@ class NewParturient extends Component {
 
   componentDidMount() {
     
-    Axios.get(baseUrl + `parturients/${this.props.location.state.id}`)
+    Axios.get(`parturients/${this.props.location.state.id}`)
         .then(response => {
           this.setState({
             disabled: true,
@@ -79,7 +79,7 @@ class NewParturient extends Component {
         }
 
         console.log("now what ========" + this.props.location.state.id)
-        Axios.put(baseUrl+`/parturients/${this.props.location.state.id}`, parturientDetails)
+        Axios.put(`/parturients/${this.props.location.state.id}`, parturientDetails)
             .then((response, err )=> {
                 if(err) {
                     console.log(err)
