@@ -4,28 +4,15 @@ import Main from "./components/Main";
 import {BrowserRouter} from "react-router-dom";
 import { Provider } from "react-redux";
 import { ConfigStore } from "./redux/configStore";
-// import createHistory from 'history/createBrowserHistory';
 const createHistory = require("history").createBrowserHistory;
 
-
 const history = createHistory()
-
-
 const store = ConfigStore();
-
-
-
-
-
 class App extends Component {
-  
- 
-  
   render() {
     return (
-      <Provider store={store} >
-      
-        <BrowserRouter >
+      <Provider store={store}>
+        <BrowserRouter histoy={history}>
           <div>
             <Main />
           </div>

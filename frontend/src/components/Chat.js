@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import io from "socket.io-client";
 import { baseUrl } from "../testData/baseUrl";
 import "./Chat.css"
-import { text } from 'body-parser';
 import Messages from './Messages/Messages';
-// import InfoBar from './InfoBar/InfoBar';
-import Input from './Input/Input';
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 let socket;
 
 class Chat extends Component {

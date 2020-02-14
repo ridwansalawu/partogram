@@ -13,8 +13,7 @@ const authenticate = require('./authenticate');
 
 
 
-const socketio = require("socket.io");
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./ioUsers");
+
 const chatRouter = require("./routes/chatRouter")
 
 
@@ -38,47 +37,23 @@ connect.then((db) => {
     console.log("***db Connection Error***" + err);
 })
 
-
-
-
 const app = express();
+const cors = require("cors");
+app.use(cors());
 
-// const ioServer = http.createServer(app);
-// const io = socketio(ioServer);
+// app.use((req,res,next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*")
+//   res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept');
 
+//   next();
+// }) 
 
-
-
-
-
-
-
-
-
-
-// const cors = require("cors");
-
-// app.use(cors());
-
-app.use((req,res,next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept');
-
-  next();
-}) 
-
-
-
-
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(cookieParser());
-
-
 app.use(passport.initialize());
 // app.use(passport.session());
 
@@ -87,16 +62,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(chatRouter)
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-
-
-// app.use(auth);
+// app.use(authenticate);
 app.use('/parturients', parturientsRouter)
 app.use("/parturients/:parturientId", parturientsRouter)
 app.use('/imageUpload', uploadRouter)
-
-app.use('/environment_dump', (req, res) => {
-  res.send(process.env);
-});
 
 app.get('*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
@@ -120,11 +89,5 @@ app.use(function(req, res, next) {
 
 
 
-
-
-
-  
-
-// ioServer.listen(5000, () => console.log(` 👺🤡 the IOSOCKET Server has started.`));
 module.exports = app;
 // =========================================================

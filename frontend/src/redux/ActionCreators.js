@@ -1,55 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../testData/baseUrl";
 import Axios from "axios";
-// import history from "../history";
-// import createHistory from 'history/createBrowserHistory';
-
-const createHistory = require("history").createBrowserHistory;
-const history = createHistory();
-
-export const calculateBishop = (
-  parturientId,
-  dilatation,
-  effacement,
-  position,
-  station,
-  descent
-) => ({
-  type: ActionTypes.CALCULATE_BISHOP,
-  payload: {
-    dilatation: dilatation,
-    effacement: effacement,
-    position: position,
-    station: station,
-    descent: descent
-  }
-});
-
-export const fetchBishops = () => dispatch => {
-  // return fetch("https://jsonplaceholder.typicode.com/posts")
-  //   .then(res => res.json())
-  //   .then(data =>
-  //     dispatch({
-  //       type: ActionTypes.FETCH_BISHOPS,
-  //       payload: data
-  //     })
-  //   );
-};
-
-export const addBishops = bishopData => dispatch => {
-  // return fetch("https://jsonplaceholder.typicode.com/posts", {
-  //     method: "POST",
-  //     headers: {
-  //         "content-type" : "application/json"
-  //     },
-  //     body: JSON.stringify(bishopData)
-  // })
-  //     .then(res => res.json())
-  //     .then(data => dispatch({
-  //         type: ActionTypes.ADD_BISHOPS,
-  //         payload: data
-  //     }));
-};
 
 export const addUser = user => ({
   type: ActionTypes.ADD_USER,
@@ -148,12 +99,6 @@ export const addParturients = parturients => ({
 });
 
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-export const bishopsFailed = errMsg => ({
-  type: ActionTypes.BISHOPS_FAILED,
-  payload: errMsg
-});
-
 // __________________________________________________________________________________________________________________________
 // AUTHENTICATION
 // -----------------------------------------------------------------------------------------------------------------------------
@@ -277,9 +222,6 @@ export const loginUser = credentials => dispatch => {
       }
     })
     .catch(error => dispatch(loginError(error.message)));
-  // .then(response => {
-  //     history.push("/labourward")
-  // })
 };
 
 export const requestLogout = () => {
@@ -299,6 +241,4 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem("token");
   localStorage.removeItem("credentials");
   dispatch(receiveLogout());
-
-  // history.push("/parturients");
 };

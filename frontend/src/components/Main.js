@@ -9,15 +9,12 @@ import LabourWard from "./LabourWard";
 import AboutPartograph from "./AboutPartograph"
 
 import {
-  calculateBishop,
   fetchParturients,
-  fetchBishops,
   postUser,
   loginUser,
   logoutUser,
   signupUser,
   drawInitialPartograph,
-  addBishops,
   setRefer
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
@@ -26,7 +23,6 @@ import Partograph from "./Partograph";
 import SignupNewParturient from "../forms/SignupNewParturient";
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
-import Join from "./Join";
 import Chat from "./Chat";
 
 export const createHistory = require("history").createBrowserHistory;
@@ -39,7 +35,6 @@ const mapStateToProps = state => {
     initial_graph: state.initial_graph,
     alert_line: state.alert_line,
     action_line: state.action_line,
-    bishops: state.bishops,
     auth: state.auth,
     details: state.details,
     drawTemplate: state.drawTemplate
@@ -47,32 +42,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  calculateBishop: (
-    parturientId,
-    dilatation,
-    effacement,
-    position,
-    station,
-    descent
-  ) =>
-    dispatch(
-      calculateBishop(
-        parturientId,
-        dilatation,
-        effacement,
-        position,
-        station,
-        descent
-      )
-    ),
+
   fetchParturients: () => {
     dispatch(fetchParturients());
   },
   resetSignupForm: () => {
     dispatch(actions.reset("signUp"));
-  },
-  fetchBishops: () => {
-    dispatch(fetchBishops());
   },
   postUser: signUp => {
     dispatch(postUser(signUp));
@@ -86,9 +61,6 @@ const mapDispatchToProps = dispatch => ({
 
   drawInitialPartograph: () => {
     dispatch(drawInitialPartograph);
-  },
-  addBishops: bishopData => {
-    dispatch(addBishops(bishopData));
   }
 });
 
@@ -176,7 +148,6 @@ class Main extends Component {
                 component={SignupNewParturient}
               />
               <Route path="/newpaturient" component={NewParturient} />
-              <Route path="/join" component={Join} />
               <Route
                 path="/chat"
                 component={() => <Chat auth={this.props.auth} />}
