@@ -6,7 +6,7 @@ import "../index.css";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-import { baseUrl } from "../testData/baseUrl";
+// import { baseUrl } from "../testData/baseUrl";
 import { withRouter } from "react-router-dom";
 import "./parturients.css";
 
@@ -35,7 +35,7 @@ class Parturients extends Component {
   };
 
   handleDelete = parturient => {
-    Axios.delete(baseUrl + `parturients/${parturient._id}`).then(response => {
+    Axios.delete(`parturients/${parturient._id}`).then(response => {
       console.log("deleted");
     });
   };
@@ -49,7 +49,7 @@ class Parturients extends Component {
     };
 
     const token = `Bearer ${this.props.auth.token}`;
-    Axios(baseUrl + `parturients/search/${searchParams.medId}`, 
+    Axios(`parturients/search/${searchParams.medId}`, 
     {}, 
     {
       headers: {'Authorization': token }

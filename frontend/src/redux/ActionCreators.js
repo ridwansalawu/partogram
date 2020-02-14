@@ -24,7 +24,7 @@ export const postUser = (username, password) => dispatch => {
     password: password
   };
   newSignUp.date = new Date().toISOString();
-  return fetch(baseUrl + "users", {
+  return fetch("users", {
     method: "POST",
     body: JSON.stringify(newSignUp),
     header: {
@@ -59,7 +59,7 @@ export const postUser = (username, password) => dispatch => {
 export const fetchParturients = () => dispatch => {
   dispatch(parturientsLoading(true));
 
-  return fetch(baseUrl + "parturients")
+  return fetch("parturients")
     .then(
       response => {
         if (response.ok) {
@@ -154,7 +154,7 @@ export const setRefer = refer => dispatch => {
 export const signupUser = details => dispatch => {
   dispatch(requestSignup(details));
 
-  return Axios.post(baseUrl + "users/signup", details)
+  return Axios.post("users/signup", details)
     .then(
       response => {
         if (response.ok) {
@@ -178,7 +178,7 @@ export const signupUser = details => dispatch => {
 export const loginUser = credentials => dispatch => {
   dispatch(requestLogin(credentials));
  
-  return fetch(baseUrl + "users/login", {
+  return fetch("users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

@@ -12,7 +12,7 @@ import { Redirect, Link } from "react-router-dom";
 import "./parturients.css"
 import {saveAs} from "file-saver";
 
-import { baseUrl } from "../testData/baseUrl";
+// import { baseUrl } from "../testData/baseUrl";
 import {
   Container,
   Row,
@@ -41,7 +41,7 @@ class ParturientDetail extends Component {
   componentDidMount() {
     if (this.props.parturient) {
       Axios(
-        baseUrl + `parturients/cervicogram/${this.props.parturient._id}`
+       `parturients/cervicogram/${this.props.parturient._id}`
       ).then(response => {
         this.setState({ customDataSet: response.data });
         this.setState({ show: true });
@@ -76,7 +76,7 @@ class ParturientDetail extends Component {
   };
 
   handleDelete = () => {
-    Axios.delete(baseUrl + `parturients/${this.props.parturient._id}`).then(
+    Axios.delete(`parturients/${this.props.parturient._id}`).then(
       this.setState({ redirectToReferrer: true })
     );
   };
@@ -87,7 +87,7 @@ class ParturientDetail extends Component {
   handleClearPartograph = () => {
     const token = `Bearer ${localStorage.getItem('token')}`;
     Axios.put(
-      baseUrl + `parturients/clearcervicogram/${this.props.parturient._id}`, {}, {headers: {'Authorzation': token }}
+      `parturients/clearcervicogram/${this.props.parturient._id}`, {}, {headers: {'Authorzation': token }}
     ).then(response => {
       console.log("this is the response", response);
     });
