@@ -11,7 +11,7 @@ const actionDataSet = graphData.setActionLineData();
 
 
  export const drawTemplate = (customDataSet) => {
-    d3.select(".main-page > *").remove();
+    d3.select(".main-graph > *").remove();
 
     const margin = {
         top:10,
@@ -113,9 +113,6 @@ const actionDataSet = graphData.setActionLineData();
         width = parseInt(drawingBoard.style('width'), 10),
         height = parseInt(drawingBoard.style('height'), 10),
         aspect = width / height;
-
-        
-
         drawingBoard.attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMinYMid")
             .call(resize);

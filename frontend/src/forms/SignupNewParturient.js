@@ -5,6 +5,7 @@ import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
 import {baseUrl} from "../testData/baseUrl"
 import { Redirect } from 'react-router-dom';
+import "../components/parturients.css"
 const _ = require("lodash");
 
 
@@ -71,25 +72,27 @@ export default class Parturient extends Component {
             return <Redirect to="/parturients" />
         }
         return (
-            <Container>
+            <Container style={{"margin-top": "300px"}}>
                 <Row>
-                    <Col md={10}><h1>New Parturient</h1></Col>
-                    <Col><Button onClick={this.generateMedId} disabled={false}>generate Med ID</Button></Col>
-                    
-                    
+                    <Col md={10}><h1 className="title-text">New Parturient</h1></Col>
+                    <Col><Button 
+                         onClick={this.generateMedId} 
+                         disabled={false}
+                         className="button-update"
+                         >generate Med ID</Button></Col>
                 </Row>
                 
                 <div id="accordion">
                     <form onSubmit={this.handleSubmit}>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Biodata
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                        <Card.Body>
+                                        <Card.Body className="body-card-inside">
                                         <div className="form-group">
                                             <Label className="control-label">Medical ID</Label>
                                             <input 
@@ -197,9 +200,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Obstetric History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -228,9 +231,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Gynaecologic History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -259,9 +262,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Past Medical History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -290,9 +293,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Current Pregnancy
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -321,9 +324,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Significant Examination Findings
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -352,9 +355,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                        Significant Investigations
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -383,9 +386,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Labour Ward
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -414,9 +417,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         others
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -445,9 +448,9 @@ export default class Parturient extends Component {
 
                         </Accordion>
                         <Accordion>
-                            <Card>
+                            <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                        others
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -477,11 +480,11 @@ export default class Parturient extends Component {
                         </Accordion>
 
                         <div className="form-group">
-                                <button className="btn btn-primary btn-lg">
+                                <button className="title-text">
                                     Save
                                 </button>
                                 {" "}
-                                <button className="btn btn-primary btn-lg">
+                                <button className="title-text">
                                     Submit
                                 </button>
                             </div>

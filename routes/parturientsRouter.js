@@ -15,7 +15,6 @@ parturientsRouter
   // .options((req, res) => { res.sendStatus(200)})
   .get((req, res, next) => {
     Parturients.find(req.query)
-      .populate("comments.author")
       .then(
         parturients => {
           res.statusCode = 200;
@@ -42,10 +41,7 @@ parturientsRouter
       )
       .catch(err => next(err));
   })
-  //   .put((req,res,next) => {
-  //     res.statusCode = 403;
-  //     res.end("PUT operation not supported!")
-  // })
+ 
   .delete(authenticate.verifyUser, (req, res, next) => {
     Parturients.remove({})
       .then(
@@ -63,10 +59,8 @@ parturientsRouter
 
 parturientsRouter
   .route("/:parturientId")
-  // .options((req, res) => { res.sendStatus(200)})
   .get((req, res, next) => {
     Parturients.findById(req.params.parturientId)
-      .populate("comments.author")
       .then(
         parturient => {
           res.statusCode = 200;
@@ -142,7 +136,7 @@ parturientsRouter
       {
         $push: {
           "partographDataset.vagEx": req.body
-        } // $set: req.body
+        } 
       },
       { new: true }
     )

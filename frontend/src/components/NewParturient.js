@@ -112,8 +112,8 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                        Biodata
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
+                                       <span>Biodata</span> 
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
@@ -236,7 +236,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card"> 
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Obstetric History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -260,7 +260,7 @@ class NewParturient extends Component {
                                             </div>
 
                                             <div className="form-group">
-                                            <button className="btn btn-primary btn-lg">
+                                            <button className="title-text">
                                                Save
                                             </button>
 
@@ -282,7 +282,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Gynaecologic History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -321,7 +321,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Past Medical History
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -361,7 +361,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Current Pregnancy
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -400,7 +400,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Significant Examination Findings
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -439,7 +439,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                        Significant Investigations
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -478,7 +478,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         Labour Ward
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -517,7 +517,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                         others
                                     </Accordion.Toggle>
                                 </Card.Header>
@@ -556,7 +556,7 @@ class NewParturient extends Component {
                         <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
                                        others
                                     </Accordion.Toggle>
                                 </Card.Header>

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Label } from "reactstrap";
-import {Redirect} from "react-router-dom";
-
-// const required = (val) => val && val.length;
+import {Redirect, withRouter} from "react-router-dom";
+import "../components/parturients.css";
+import {Container, Row, Col} from "react-bootstrap"
 
 class Signup extends Component {
     constructor(props) {
       super(props)
     
       this.state = {
-          redirectToReferrer: false,
+          login:false,
           username: "",
           password: ""
          
@@ -18,10 +18,11 @@ class Signup extends Component {
       this.handleChange = this.handleChange.bind(this);
     };
 
-
-
     componentDidMount() {
-    console.log(this.props)
+        if (this.props.auth.isAuthenticated) {
+            this.setState({login:true})
+            
+          }
         
     }
     
@@ -37,57 +38,59 @@ class Signup extends Component {
         }
        
        this.props.signupUser(userDetails)
-       this.props.setRefer(true)
-       this.setState({redirectToReferrer: true})
-        console.log(this.state.redirectToReferrer)
+       this.props.history.push("/home")
+      
+       
         e.preventDefault()
        
     }
 
     render() {
-        if (this.props.setRefer === true) {
-            return <Redirect to="/home" />
-        }
-
 
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
+            <Container >
+
+           <Row className="sign-up-container">
+              <Col>
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <Label className="control-label">Username</Label>
+                                <Label className="body-card-inside">Username</Label>
                                 <input 
                                     value={this.state.username}
                                     type="text"
                                     name="username"
+                                    placeholder="Username"
                                     onChange={this.handleChange}
                                     className="form-control"
+                                   
                                 />
                             </div>
                             <div className="form-group">
-                                <Label className="control-label">Password</Label>
+                                <Label className="body-card-inside">Password</Label>
                                 <input 
                                     value={this.state.password}
                                     type="password"
                                     name="password"
+                                    placeholder="Password"
                                     onChange={this.handleChange}
                                     className="form-control"
+                                   
                                 />
                             </div>
                             <div className="form-group">
-                                <button className="btn btn-primary btn-lg">
+                                <button className="button-update">
                                     Sign Up
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div> 
+                    </Col>
 
-                   
-            </div>
+                </Row>
+
+             </Container>
+                  
         )
     }
 }
 
-export default Signup;
+export default withRouter(Signup);
