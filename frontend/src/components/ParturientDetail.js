@@ -10,7 +10,7 @@ import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import "./parturients.css"
-// import Join from "./Join"
+import {saveAs} from "file-saver";
 
 import { baseUrl } from "../testData/baseUrl";
 import {
@@ -93,6 +93,13 @@ class ParturientDetail extends Component {
     });
   };
 
+  handleDownload = () => {
+    Axios.post(`baseUrl/downloadPartographPdf`)
+
+  }
+
+
+
   render() {
     if (this.state.redirectToReferrer === true) {
       return <Redirect to={`/parturients`} />;
@@ -141,7 +148,7 @@ class ParturientDetail extends Component {
 
             <Col>
               <Button variant="dark" size="sm">
-                Refer
+                Download
               </Button>
             </Col>
             <Col>

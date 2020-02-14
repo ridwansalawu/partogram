@@ -17,6 +17,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "helmet": "^3.21.2",
+    "html-pdf": "^2.2.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^5.8.9",

@@ -37,7 +37,7 @@ const uploadRouter = express.Router();
 uploadRouter.use(bodyParser.json());
 uploadRouter.route("/")
     // .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
-    .get( authenticate.verifyUser,(req,res,next) => {
+    .get(authenticate.verifyUser,(req,res,next) => {
         res.statusCode = 403;
         res.end("GET operation not supported!")
     })
@@ -47,7 +47,7 @@ uploadRouter.route("/")
         res.json(req.file);
 
       })
-    .put( authenticate.verifyUser,(req,res,next) => {
+    .put(authenticate.verifyUser,(req,res,next) => {
         res.statusCode = 403;
         res.end("put operation not supported!")
     })

@@ -2,12 +2,13 @@ var express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const authenticate = require("../authenticate");
-// const cors = require("./cors")
 const Parturients = require("../models/parturients");
+const pdf = require("html-pdf");
 
 const parturientsRouter = express.Router();
 
 parturientsRouter.use(bodyParser.json());
+
 
 parturientsRouter
   .route("/")
@@ -159,7 +160,7 @@ parturientsRouter
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter.route("/search/:searchParams")
-.get(authenticate.verifyUser,(req, res, next) => {
+.get((req, res, next) => {
   Parturients.findOne({
     medId: req.params.searchParams
   })
@@ -203,5 +204,12 @@ parturientsRouter
       )
       .catch(err => next(err));
   });
+
+  // parturientsRouter
+  //   .route("downloadPartographPdf")
+  //   .post((req, res) => {
+  //     pdf.create(req.body, {}).toFile("result.pdf", (err) => )
+      
+  //   })
 
 module.exports = parturientsRouter;

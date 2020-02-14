@@ -121,12 +121,11 @@ handleSubmit =(e) => {
               <button onClick={this.handleSubmit}> Send</button>
 
               <h1>{this.state.room}</h1>
-                <p>msg</p>
                 <Messages messages={this.state.messages}
-                            name = {this.state.name}/>
-                            <div className="rightInnerContainer">
-      <a href="/">Leave</a>
-    </div>
+                            name={this.state.name}/>
+              <div>
+                <a href="/">Leave</a>
+              </div>
                 
           </div>
         )

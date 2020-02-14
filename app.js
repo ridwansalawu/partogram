@@ -11,18 +11,10 @@ const passport = require('passport');
 const authenticate = require('./authenticate');
 
 
-
-
-
-const chatRouter = require("./routes/chatRouter")
-
-
-
 const indexRouter = require('./routes/index');
 const usersRouter = require("./routes/users")
 const parturientsRouter = require("./routes/parturientsRouter");
-const uploadRouter = require("./routes/uploadRouter");
-const parturientRouter = require("./routes/parturientsRouter")
+
 
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients")
@@ -59,13 +51,14 @@ app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(chatRouter)
+
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 // app.use(authenticate);
 app.use('/parturients', parturientsRouter)
 app.use("/parturients/:parturientId", parturientsRouter)
-app.use('/imageUpload', uploadRouter)
+
+
 
 app.get('*', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
