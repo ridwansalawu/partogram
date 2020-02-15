@@ -78,7 +78,7 @@ class ParturientDetail extends Component {
 
   handleDelete = () => {
     Axios.delete(`parturients/${this.props.parturient._id}`).then(
-      this.setState({ redirectToReferrer: true })
+      this.props.history.push(`/parturients`)
     );
   };
 
