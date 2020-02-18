@@ -13,8 +13,8 @@ export const ConfigStore = () => {
             parturients: Parturients,
             auth: Auth
         }),
-        compose(applyMiddleware(thunk, logger)
-        // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+        compose(applyMiddleware(thunk, logger),
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() || compose
         // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         ) 
     );
