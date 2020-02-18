@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Container, Row, Carousel } from "react-bootstrap";
+import {withRouter} from "react-router-dom";
 
 
-export default class AboutPartograph extends Component {
+class AboutPartograph extends Component {
     render() {
         return (
 
@@ -115,3 +116,5 @@ export default class AboutPartograph extends Component {
         )
     }
 }
+
+export default withRouter(AboutPartograph);

@@ -22,21 +22,3 @@ export const Parturients = (state = {
     }
 
 }
-
-
-
-
-
-
-
-// export const Parturients = (state = PARTURIENTS, action) => {
-//     switch(action.type) {
-//         case ActionTypes.CALCULATE_BISHOP:
-//             var bishop = action.payload;
-//             bishop.id = state.length;
-//             console.log("bishop: ", bishop)
-//             return state.concat(bishop)
-//         default:
-//             return state;
-//     }
-// }

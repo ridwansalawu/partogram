@@ -13,7 +13,6 @@ import "./parturients.css"
 import {saveAs} from "file-saver";
 import "./parturients.css";
 
-// import { baseUrl } from "../testData/baseUrl";
 import {
   Container,
   Row,

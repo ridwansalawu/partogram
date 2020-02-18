@@ -1,13 +1,9 @@
 import "./template.css";
 const d3 = require("d3");
-// const _ = require("lodash")
 const graphData = require("../testData/graphData");
-
 const initData = graphData.setInitialGraphData();
 const alertDataSet = graphData.setAlertLineData();
 const actionDataSet = graphData.setActionLineData();
-// const customDataSet = graphData.setCustomLineData();
-
 
 
  export const drawTemplate = (customDataSet) => {

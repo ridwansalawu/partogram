@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 // import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
-// import Bishop from '../forms/Bishop';
+import Button from 'react-bootstrap/Button';
 import Axios from 'axios';
 import { Container} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-// import Visualize from "./Visualize"
+
 
 
 class LabourWard extends Component {
