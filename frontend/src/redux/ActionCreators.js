@@ -59,7 +59,7 @@ export const postUser = (username, password) => dispatch => {
 export const fetchParturients = () => dispatch => {
   dispatch(parturientsLoading(true));
 
-  return fetch("parturients")
+  return fetch("/parturients")
     .then(
       response => {
         if (response.ok) {

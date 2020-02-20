@@ -48,16 +48,13 @@ class ParturientDetail extends Component {
       });
     }
   }
-  refresh = e => {
-    window.location.reload();
-  };
-
+ 
   handleAssign = () => {
     this.setState({
       room: `${this.props.parturient.firstName}`,
       user: this.props.auth.user.username
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
   handleShow = () => {
     this.setState({
