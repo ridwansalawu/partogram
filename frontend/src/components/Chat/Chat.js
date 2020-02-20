@@ -15,11 +15,11 @@ export default function Chat(props) {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    // const ENDPOINT = "http://localhost:3001/";
+    const ENDPOINT = "https://partogram.herokuapp.com/";
 
     useEffect(() => {
         const {name, room} = props;
-        socket= io()
+        socket= io(ENDPOINT)
 
         setRoom(room);
         setName(name);
@@ -29,7 +29,7 @@ export default function Chat(props) {
                 alert(error)
             }
         })
-     }, [props])
+     }, [ENDPOINT, props])
 
      useEffect(() => {
         socket.on('message', (message) => {
