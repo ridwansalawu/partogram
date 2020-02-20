@@ -22,7 +22,7 @@ import Partograph from "./Partograph";
 import SignupNewParturient from "../forms/SignupNewParturient";
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
-import Chat from "./Chat";
+import Chat from "./Chat/Chat";
 
 export const createHistory = require("history").createBrowserHistory;
 

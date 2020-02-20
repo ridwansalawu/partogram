@@ -17,12 +17,10 @@ import {
   Container,
   Row,
   Col,
-  InputGroup,
-  FormControl,
   Button
 } from "react-bootstrap";
 import Bishop from "../forms/Bishop";
-import Chat from "./Chat";
+import Chat from "./Chat/Chat";
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -181,6 +179,7 @@ class ParturientDetail extends Component {
       return (
         <Container className="comp-container">
           <Row>
+            <Col>
             <Breadcrumb>
               <BreadcrumbItem>
                 <Link to="/parturients">Parturients</Link>{" "}
@@ -189,17 +188,17 @@ class ParturientDetail extends Component {
                 {this.props.parturient.firstName}
               </BreadcrumbItem>
             </Breadcrumb>
+            </Col>
           </Row>
 
           <Row>
-            <h3 className="text-capitalize  col-md-4 title-text">
-              {this.props.parturient.firstName +
-                "," +
-                " " +
-                this.props.parturient.lastName}
-            </h3>
-          
-            <Col md={1}>
+            <Col>
+              <h4 className="text-capitalize title-text">
+                {this.props.parturient.firstName + "," +" " + this.props.parturient.lastName}
+              </h4>
+            </Col>
+            <Col>
+            <Col>
               {" "}
               <Link
                 to={{
@@ -239,9 +238,13 @@ class ParturientDetail extends Component {
                 </Button>
               )}
             </Col>
+
+            </Col>
+            
+            
           </Row>
 
-          <Row className="details-section">
+          <Row className="">
             <Col>
               <Card>
                 <Card.Header className="text-danger font-weight-bolder font-italic ">
@@ -278,8 +281,7 @@ class ParturientDetail extends Component {
               </Card>
             </Col>
             <Col>
-              <Card>
-                <Card.Header className="text-danger font-weight-bolder font-italic ">
+             
                   <Link
                     onClick={e =>
                       !this.state.name || !this.state.room
@@ -292,23 +294,14 @@ class ParturientDetail extends Component {
                   >
                     Management discussion: {this.state.room}
                   </Link>
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text>
+               
+{/* -------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------                 */}             
                     {this.state.user && this.state.room ? (
                       <Chat name={this.state.user} room={this.state.room} />
                     ) : null}
-                  </Card.Text>
-                </Card.Body>
-                <InputGroup>
-                  <FormControl as="textarea"></FormControl>
-                  <Button variant="primary" size="lg" block>
-                    {" "}
-                    Post{" "}
-                  </Button>
-                </InputGroup>
                 <button onClick={this.handleAssign}>Start Conversation</button>
-              </Card>
+           
             </Col>
           </Row>
 
@@ -327,7 +320,7 @@ class ParturientDetail extends Component {
             </Col>
           </Row>
 
-          <Row></Row>
+        
         </Container>
       );
     else return <div></div>;

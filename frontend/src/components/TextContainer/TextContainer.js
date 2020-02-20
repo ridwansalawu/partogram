@@ -1,26 +1,25 @@
 import React from 'react';
 
-// import onlineIcon from '../icons/onlineIcon.png';
+import onlineIcon from '../../icons/onlineIcon.png';
 
 import './TextContainer.css';
 
 const TextContainer = ({ users }) => (
-  <div className="textContainer">
-    
+  <div className="">
     {
       users
         ? (
           <div>
-            <h1>People currently chatting:</h1>
-            <div className="activeContainer">
-              <h2>
+            <h4>Staff currently in the forum:</h4>
+            <div className="">
+              <h4>
                 {users.map(({name}) => (
-                  <div key={name} className="activeItem">
+                  <div key={name} className="">
                     {name}
-                    {/* <img alt="Online Icon" src={onlineIcon}/> */}
+                    <img alt="Online Icon" src={onlineIcon}/>
                   </div>
                 ))}
-              </h2>
+              </h4>
             </div>
           </div>
         )
