@@ -8,11 +8,11 @@ import './InfoBar.css';
 const InfoBar = ({ room }) => (
   <div className="">
     <div className="">
-      <img className="onlineIcon" src={onlineIcon} alt="online icon" />
+
       <h3>{room}</h3>
     </div>
     <div className="">
-      <a href="/"><img src={closeIcon} alt="close icon" /></a>
+      <a href="/">leave room</a>
     </div>
   </div>
 );
