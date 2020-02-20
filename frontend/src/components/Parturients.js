@@ -6,7 +6,6 @@ import "../index.css";
 import { Card, Container, Row, Col, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-// import { baseUrl } from "../testData/baseUrl";
 import { withRouter } from "react-router-dom";
 import "./parturients.css";
 
@@ -26,17 +25,16 @@ class Parturients extends Component {
   componentDidMount() {
     
     if (!this.props.auth.isAuthenticated) {
-      console.log(this.props.history.push("/home"));
+      this.props.history.push("/home");
     }
-    console.log(this.props.auth.token)
   }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleDelete = parturient => {
     Axios.delete(`parturients/${parturient._id}`).then(response => {
-      console.log("deleted");
     });
   };
 

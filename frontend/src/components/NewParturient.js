@@ -103,7 +103,8 @@ class NewParturient extends Component {
             return <Redirect to="/parturients" />
         }
         return (
-            <Container className="comp-container">
+            <React.Fragment>
+              <Container className="comp-container">
                 <Row>
                     <Col md={10}><h1>New Parturient</h1></Col>
                     <Col><Button onClick={this.generateMedId} disabled={true}>generate Med ID</Button></Col>
@@ -602,6 +603,7 @@ class NewParturient extends Component {
                 </div>
                 
             </Container>
+        </React.Fragment>
         )
     }
 }

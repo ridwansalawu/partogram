@@ -3,7 +3,6 @@ import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
-import {baseUrl} from "../testData/baseUrl"
 import { Redirect } from 'react-router-dom';
 import "../components/parturients.css"
 const _ = require("lodash");
@@ -28,19 +27,13 @@ export default class Parturient extends Component {
          telnum: "",
          dob: "",
          address: "",
-         nok: "",
-
-
-
+         nok: ""
       };
     };
 
     generateMedId = (e) => {
         this.setState({medId: _.times(5, () => _.random(35).toString(36)).join('').toUpperCase(), disabled: true})
         e.target.disabled = this.state.disabled;
-        console.log(this.state.medId)
-        console.log(e.target.disabled)
-
     }
     
     handleChange = (e) => {
@@ -63,6 +56,7 @@ export default class Parturient extends Component {
         }
         Axios.post("parturients", parturientDetails)
             .then(response => {
+                console.log(response.status)
                 this.setState({redirectToReferrer: true})
             })    
     }
@@ -72,7 +66,7 @@ export default class Parturient extends Component {
             return <Redirect to="/parturients" />
         }
         return (
-            <Container style={{"margin-top": "300px"}}>
+            <Container style={{"marginTop": "300px"}}>
                 <Row>
                     <Col md={10}><h1 className="title-text">New Parturient</h1></Col>
                     <Col><Button 
