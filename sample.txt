@@ -4,6 +4,28 @@ mongoimport -h ds259596.mlab.com:59596 -d heroku_txkzlqcg -c parturients -u <use
 
 
 
+ <Carousel>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_3d_delivery.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_2cm.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_2ndStage.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_4cm.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/cx_closed.jpg" width="100%" height="100%" alt=""/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    <img src="assets/images/black_preg.jpg" width="75%" height="75%" alt=""/>
+                    </Carousel.Item>
+                </Carousel>
+
+
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";

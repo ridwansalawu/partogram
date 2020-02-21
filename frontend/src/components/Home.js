@@ -1,6 +1,10 @@
 import React from 'react';
 import {Redirect} from "react-router-dom"
-import {Container, Row, Carousel} from "react-bootstrap"
+import {Carousel, Image} from "react-bootstrap";
+import Container from "react-bootstrap/Container"
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
+import "../index.css"
 // import Parturient from '../forms/SignupNewParturient';
 
 
@@ -9,36 +13,13 @@ export default function Home(props) {
         return <Redirect to="/" />
       }
 
-    
     return (
-        
-        
-        <Container>
+        <Container fluid="md" className="no-padding">
             <Row>
-                <Carousel>
-                    <Carousel.Item>
-                    <img src="assets/images/cx_3d_delivery.jpg" width="100%" height="100%" alt=""/>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                    <img src="assets/images/cx_2cm.jpg" width="100%" height="100%" alt=""/>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                    <img src="assets/images/cx_2ndStage.jpg" width="100%" height="100%" alt=""/>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                    <img src="assets/images/cx_4cm.jpg" width="100%" height="100%" alt=""/>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                    <img src="assets/images/cx_closed.jpg" width="100%" height="100%" alt=""/>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                    <img src="assets/images/black_preg.jpg" width="75%" height="75%" alt=""/>
-                    </Carousel.Item>
-                </Carousel>
-
+                <Col md={12}>
+                    <Image src="assets/images/Adobe3.jpeg" fluid />
+                </Col>
             </Row>
-
-
         </Container>
 
 

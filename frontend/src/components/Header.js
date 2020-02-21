@@ -60,8 +60,8 @@ export default class Header extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div>
-                    <Navbar className="navigatio" bg="light" expand="lg" fixed="top">
+      <div  className="navigatio">
+                    <Navbar bg="light" expand="lg" fixed="top">
                         <Navbar.Brand href="/" className="main-title"> Digital Partogram </Navbar.Brand>
                         <NavbarToggler onClick={this.toggleNav} />
                         <Collapse isOpen={this.state.isNavOpen} navbar>

@@ -3,7 +3,10 @@ import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import "../index.css";
-import { Card, Container, Row, Col, Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
+import Container from "react-bootstrap/Container"
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
