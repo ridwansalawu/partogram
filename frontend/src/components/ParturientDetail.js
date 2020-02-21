@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Axios from "axios";
 import { Alert, Carousel } from "react-bootstrap";
-import { Redirect, Link, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./parturients.css"
 import {saveAs} from "file-saver";
 import "./parturients.css";
