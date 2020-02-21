@@ -25,6 +25,7 @@ class Parturients extends Component {
   componentDidMount() {
     
     if (!this.props.auth.isAuthenticated) {
+      alert("you need to sign in to continue")
       this.props.history.push("/home");
     }
   }
@@ -64,7 +65,7 @@ class Parturients extends Component {
   render() {
     const parturients = this.props.parturients.parturients.map(parturient => {
       return (
-        <div key={parturient._id} className="col-12 col-md-12">
+        <div key={parturient._id}>
           <Card bg="light">
             <Card.Body className="card-body">
               <Card.Header>
@@ -81,7 +82,7 @@ class Parturients extends Component {
               </Card.Header>
               <br />
               <Row>
-                <Col sm={12} md={3}>
+                <Col>
                   <Link
                     to={{
                       pathname: `/parturients/${parturient._id}/newParturient`,
@@ -102,16 +103,16 @@ class Parturients extends Component {
 
     if (this.props.parturients.isLoading) {
       return (
-        <div className="container">
-          <div className="row">
+        <div className="comp-container">
+          <div>
             <Loading />
           </div>
         </div>
       );
     } else if (this.props.parturients.errMsg) {
       return (
-        <div className="container">
-          <div className="row">
+        <div className="comp-container">
+          <div >
             <h4>{this.props.parturients.errMsg}</h4>
           </div>
         </div>
