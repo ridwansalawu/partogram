@@ -17,8 +17,6 @@ class Parturients extends Component {
     super(props);
 
     this.state = {
-      reload: true,
-      redirectToReferrer: false,
       showDelete: false,
       firstname: "",
       lastname: "",
@@ -58,7 +56,6 @@ class Parturients extends Component {
     })
     .then(
       response => {
-       console.log(response)
        let res = response.data.medId;
       this.props.history.push(`/parturients/${res}`)
       }

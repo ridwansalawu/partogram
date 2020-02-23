@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-// import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Axios from 'axios';
@@ -30,7 +29,6 @@ handleShow = () => {
 
 handleChange = (e) => {
     this.setState({ [e.target.id]: e.target.value })
-    console.log(e.target.value)
 }
 
 handleSubmit = (e) => {
@@ -38,11 +36,8 @@ handleSubmit = (e) => {
     const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
     Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
         .then(response => {
-            console.log( "9999999999" + JSON.stringify(response))
-            console.log(this.props.history)
             this.props.history.push(`${this.props.history.location.pathname}`)
-        })
-       
+        })       
 }
 
 render() {

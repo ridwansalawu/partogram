@@ -21,6 +21,7 @@ import {
 } from "react-bootstrap";
 import Bishop from "../forms/Bishop";
 import Chat from "./Chat/Chat";
+import MaternalHeartViz from "./MaternalHeartViz";
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -52,7 +53,6 @@ class ParturientDetail extends Component {
       room: `${this.props.parturient.firstName}`,
       user: this.props.auth.user.username
     });
-    // console.log(this.state);
   };
   handleShow = () => {
     this.setState({
@@ -118,10 +118,24 @@ class ParturientDetail extends Component {
       );
     } else if (this.state.show) {
       return (
-        <Col className="comp-container">
-          <Carousel indicators={false} controls={false}>
+        <Col >
+          <Carousel  controls={true} fade={true} interval={null} nextLabel>
+            <Carousel.Item className="comp-container-graph">
+              <Visualize
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                refresh={this.refresh}
+              />
+            </Carousel.Item>
             <Carousel.Item>
               <Visualize
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                refresh={this.refresh}
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <MaternalHeartViz 
                 parturient={this.props.parturient}
                 customDataSet={this.state.customDataSet}
                 refresh={this.refresh}

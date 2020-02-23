@@ -3,8 +3,7 @@ import { drawTemplate } from "../testData/partographTemplate";
 import { Card } from "react-bootstrap";
 import "./parturients.css"
 
-
-class Visualize extends Component {
+class MaternalHeartViz extends Component {
 
   componentDidMount() {
     drawTemplate(this.props.customDataSet);
@@ -20,7 +19,7 @@ class Visualize extends Component {
             {this.props.parturient.lastName} {""} {""} Medical ID:
             {this.props.parturient.medId}{" "}
           </Card.Header>
-          <Card.Body style={{"backgroundColor": "#590212"}}>
+          <Card.Body style={{"backgroundColor": "#987364"}}>
             <div className="main-graph"></div>
           </Card.Body>
         </Card>
@@ -29,6 +28,6 @@ class Visualize extends Component {
   }
 }
 
-export default Visualize;
+export default MaternalHeartViz;
 
 
