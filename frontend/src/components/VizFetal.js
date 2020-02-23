@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { drawTemplate } from "../testData/maternalHeartTemplate";
+import { drawTemplate } from "../testData/fetalHeartTemplate";
 import { Card } from "react-bootstrap";
 import "./parturients.css"
 
-class MaternalHeartViz extends Component {
+class VizFetal extends Component {
 
   componentDidMount() {
     drawTemplate();
@@ -15,13 +15,13 @@ class MaternalHeartViz extends Component {
       <React.Fragment>
         <Card bg="light" >
           <Card.Header className="title-text">
-              Maternal Heart Rate
+              Fetal Heart Rate {""}
             Name:{this.props.parturient.firstName.toUpperCase()},{" "}
             {this.props.parturient.lastName} {""} {""} Medical ID:
             {this.props.parturient.medId}{" "}
           </Card.Header>
           <Card.Body style={{"backgroundColor": "#987364"}}>
-            <div className="main-graph-maternal"></div>
+            <div className="main-graph-Fetal"></div>
           </Card.Body>
         </Card>
       </React.Fragment>
@@ -29,6 +29,6 @@ class MaternalHeartViz extends Component {
   }
 }
 
-export default MaternalHeartViz;
+export default VizFetal;
 
 

@@ -22,6 +22,7 @@ import {
 import Bishop from "../forms/Bishop";
 import Chat from "./Chat/Chat";
 import MaternalHeartViz from "./MaternalHeartViz";
+import VizFetal from "./VizFetal";
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -120,6 +121,15 @@ class ParturientDetail extends Component {
       return (
         <Col >
           <Carousel  controls={true} fade={true} interval={null} nextLabel>
+          <Carousel.Item>
+              <MaternalHeartViz 
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                refresh={this.refresh}
+              />
+            </Carousel.Item>
+
+
             <Carousel.Item className="comp-container-graph">
               <Visualize
                 parturient={this.props.parturient}
@@ -128,19 +138,13 @@ class ParturientDetail extends Component {
               />
             </Carousel.Item>
             <Carousel.Item>
-              <Visualize
+              <VizFetal
                 parturient={this.props.parturient}
                 customDataSet={this.state.customDataSet}
                 refresh={this.refresh}
               />
             </Carousel.Item>
-            <Carousel.Item>
-              <MaternalHeartViz 
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                refresh={this.refresh}
-              />
-            </Carousel.Item>
+           
           </Carousel>
           <Row>
             <Col>
