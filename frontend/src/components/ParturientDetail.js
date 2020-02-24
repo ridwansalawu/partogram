@@ -13,6 +13,7 @@ import "./parturients.css"
 import {saveAs} from "file-saver";
 import "./parturients.css";
 
+
 import {
   Container,
   Row,
@@ -35,7 +36,8 @@ class ParturientDetail extends Component {
       customDataSet: [],
       showDelete: false,
       room: "",
-      name: ""
+      name: "",
+      fullPage: false
     };
   }
 
@@ -48,6 +50,10 @@ class ParturientDetail extends Component {
         this.setState({ show: true });
       });
     }
+  }
+
+  componentDidUpdate() {
+
   }
  
   handleAssign = () => {
@@ -93,10 +99,16 @@ class ParturientDetail extends Component {
       
     });
   };
-
   handleDownload = () => {
     Axios.post(`/downloadPartographPdf`)
+  }
 
+  backToDetails =()=> {
+    this.setState({ fullPage: false })
+  }
+
+  handleFullPage = () => {
+    this.setState({ fullPage: true })
   }
 
   render() {
@@ -118,17 +130,40 @@ class ParturientDetail extends Component {
           </div>
         </div>
       );
-    } else if (this.state.show) {
+    } 
+    else if (this.state.fullPage) {
+      return (
+        <div>
+          <Button onClick={this.backToDetails}>Back</Button>
+          <Visualize 
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+          />
+          <MaternalHeartViz 
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                />
+          <VizFetal 
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                />
+          <VizMatBp 
+                parturient={this.props.parturient}
+                customDataSet={this.state.customDataSet}
+                />
+           <Button onClick={this.backToDetails}>Back</Button>
+        </div>
+      )
+    } 
+    
+    
+    
+    
+    else if (this.state.show) {
       return (
         <Col >
           <Carousel  controls={true} fade={true} interval={null} nextLabel>
-          <Carousel.Item>
-              <VizMatBp
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                refresh={this.refresh}
-              />
-            </Carousel.Item>
+          
           
           <Carousel.Item>
               <MaternalHeartViz 
@@ -156,16 +191,15 @@ class ParturientDetail extends Component {
             
            
           </Carousel>
+          
           <Row>
             <Col>
-              {" "}
               <LabourWard
                 parturient={this.props.parturient}
                 refresh={this.refresh}
               />
             </Col>
             <Col>
-              {" "}
               <Bishop />
             </Col>
 
@@ -184,8 +218,8 @@ class ParturientDetail extends Component {
               </Button>
             </Col>
             <Col>
-              <Button variant="dark" size="sm" onClick={this.refresh}>
-                Refresh
+              <Button variant="dark" size="sm" onClick={this.handleFullPage }>
+                All Charts
               </Button>
             </Col>
             <Col>
@@ -351,6 +385,11 @@ class ParturientDetail extends Component {
         
         </Container>
       );
+
+
+
+
+
     else return <div></div>;
   }
 }
