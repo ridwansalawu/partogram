@@ -1370,3 +1370,23 @@ medId:response.data.medId,
             dob: response.data.dob,
             address: response.data.address,
             nok: response.data.nok
+
+
+It all started as a passionate hobby, the kind that would transform an almost 10 years of 
+medical practice into computer programming. Although I had always been a computer enthusiast, 
+I was completely immersed into the world of computer programming during my postgraduate years when i had to master SAS
+for use in big data management. thereafter i was led to Python which i immeditely used to transform a company while working as 
+a health ans safety advisor. 
+Along the way however, i found my true love! data analytics with python was insufficient to quench my thirst for programming, 
+my propensity for creativity led me straigght into General Assembly for softaware engineering and I believe I have finally found a niche
+and ready to take on any challenge.
+
+
+
+knowledge acquisition is my 
+
+
+
+
+
+ 

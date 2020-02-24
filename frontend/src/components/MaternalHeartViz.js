@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { drawTemplate } from "../testData/maternalHeartTemplate";
-import { Card } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 import "./parturients.css"
 
 class MaternalHeartViz extends Component {
@@ -15,12 +15,13 @@ class MaternalHeartViz extends Component {
       <React.Fragment>
         <Card bg="light" >
           <Card.Header className="title-text">
-              Maternal Heart Rate
-            Name:{this.props.parturient.firstName.toUpperCase()},{" "}
-            {this.props.parturient.lastName} {""} {""} Medical ID:
-            {this.props.parturient.medId}{" "}
+          <Row>
+                  <Col><Card.Text> Name:{this.props.parturient.firstName.toUpperCase()}, {this.props.parturient.lastName}</Card.Text></Col>
+                  <Col><Card.Text>Maternal Heart Rate</Card.Text></Col>
+                  <Col><Card.Text> Medical ID:{this.props.parturient.medId}</Card.Text></Col>
+              </Row>
           </Card.Header>
-          <Card.Body style={{"backgroundColor": "#987364"}}>
+          <Card.Body style={{"backgroundColor": "#590212"}}>
             <div className="main-graph-maternal"></div>
           </Card.Body>
         </Card>

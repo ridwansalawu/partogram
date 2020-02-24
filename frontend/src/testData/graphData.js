@@ -80,7 +80,77 @@ exports.setCustomMaternalHeart = () => {
         }
 
 
-// ===================================================================
+// ==================================================================================================
+
+exports.setInitialGraphDataMaternalBp = () => {
+    const time = _.range(0, 200);
+    const bp = _.range(0, 200);
+//   const alertDataset =  [[...labourTime], [...dilatation]];
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    console.log("nownownowonw", time)
+    
+    return dataset
+}
+exports.setLowerMaternalBpSystolic = () => {
+    const time = _.range(0, 13);
+    const bp = _.range(95, 200, 0);
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    console.log("nownownowonw", bp)
+    
+    return dataset
+}
+exports.setHigherMaternalBpSystolic = () => {
+    const time = _.range(0, 13);
+    const bp = _.range(140, 200, 0);
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    return dataset
+}
+exports.setCustomMaternalBpSystolic = () => {
+    const time =[0,2,4,6,8,10];
+    const bp = [120,135,90,170,130,110];
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    return dataset
+}
+exports.setLowerMaternalBpDiastolic = () => {
+    const time = _.range(0, 13);
+    const bp = _.range(50, 200, 0);
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    console.log("nownownowonw", bp)
+    
+    return dataset
+}
+exports.setHigherMaternalBpDiastolic = () => {
+    const time = _.range(0, 13);
+    const bp = _.range(90, 200, 0);
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    return dataset
+}
+exports.setCustomMaternalBpDiastolic = () => {
+    const time =[0,2,4,6,8,10];
+    const bp = [80,85,90,70,100,110];
+    const dataset = time.map((item, index) => {
+        return {"time": item, "bp": bp[index]}
+    })
+    return dataset
+}
+
+
+
+
+
+// ==================================================================================================
 
 
 
@@ -121,6 +191,18 @@ exports.setCustomFetalHeart = () => {
             })
             return dataset
         }
+
+        // =========================================================================================
+
+        
+
+
+
+
+
+
+
+
 
 
 

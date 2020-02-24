@@ -7,6 +7,15 @@ svg {
 .main-graph {
     background-color:#D9D9D9;
 }
+.main-graph-maternal {
+    background-color:#D9D9D9;
+}
+.main-graph-fetal {
+    background-color:#D9D9D9;
+}
+.main-graph-maternal-bp {
+    background-color:#D9D9D9;
+}
 
 .container{
     justify-content: center;
@@ -91,13 +100,54 @@ div.navigation > nav {
 }
 
 .custom-line {
-    fill:red;
+    
     stroke:#FFC700;
     stroke-linejoin: round;
     stroke-width: 3;
   
 
 }
+#high-sys-line {
+   
+    stroke:#D9184B;
+    stroke-linejoin: round;
+    stroke-width: 1;
+  
+
+}
+#low-sys-line {
+    
+    stroke:#FFC700;
+    stroke-linejoin: round;
+    stroke-width: 1;
+}
+#custom-sys-line {
+   
+    stroke:#FFC700;
+    stroke-linejoin: round;
+    stroke-width: 1;
+}
+
+
+#high-dias-line {
+   
+    stroke:#730202;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+#low-dias-line {
+   
+    stroke:#0D7339;
+    stroke-linejoin: round;
+    stroke-width: 1;
+}
+#custom-dias-line {
+   
+    stroke:#0D7339;
+    stroke-linejoin: round;
+    stroke-width: 1;
+}
+
 #custom-input {
     border: red solid 1px;
 }

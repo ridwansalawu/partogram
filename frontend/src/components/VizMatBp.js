@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-import { drawTemplate } from "../testData/partographTemplate";
-
+import { drawTemplate } from "../testData/maternalBpTemplate";
 import { Card, Col, Row } from "react-bootstrap";
 import "./parturients.css"
 
 
-class Visualize extends Component {
+class VizMatBp extends Component {
 
   componentDidMount() {
     drawTemplate(this.props.customDataSet);
   }
-
-
   render() {
     return (
       <React.Fragment>
@@ -19,12 +16,12 @@ class Visualize extends Component {
           <Card.Header className="title-text">
               <Row>
                   <Col><Card.Text> Name:{this.props.parturient.firstName.toUpperCase()}, {this.props.parturient.lastName}</Card.Text></Col>
-                  <Col><Card.Text>Partograph</Card.Text></Col>
+                  <Col><Card.Text>Maternal Blood Pressure</Card.Text></Col>
                   <Col><Card.Text> Medical ID:{this.props.parturient.medId}</Card.Text></Col>
               </Row>
           </Card.Header>
           <Card.Body style={{"backgroundColor": "#590212"}}>
-            <div className="main-graph"></div>
+            <div className="main-graph-maternal-bp"></div>
           </Card.Body>
         </Card>
       </React.Fragment>
@@ -32,6 +29,6 @@ class Visualize extends Component {
   }
 }
 
-export default Visualize;
+export default VizMatBp;
 
 

@@ -1,13 +1,16 @@
 import "./template.css";
 const d3 = require("d3");
 const graphData = require("./graphData");
-const initData = graphData.setInitialGraphDataFetalHeart();
-const highDataset = graphData.setHigherFetalHeart();
-const lowDataSet = graphData.setLowerFetalHeart();
-const customDataSet = graphData.setCustomFetalHeart();
+const initData = graphData.setInitialGraphDataMaternalBp();
+const highDatasetSystolic = graphData.setHigherMaternalBpSystolic();
+const lowDataSetSystolic = graphData.setLowerMaternalBpSystolic();
+const customDataSetSystolic = graphData.setCustomMaternalBpSystolic();
+const highDatasetDiastolic = graphData.setHigherMaternalBpDiastolic();
+const lowDataSetDiastolic = graphData.setLowerMaternalBpDiastolic();
+const customDataSetDiastolic = graphData.setCustomMaternalBpDiastolic();
 
 export const drawTemplate = () => {
-    d3.select(".main-graph-fetal > *").remove();
+    d3.select(".main-graph-maternal-bp > *").remove();
 
     const margin = {
         top:10,
@@ -21,7 +24,7 @@ export const drawTemplate = () => {
 
     const drawingBoardWidth = width;
     const drawingBoardHeight = height;
-    const mains = d3.select(".main-graph-fetal")
+    const mains = d3.select(".main-graph-maternal-bp")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
           
@@ -29,13 +32,10 @@ export const drawTemplate = () => {
     const xScale = d3.scaleLinear()
         //   .domain(d3.extent(initData, d => d.time))
           .domain([0, 12])
-
           .range([0, drawingBoardWidth])
 
-   
-
     const yScale = d3.scaleLinear()
-          .domain(d3.extent(initData, d => d.heartRate))
+          .domain(d3.extent(initData, d => d.bp))
           .range([drawingBoardHeight, 0])
 
     
@@ -54,7 +54,7 @@ export const drawTemplate = () => {
             .attr("y", 20)
             .attr("x", height/2)
             .attr("transform", "rotate(90)")
-            .text("Fetal Heart Rate")
+            .text("Maternal Blood Pressure")
             .attr("class", "y-axis-group-text")
             .attr("fill", "black")
 
@@ -77,35 +77,71 @@ export const drawTemplate = () => {
                 .text("Hours")
                 .attr("fill", "black")
 
-    const drawLowLine = d3.line()
+    const drawLowLineSystolic = d3.line()
             .x(d => xScale(d.time))
-            .y(d => yScale(d.heartRate))
+            .y(d => yScale(d.bp))
     
             drawingBoard.append("path")
                 .attr("class", "line")
-                .attr("id", "alert-line")
-                .datum(lowDataSet)
-                .attr("d", drawLowLine)
+                .attr("id", "low-sys-line")
+                .datum(lowDataSetSystolic)
+                .attr("d", drawLowLineSystolic)
 
-    const drawHighLine = d3.line()
+    const drawHighLineSystolic = d3.line()
         .x(d => xScale(d.time))
-        .y(d => yScale(d.heartRate))
+        .y(d => yScale(d.bp))
       
 
         drawingBoard.append("path")
-            .attr("class", "action-line")
-            .datum(highDataset)
-            .attr("d", drawHighLine)
+            .attr("class", "line")
+            .attr("id", "high-sys-line")
+            .datum(highDatasetSystolic)
+            .attr("d", drawHighLineSystolic)
 
-    const drawCustomLine = d3.line()    
+    const drawCustomLineSystolic = d3.line()    
         .x(d => xScale(d.time))
-        .y(d => yScale(d.heartRate))
+        .y(d => yScale(d.bp))
+
+        drawingBoard.append("path")
+        .attr("class", "line")
+        .attr("id", "custom-sys-line")
+        .datum(customDataSetSystolic)
+        .attr("d", drawCustomLineSystolic)
+        .attr("stroke-linecap", "round")
+
+// ==========================================================================================
+
+    const drawLowLineDiastolic = d3.line()
+            .x(d => xScale(d.time))
+            .y(d => yScale(d.bp))
+    
+            drawingBoard.append("path")
+                .attr("class", "line")
+                .attr("id", "low-dias-line")
+                .datum(lowDataSetDiastolic)
+                .attr("d", drawLowLineDiastolic)
+
+    const drawHighLineDiastolic = d3.line()
+        .x(d => xScale(d.time))
+        .y(d => yScale(d.bp))
+      
+
+        drawingBoard.append("path")
+            .attr("class", "line")
+            .attr("id", "high-dias-line")
+            .datum(highDatasetDiastolic)
+            .attr("d", drawHighLineDiastolic)
+
+    const drawCustomLineDiastolic = d3.line()    
+        .x(d => xScale(d.time))
+        .y(d => yScale(d.bp))
        
 
     drawingBoard.append("path")
-        .attr("class", "custom-line")
-        .datum(customDataSet)
-        .attr("d", drawCustomLine)
+        .attr("class", "line")
+        .attr("id", "custom-dias-line")
+        .datum(customDataSetDiastolic)
+        .attr("d", drawCustomLineDiastolic)
         .attr("stroke-linecap", "round")
 
     function makeResponsive(drawingBoard) {
