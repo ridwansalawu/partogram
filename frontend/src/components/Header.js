@@ -43,12 +43,16 @@ export default class Header extends Component {
   };
   handleLogin = event => {
       event.preventDefault()
+
     this.toggleModal();
+    if (this.pin.value === "aaaa"){
+
     this.props.loginUser({
       username: this.username.value,
       password: this.password.value
     })
-    .then(setTimeout( function() { history.push('/labourward') }, 700))
+    .then(setTimeout( function() { history.push('/labourward') }, 700))}
+    else alert("wrong pin")
   };
 
   handleLogout = () => {
@@ -136,6 +140,15 @@ export default class Header extends Component {
                               id="password"
                               name="password"
                               innerRef={input => (this.password = input)}
+                            />
+                          </FormGroup>
+                          <FormGroup>
+                            <Label htmlFor="pin"> PIN</Label>
+                            <Input
+                              type="password"
+                              id="pin"
+                              name="pin"
+                              innerRef={input => (this.pin = input)}
                             />
                           </FormGroup>
                           <FormGroup check>

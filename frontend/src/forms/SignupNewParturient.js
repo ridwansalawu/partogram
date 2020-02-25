@@ -3,7 +3,7 @@ import Axios from "axios";
 import Accordion from 'react-bootstrap/Accordion';
 import {Card, Button, Container, Row, Col } from "react-bootstrap";
 import {Label} from "reactstrap";
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import "../components/parturients.css"
 import ObstetricHx from './ObstetricHx';
 const _ = require("lodash");
@@ -11,8 +11,7 @@ const _ = require("lodash");
 
 
 
-
-export default class Parturient extends Component {
+class Parturient extends Component {
 
     constructor(props) {
       super(props)
@@ -31,6 +30,13 @@ export default class Parturient extends Component {
          nok: ""
       };
     };
+
+    componentWillMount() {
+        if (!this.props.auth.isAuthenticated) {
+            alert("you need to sign in to continue")
+            this.props.history.push("/home");
+          }
+    }
 
     generateMedId = (e) => {
         this.setState({medId: _.times(5, () => _.random(35).toString(36)).join('').toUpperCase(), disabled: true})
@@ -465,3 +471,6 @@ export default class Parturient extends Component {
         )
     }
 }
+
+
+export default withRouter(Parturient)

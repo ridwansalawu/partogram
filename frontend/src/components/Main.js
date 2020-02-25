@@ -142,14 +142,19 @@ class Main extends Component {
 
               <Route
                 path="/signupnewparturient"
-                component={SignupNewParturient}
+                component={()=> (
+                               <SignupNewParturient 
+                               auth={this.props.auth}
+
+                                  
+                />)}
               />
               <Route path="/newpaturient" component={NewParturient} />
               <Route
                 path="/chat"
                 component={() => <Chat auth={this.props.auth} />}
               />
-              <Route path="/aboutpartograph" component={AboutPartograph} />
+              <Route path="/aboutpartograph" component={ () => (<AboutPartograph  auth={this.props.auth}/>)} />
 
               <Route
                 path="/signup"

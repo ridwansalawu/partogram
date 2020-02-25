@@ -4,6 +4,16 @@ import {withRouter} from "react-router-dom";
 
 
 class AboutPartograph extends Component {
+
+
+componentDidMount = () => {
+    if (!this.props.auth.isAuthenticated) {
+        alert("you need to sign in to continue")
+        this.props.history.push("/home");
+      }
+};
+
+
     render() {
         return (
 
