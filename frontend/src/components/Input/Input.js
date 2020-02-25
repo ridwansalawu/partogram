@@ -1,18 +1,19 @@
 import React from 'react';
-
 import './Input.css';
 
 const Input = ({ setMessage, sendMessage, message }) => (
-  <form className="">
-    <input
-      className=""
-      type="text"
+  <form className="form">
+    <textarea
+      className="input"
+
+      type="textarea"
+      rows="4"
       placeholder="Type a message..."
       value={message}
       onChange={({ target: { value } }) => setMessage(value)}
       onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
     />
-    <button className="" onClick={e => sendMessage(e)}>Send</button>
+    <button className="sendButton" onClick={e => sendMessage(e)}>Send</button>
   </form>
 )
 

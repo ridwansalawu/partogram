@@ -15,7 +15,8 @@ export default function Chat(props) {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = "https://partogram.herokuapp.com/";
+    const ENDPOINT = process.env.NODE_ENV === "production" ? "https://partogram.herokuapp.com/" : "http://localhost:3001/" 
+
 
     useEffect(() => {
         const {name, room} = props;
@@ -56,12 +57,12 @@ export default function Chat(props) {
       }
 
     return (
-        <div className="">
-      <div className="">
-          <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
-          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-      </div>
+        <div className="outerContainer">
+            <div className="innerContainer">
+                <InfoBar room={room} />
+                <Messages messages={messages} name={name} />
+                <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+            </div>
       <TextContainer users={users}/>
     </div>
     )

@@ -2,20 +2,20 @@ import React from 'react';
 import './TextContainer.css';
 
 const TextContainer = ({ users }) => (
-  <div className="">
+  <div className="textContainer">
     {
       users
         ? (
           <div>
-            <h4>Staff currently in the forum:</h4>
-            <div className="">
-              <h4>
+            <p>Staff currently in the forum:</p>
+            <div className="activeContainer">
+              <p>
                 {users.map(({name}) => (
-                  <div key={name} className="">
+                  <div key={name} className="activeItem">
                     {name}
                   </div>
                 ))}
-              </h4>
+              </p>
             </div>
           </div>
         )
