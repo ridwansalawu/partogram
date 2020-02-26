@@ -3,11 +3,9 @@ import './Input.css';
 
 const Input = ({ setMessage, sendMessage, message }) => (
   <form className="form">
-    <textarea
+    <input
       className="input"
-
-      type="textarea"
-      rows="4"
+      type="text"
       placeholder="Type a message..."
       value={message}
       onChange={({ target: { value } }) => setMessage(value)}

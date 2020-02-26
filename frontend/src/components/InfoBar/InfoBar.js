@@ -1,5 +1,7 @@
 import React from 'react';
 import './InfoBar.css';
+import { Button } from 'react-bootstrap';
+import "../parturients.css"
 
 const InfoBar = ({ room }) => (
   <div className="">
@@ -8,7 +10,8 @@ const InfoBar = ({ room }) => (
       <h3>{room}</h3>
     </div>
     <div className="">
-      <a href="/">leave room</a>
+      <Button className="button-update"><a href="/">leave room</a></Button>
+      
     </div>
   </div>
 );

@@ -15,9 +15,7 @@ class VizMatBp extends Component {
         <Card bg="light" >
           <Card.Header className="title-text">
               <Row>
-                  <Col><Card.Text> Name:{this.props.parturient.firstName.toUpperCase()}, {this.props.parturient.lastName}</Card.Text></Col>
                   <Col><Card.Text>Maternal Blood Pressure</Card.Text></Col>
-                  <Col><Card.Text> Medical ID:{this.props.parturient.medId}</Card.Text></Col>
               </Row>
           </Card.Header>
           <Card.Body style={{"backgroundColor": "#590212"}}>

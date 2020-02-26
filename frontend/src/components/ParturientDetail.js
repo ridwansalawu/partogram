@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Loading from "./Loading";
 import "../index.css";
 import LabourWard from "./LabourWard";
@@ -12,19 +11,19 @@ import { Link, withRouter } from "react-router-dom";
 import "./parturients.css"
 import {saveAs} from "file-saver";
 import "./parturients.css";
-
-
 import {
   Container,
   Row,
   Col,
   Button
 } from "react-bootstrap";
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Bishop from "../forms/Bishop";
 import Chat from "./Chat/Chat";
 import MaternalHeartViz from "./MaternalHeartViz";
 import VizFetal from "./VizFetal";
 import VizMatBp from "./VizMatBp";
+import MaternalHR from "../forms/MaternalHR";
 
 class ParturientDetail extends Component {
   constructor(props) {
@@ -37,7 +36,9 @@ class ParturientDetail extends Component {
       showDelete: false,
       room: "",
       name: "",
-      fullPage: false
+      fullPage: true,
+      examinations:false,
+      maternalHR: false,
     };
   }
 
@@ -111,6 +112,13 @@ class ParturientDetail extends Component {
     this.setState({ fullPage: true })
   }
 
+  activateExaminations =() => {
+    this.setState({examinations: true})
+  }
+  activateMaternalHR =() => {
+    this.setState({maternalHR: true})
+  }
+
   render() {
    
 
@@ -133,26 +141,194 @@ class ParturientDetail extends Component {
     } 
     else if (this.state.fullPage) {
       return (
-        <div>
-          <Button onClick={this.backToDetails}>Back</Button>
-          <Visualize 
+
+        <Container>
+
+        <Col xs={12}  className="fixed-buttons">
+        <Row>
+                      <Alert
+                        show={this.state.showDelete}
+                        onClose={() => this.setState({ showDelete: false })}
+                        variant="warning"
+                        dismissible
+                      >
+                        <Alert.Heading>
+                          delete
+                        </Alert.Heading>
+                        <div className="d-flex justify-content-start">
+                          <Button onClick={this.handleDelete} variant="danger">
+                            Y
+                          </Button>{" "}
+                        </div>
+                      </Alert>
+                      {!this.state.showDelete && (
+                        <Button
+                          onClick={() => this.setState({ showDelete: true })}
+                          className="button-update"
+                        >
+                          Delete
+                        </Button>
+                      )}
+                </Row>
+                 <Row>
+                   <Link
+                      to={{
+                        pathname: `/parturients/${this.props.parturient._id}/newParturient`,
+                        state: {
+                          id: this.props.parturient._id
+                        }
+                      }}
+                      >
+                      <Button className="button-update"> Update</Button>
+                    </Link>
+                  </Row>
+                  
+                 <Row><Button className="button-update" onClick={this.handleAssign} >Join</Button></Row>
+                 <Row><Button onClick={this.activateExaminations} className="button-update">VE</Button></Row> 
+                 <Row><Button className="button-update" onClick={this.backToDetails} >Back</Button></Row>
+                 <Row><Button className="button-update" onClick={this.backToDetails} >Bishop</Button></Row>
+                 <Row><Button className="button-update" onClick={this.activateMaternalHR} >Maternal HR</Button></Row>
+                 <Row><Button className="button-update" onClick={this.backToDetails} >Maternal BP</Button></Row>
+                 <Row><Button className="button-update" onClick={this.backToDetails} >Fetal HR</Button></Row>
+                 <Row><Button className="button-update" onClick={this.backToDetails} >Contractions</Button></Row>
+                             
+        </Col>
+        <Col xs={{ span: 10, offset: 2 }} md={{ span: 10, offset: 1 }}> 
+
+        <Row>
+                <Col>
+                <Breadcrumb>
+                  <Breadcrumb.Item>
+                    <Link to="/parturients">Parturients</Link>{" "}
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item active>
+                    {this.props.parturient.firstName}
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+                </Col>
+            </Row>
+
+          <Row>
+            <Col>
+              <Card>
+                <Card.Header className="text-danger font-weight-bolder font-italic ">
+                  {this.props.parturient.firstName +
+                    " " +
+                    this.props.parturient.lastName}
+                </Card.Header>
+                <ListGroup variant="flush" className="title-text">
+                  <ListGroup.Item>
+                    Hospital ID: {this.props.parturient.medId}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Middle Name: {this.props.parturient.middleName}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Hospital ID: {this.props.parturient.medId}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Date of Birth: {this.props.parturient.dob}{" "}
+                  </ListGroup.Item>
+                  <ListGroup.Item>Last Delivery: </ListGroup.Item>
+                  <ListGroup.Item>
+                    Last Menstrual Period: {this.props.parturient.lmp}{" "}
+                  </ListGroup.Item>
+                  <ListGroup.Item>Cervicogram: </ListGroup.Item>
+                  <ListGroup.Item>Bishop Scores: </ListGroup.Item>
+                  <ListGroup.Item>Fetal Heart Rate: </ListGroup.Item>
+                  <ListGroup.Item>Maternal Heart Rate: </ListGroup.Item>
+                  <ListGroup.Item>Contractions: </ListGroup.Item>
+                  <ListGroup.Item>
+                    Significant Intrapartum Events:{" "}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+            <Col>
+             
+                  <Link
+                    onClick={e =>
+                      !this.state.name || !this.state.room
+                        ? e.preventDefault()
+                        : null
+                    }
+                    to={`/
+                    
+                    ?name=${this.state.name}&room=${this.state.room}`}
+                  >
+                    Management discussion: {this.state.room}
+                  </Link>
+               
+       
+                    {this.state.user && this.state.room ? (
+                      <Chat name={this.state.user} room={this.state.room} />
+                    ) : null}
+                
+           
+            </Col>
+          </Row>
+
+          {this.state.examinations 
+          ? 
+          <LabourWard
                 parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-          />
-          <MaternalHeartViz 
+                refresh={this.refresh}
+              />
+
+           : null}
+
+          {this.state.maternalHR 
+          ? 
+          <MaternalHR
                 parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                />
-          <VizFetal 
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                />
-          <VizMatBp 
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                />
-           <Button onClick={this.backToDetails}>Back</Button>
-        </div>
+                refresh={this.refresh}
+              />
+
+           : null}
+  
+          <Row>
+             
+              
+           
+              <Col >
+                  <Visualize 
+                          parturient={this.props.parturient}
+                          customDataSet={this.state.customDataSet}
+                    />
+                    <MaternalHeartViz 
+                          parturient={this.props.parturient}
+                          customDataSet={this.state.customDataSet}
+                          />
+                    <VizFetal 
+                          parturient={this.props.parturient}
+                          customDataSet={this.state.customDataSet}
+                          />
+                    <VizMatBp 
+                          parturient={this.props.parturient}
+                          customDataSet={this.state.customDataSet}
+                          />
+
+              </Col>
+                
+               
+
+            </Row>
+
+        </Col>
+
+
+
+           
+
+        </Container>
+
+
+
+
+
+
+
+      
       )
     } 
     
@@ -163,8 +339,6 @@ class ParturientDetail extends Component {
       return (
         <Col >
           <Carousel  controls={true} fade={true} interval={null} nextLabel>
-          
-          
           <Carousel.Item>
               <MaternalHeartViz 
                 parturient={this.props.parturient}
@@ -243,15 +417,18 @@ class ParturientDetail extends Component {
           <Row>
             <Col>
             <Breadcrumb>
-              <BreadcrumbItem>
+              <Breadcrumb.Item>
                 <Link to="/parturients">Parturients</Link>{" "}
-              </BreadcrumbItem>
-              <BreadcrumbItem active>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>
                 {this.props.parturient.firstName}
-              </BreadcrumbItem>
+              </Breadcrumb.Item>
             </Breadcrumb>
             </Col>
           </Row>
+
+
+     
 
           <Row>
             <Col>
@@ -357,8 +534,7 @@ class ParturientDetail extends Component {
                     Management discussion: {this.state.room}
                   </Link>
                
-{/* -------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------                 */}             
+       
                     {this.state.user && this.state.room ? (
                       <Chat name={this.state.user} room={this.state.room} />
                     ) : null}

@@ -7,58 +7,59 @@ import { Container} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
 
+class MaternalHR extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         show: false,
+         time:"",
+         heartRate: ""
+      };
+    };
 
-class LabourWard extends Component {
-   constructor(props) {
-     super(props)
-   
-     this.state = {
-        show: false,
-        dilatation: "",
-        hour:""
-       
-     };
-   };
+    handleClose = () => {
+        this.setState({show: false})
+    }
+    handleShow = () => {
+        this.setState({show: true})
+    }
+    
+    handleChange = (e) => {
+        this.setState({ [e.target.id]: e.target.value })
+    }
+    
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {time: +this.state.time, heartRate: +this.state.heartRate}
+        Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
+            .then(response => {
+                this.props.history.push(`${this.props.history.location.pathname}`)
+            })       
+    }
+    
 
-handleClose = () => {
-    this.setState({show: false})
-}
-handleShow = () => {
-    this.setState({show: true})
-}
 
-handleChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value })
-}
-
-handleSubmit = (e) => {
-    e.preventDefault();
-    const data = {labourTime: +this.state.hour, dilatation: +this.state.dilatation}
-    Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
-        .then(response => {
-            this.props.history.push(`${this.props.history.location.pathname}`)
-        })       
-}
-
-render() {
-    return (
-        <Container>
+    render() {
+        return (
+            <Container>
             <div>
                 <Button variant="dark" size="sm" block className="button-update" onClick={this.handleShow}>
-                   VE finding
+                   Maternal Heart Rate
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Cervicogram</Modal.Title>
+                    <Modal.Title>Maternal HR</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                        <Form onSubmit={this.handleSubmit}>
                        
 
-                        <Form.Group controlId="hour"  onChange={this.handleChange}>
-                            <Form.Label>Hour</Form.Label>
+                        <Form.Group controlId="time"  onChange={this.handleChange}>
+                            <Form.Label>Time</Form.Label>
                             <Form.Control as="select" required>
                                 <option></option>
+                                <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -74,9 +75,9 @@ render() {
                             </Form.Control>
                         </Form.Group>
 
-                        <Form.Group controlId="dilatation"
+                        <Form.Group controlId="heartRate"
                                     onChange={this.handleChange}>
-                            <Form.Label>Dilatation</Form.Label>
+                            <Form.Label>Heart Rate</Form.Label>
                             <Form.Control as="select" required>
                                 <option></option>
                                 <option>1</option>
@@ -106,8 +107,9 @@ render() {
                 </Modal>
             </div>
          </Container>
+           
         )
-        }
     }
+}
 
-export default withRouter(LabourWard);
+export default withRouter(MaternalHR);
