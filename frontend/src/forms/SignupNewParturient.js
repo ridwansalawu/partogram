@@ -6,6 +6,7 @@ import {Label} from "reactstrap";
 import { Redirect, withRouter } from 'react-router-dom';
 import "../components/parturients.css"
 import ObstetricHx from './ObstetricHx';
+import ObsEmerg from './ObsEmerg';
 const _ = require("lodash");
 
 
@@ -466,6 +467,8 @@ class Parturient extends Component {
                         
                     </form>
                 </div>
+
+                <ObsEmerg />
                 
             </Container>
         )
