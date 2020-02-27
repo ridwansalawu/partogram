@@ -2,7 +2,7 @@ var _ = require("lodash");
 
 
 exports.setInitialGraphData = () => {
-            const labourTime = _.range(0, 13);
+            const labourTime = _.range(0, 21);
             let dilatation = _.range(0, 11);
         //   const alertDataset =  [[...labourTime], [...dilatation]];
             const dataset = labourTime.map((item, index) => {
@@ -48,8 +48,6 @@ exports.setInitialGraphDataMaternalHeart = () => {
             const dataset = time.map((item, index) => {
                 return {"time": item, "heartRate": heartRate[index]}
             })
-            console.log("nownownowonw", time)
-            
             return dataset
         }
 exports.setLowerMaternalHeart = () => {
@@ -58,8 +56,6 @@ exports.setLowerMaternalHeart = () => {
             const dataset = time.map((item, index) => {
                 return {"time": item, "heartRate": heartRate[index]}
             })
-            console.log("nownownowonw", heartRate)
-            
             return dataset
         }
 exports.setHigherMaternalHeart = () => {
@@ -89,8 +85,6 @@ exports.setInitialGraphDataMaternalBp = () => {
     const dataset = time.map((item, index) => {
         return {"time": item, "bp": bp[index]}
     })
-    console.log("nownownowonw", time)
-    
     return dataset
 }
 exports.setLowerMaternalBpSystolic = () => {
@@ -99,8 +93,6 @@ exports.setLowerMaternalBpSystolic = () => {
     const dataset = time.map((item, index) => {
         return {"time": item, "bp": bp[index]}
     })
-    console.log("nownownowonw", bp)
-    
     return dataset
 }
 exports.setHigherMaternalBpSystolic = () => {
@@ -125,8 +117,6 @@ exports.setLowerMaternalBpDiastolic = () => {
     const dataset = time.map((item, index) => {
         return {"time": item, "bp": bp[index]}
     })
-    console.log("nownownowonw", bp)
-    
     return dataset
 }
 exports.setHigherMaternalBpDiastolic = () => {
@@ -161,8 +151,6 @@ exports.setInitialGraphDataFetalHeart = () => {
             const dataset = time.map((item, index) => {
                 return {"time": item, "heartRate": heartRate[index]}
             })
-            console.log("nownownowonw", time)
-            
             return dataset
         }
 exports.setLowerFetalHeart = () => {
@@ -171,8 +159,6 @@ exports.setLowerFetalHeart = () => {
             const dataset = time.map((item, index) => {
                 return {"time": item, "heartRate": heartRate[index]}
             })
-            console.log("nownownowonw", heartRate)
-            
             return dataset
         }
 exports.setHigherFetalHeart = () => {

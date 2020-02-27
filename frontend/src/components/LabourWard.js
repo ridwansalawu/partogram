@@ -37,6 +37,7 @@ handleSubmit = (e) => {
     Axios.put(`parturients/cervicogram/${this.props.parturient._id}`, data )
         .then(response => {
             this.props.history.push(`${this.props.history.location.pathname}`)
+            this.handleClose();
         })       
 }
 
@@ -44,7 +45,7 @@ render() {
     return (
         <Container>
             <div>
-                <Button variant="dark" size="sm" block className="button-update" onClick={this.handleShow}>
+                <Button variant="dark" size="sm" block className="button-update" onClick={this.handleShow} style={{"backgroundColor":"green"}}>
                    VE finding
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>

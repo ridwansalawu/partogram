@@ -31,7 +31,7 @@ class ParturientDetail extends Component {
 
     this.state = {
 
-      show: false,
+      // show: false,
       customDataSet: [],
       showDelete: false,
       room: "",
@@ -48,14 +48,14 @@ class ParturientDetail extends Component {
        `parturients/cervicogram/${this.props.parturient._id}`
       ).then(response => {
         this.setState({ customDataSet: response.data });
-        this.setState({ show: true });
+        console.log(response.data);
+        console.log(this.state.customDataSet)
+        // this.setState({ show: true });
       });
     }
   }
 
-  componentDidUpdate() {
-
-  }
+ 
  
   handleAssign = () => {
     this.setState({
@@ -139,7 +139,7 @@ class ParturientDetail extends Component {
         </div>
       );
     } 
-    else if (this.state.fullPage) {
+    else if (this.props.parturient != null) {
       return (
 
         <Container>
@@ -191,7 +191,8 @@ class ParturientDetail extends Component {
                  <Row><Button className="button-update" onClick={this.backToDetails} >Maternal BP</Button></Row>
                  <Row><Button className="button-update" onClick={this.backToDetails} >Fetal HR</Button></Row>
                  <Row><Button className="button-update" onClick={this.backToDetails} >Contractions</Button></Row>
-                             
+                 <Row><Button className="button-update" onClick={this.handleClearPartograph} >Clear</Button></Row>
+                     
         </Col>
         <Col xs={{ span: 10, offset: 2 }} md={{ span: 10, offset: 1 }}> 
 
@@ -267,24 +268,8 @@ class ParturientDetail extends Component {
            
             </Col>
           </Row>
-
-          {this.state.examinations 
-          ? 
-          <LabourWard
-                parturient={this.props.parturient}
-                refresh={this.refresh}
-              />
-
-           : null}
-
-          {this.state.maternalHR 
-          ? 
-          <MaternalHR
-                parturient={this.props.parturient}
-                refresh={this.refresh}
-              />
-
-           : null}
+         
+          
   
           <Row>
              
@@ -295,17 +280,28 @@ class ParturientDetail extends Component {
                           parturient={this.props.parturient}
                           customDataSet={this.state.customDataSet}
                     />
+
+                    <Row>
+          {this.state.examinations 
+          ? 
+          <LabourWard
+                parturient={this.props.parturient}
+                refresh={this.refresh}
+              />
+
+           : null}
+          </Row>
                     <MaternalHeartViz 
                           parturient={this.props.parturient}
-                          customDataSet={this.state.customDataSet}
+                         
                           />
                     <VizFetal 
                           parturient={this.props.parturient}
-                          customDataSet={this.state.customDataSet}
+                          
                           />
                     <VizMatBp 
                           parturient={this.props.parturient}
-                          customDataSet={this.state.customDataSet}
+                         
                           />
 
               </Col>
@@ -313,6 +309,25 @@ class ParturientDetail extends Component {
                
 
             </Row>
+
+          
+
+
+          <Row>
+          {this.state.maternalHR 
+          ? 
+          <MaternalHR
+                parturient={this.props.parturient}
+                refresh={this.refresh}
+              />
+
+           : null}
+
+          </Row>
+          
+
+
+
 
         </Col>
 
@@ -335,232 +350,232 @@ class ParturientDetail extends Component {
     
     
     
-    else if (this.state.show) {
-      return (
-        <Col >
-          <Carousel  controls={true} fade={true} interval={null} nextLabel>
-          <Carousel.Item>
-              <MaternalHeartViz 
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                refresh={this.refresh}
-              />
-            </Carousel.Item>
+    // else if (this.state.show) {
+    //   return (
+    //     <Col >
+    //       <Carousel  controls={true} fade={true} interval={null} nextLabel>
+    //       <Carousel.Item>
+    //           <MaternalHeartViz 
+    //             parturient={this.props.parturient}
+    //             customDataSet={this.state.customDataSet}
+    //             refresh={this.refresh}
+    //           />
+    //         </Carousel.Item>
 
 
-            <Carousel.Item className="comp-container-graph">
-              <Visualize
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                refresh={this.refresh}
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <VizFetal
-                parturient={this.props.parturient}
-                customDataSet={this.state.customDataSet}
-                refresh={this.refresh}
-              />
-            </Carousel.Item>
+    //         <Carousel.Item className="comp-container-graph">
+    //           <Visualize
+    //             parturient={this.props.parturient}
+    //             customDataSet={this.state.customDataSet}
+    //             refresh={this.refresh}
+    //           />
+    //         </Carousel.Item>
+    //         <Carousel.Item>
+    //           <VizFetal
+    //             parturient={this.props.parturient}
+    //             customDataSet={this.state.customDataSet}
+    //             refresh={this.refresh}
+    //           />
+    //         </Carousel.Item>
             
            
-          </Carousel>
+    //       </Carousel>
           
-          <Row>
-            <Col>
-              <LabourWard
-                parturient={this.props.parturient}
-                refresh={this.refresh}
-              />
-            </Col>
-            <Col>
-              <Bishop />
-            </Col>
+    //       <Row>
+    //         <Col>
+    //           <LabourWard
+    //             parturient={this.props.parturient}
+    //             refresh={this.refresh}
+    //           />
+    //         </Col>
+    //         <Col>
+    //           <Bishop />
+    //         </Col>
 
-            <Col>
-              <Button variant="dark" size="sm">
-                Download
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                variant="dark"
-                size="sm"
-                onClick={this.handleClearPartograph}
-              >
-                Clear
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="dark" size="sm" onClick={this.handleFullPage }>
-                All Charts
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                variant="dark"
-                size="sm"
-                onClick={this.handleToParturient}
-              >
-                back
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-      );
-    }
+    //         <Col>
+    //           <Button variant="dark" size="sm">
+    //             Download
+    //           </Button>
+    //         </Col>
+    //         <Col>
+    //           <Button
+    //             variant="dark"
+    //             size="sm"
+    //             onClick={this.handleClearPartograph}
+    //           >
+    //             Clear
+    //           </Button>
+    //         </Col>
+    //         <Col>
+    //           <Button variant="dark" size="sm" onClick={this.handleFullPage }>
+    //             All Charts
+    //           </Button>
+    //         </Col>
+    //         <Col>
+    //           <Button
+    //             variant="dark"
+    //             size="sm"
+    //             onClick={this.handleToParturient}
+    //           >
+    //             back
+    //           </Button>
+    //         </Col>
+    //       </Row>
+    //     </Col>
+    //   );
+    // }
 
-    //  ========================================================================================================================
-    else if (this.props.parturient != null)
-      return (
-        <Container className="comp-container">
-          <Row>
-            <Col>
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <Link to="/parturients">Parturients</Link>{" "}
-              </Breadcrumb.Item>
-              <Breadcrumb.Item active>
-                {this.props.parturient.firstName}
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            </Col>
-          </Row>
+    // //  ========================================================================================================================
+    // else if (this.props.parturient != null)
+    //   return (
+    //     <Container className="comp-container">
+    //       <Row>
+    //         <Col>
+    //         <Breadcrumb>
+    //           <Breadcrumb.Item>
+    //             <Link to="/parturients">Parturients</Link>{" "}
+    //           </Breadcrumb.Item>
+    //           <Breadcrumb.Item active>
+    //             {this.props.parturient.firstName}
+    //           </Breadcrumb.Item>
+    //         </Breadcrumb>
+    //         </Col>
+    //       </Row>
 
 
      
 
-          <Row>
-            <Col>
-              <h4 className="text-capitalize title-text">
-                {this.props.parturient.firstName + "," +" " + this.props.parturient.lastName}
-              </h4>
-            </Col>
-            <Col>
-            <Col>
-              {" "}
-              <Link
-                to={{
-                  pathname: `/parturients/${this.props.parturient._id}/newParturient`,
-                  state: {
-                    id: this.props.parturient._id
-                  }
-                }}
-              >
-                <Button className="button-update">Update</Button>
-              </Link>
-            </Col>
+    //       <Row>
+    //         <Col>
+    //           <h4 className="text-capitalize title-text">
+    //             {this.props.parturient.firstName + "," +" " + this.props.parturient.lastName}
+    //           </h4>
+    //         </Col>
+    //         <Col>
+    //         <Col>
+    //           {" "}
+    //           <Link
+    //             to={{
+    //               pathname: `/parturients/${this.props.parturient._id}/newParturient`,
+    //               state: {
+    //                 id: this.props.parturient._id
+    //               }
+    //             }}
+    //           >
+    //             <Button className="button-update">Update</Button>
+    //           </Link>
+    //         </Col>
 
-            <Col>
-              <Alert
-                show={this.state.showDelete}
-                onClose={() => this.setState({ showDelete: false })}
-                variant="warning"
-                dismissible
-              >
-                <Alert.Heading>
-                  Do you really want to remove {this.props.parturient.firstName}{" "}
-                  ?
-                </Alert.Heading>
-                <div className="d-flex justify-content-end">
-                  <Button onClick={this.handleDelete} variant="danger">
-                    Delete
-                  </Button>{" "}
-                </div>
-              </Alert>
-              {!this.state.showDelete && (
-                <Button
-                  onClick={() => this.setState({ showDelete: true })}
-                  className="button-update"
-                >
-                  Delete
-                </Button>
-              )}
-            </Col>
+    //         <Col>
+    //           <Alert
+    //             show={this.state.showDelete}
+    //             onClose={() => this.setState({ showDelete: false })}
+    //             variant="warning"
+    //             dismissible
+    //           >
+    //             <Alert.Heading>
+    //               Do you really want to remove {this.props.parturient.firstName}{" "}
+    //               ?
+    //             </Alert.Heading>
+    //             <div className="d-flex justify-content-end">
+    //               <Button onClick={this.handleDelete} variant="danger">
+    //                 Delete
+    //               </Button>{" "}
+    //             </div>
+    //           </Alert>
+    //           {!this.state.showDelete && (
+    //             <Button
+    //               onClick={() => this.setState({ showDelete: true })}
+    //               className="button-update"
+    //             >
+    //               Delete
+    //             </Button>
+    //           )}
+    //         </Col>
 
-            </Col>
+    //         </Col>
             
             
-          </Row>
+    //       </Row>
 
-          <Row className="">
-            <Col>
-              <Card>
-                <Card.Header className="text-danger font-weight-bolder font-italic ">
-                  {this.props.parturient.firstName +
-                    " " +
-                    this.props.parturient.lastName}
-                </Card.Header>
-                <ListGroup variant="flush" className="title-text">
-                  <ListGroup.Item>
-                    Hospital ID: {this.props.parturient.medId}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Middle Name: {this.props.parturient.middleName}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Hospital ID: {this.props.parturient.medId}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Date of Birth: {this.props.parturient.dob}{" "}
-                  </ListGroup.Item>
-                  <ListGroup.Item>Last Delivery: </ListGroup.Item>
-                  <ListGroup.Item>
-                    Last Menstrual Period: {this.props.parturient.lmp}{" "}
-                  </ListGroup.Item>
-                  <ListGroup.Item>Cervicogram: </ListGroup.Item>
-                  <ListGroup.Item>Bishop Scores: </ListGroup.Item>
-                  <ListGroup.Item>Fetal Heart Rate: </ListGroup.Item>
-                  <ListGroup.Item>Maternal Heart Rate: </ListGroup.Item>
-                  <ListGroup.Item>Contractions: </ListGroup.Item>
-                  <ListGroup.Item>
-                    Significant Intrapartum Events:{" "}
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-            </Col>
-            <Col>
+    //       <Row className="">
+    //         <Col>
+    //           <Card>
+    //             <Card.Header className="text-danger font-weight-bolder font-italic ">
+    //               {this.props.parturient.firstName +
+    //                 " " +
+    //                 this.props.parturient.lastName}
+    //             </Card.Header>
+    //             <ListGroup variant="flush" className="title-text">
+    //               <ListGroup.Item>
+    //                 Hospital ID: {this.props.parturient.medId}
+    //               </ListGroup.Item>
+    //               <ListGroup.Item>
+    //                 Middle Name: {this.props.parturient.middleName}
+    //               </ListGroup.Item>
+    //               <ListGroup.Item>
+    //                 Hospital ID: {this.props.parturient.medId}
+    //               </ListGroup.Item>
+    //               <ListGroup.Item>
+    //                 Date of Birth: {this.props.parturient.dob}{" "}
+    //               </ListGroup.Item>
+    //               <ListGroup.Item>Last Delivery: </ListGroup.Item>
+    //               <ListGroup.Item>
+    //                 Last Menstrual Period: {this.props.parturient.lmp}{" "}
+    //               </ListGroup.Item>
+    //               <ListGroup.Item>Cervicogram: </ListGroup.Item>
+    //               <ListGroup.Item>Bishop Scores: </ListGroup.Item>
+    //               <ListGroup.Item>Fetal Heart Rate: </ListGroup.Item>
+    //               <ListGroup.Item>Maternal Heart Rate: </ListGroup.Item>
+    //               <ListGroup.Item>Contractions: </ListGroup.Item>
+    //               <ListGroup.Item>
+    //                 Significant Intrapartum Events:{" "}
+    //               </ListGroup.Item>
+    //             </ListGroup>
+    //           </Card>
+    //         </Col>
+    //         <Col>
              
-                  <Link
-                    onClick={e =>
-                      !this.state.name || !this.state.room
-                        ? e.preventDefault()
-                        : null
-                    }
-                    to={`/
+    //               <Link
+    //                 onClick={e =>
+    //                   !this.state.name || !this.state.room
+    //                     ? e.preventDefault()
+    //                     : null
+    //                 }
+    //                 to={`/
                     
-                    ?name=${this.state.name}&room=${this.state.room}`}
-                  >
-                    Management discussion: {this.state.room}
-                  </Link>
+    //                 ?name=${this.state.name}&room=${this.state.room}`}
+    //               >
+    //                 Management discussion: {this.state.room}
+    //               </Link>
                
        
-                    {this.state.user && this.state.room ? (
-                      <Chat name={this.state.user} room={this.state.room} />
-                    ) : null}
-                <button onClick={this.handleAssign}>Start Conversation</button>
+    //                 {this.state.user && this.state.room ? (
+    //                   <Chat name={this.state.user} room={this.state.room} />
+    //                 ) : null}
+    //             <button onClick={this.handleAssign}>Start Conversation</button>
            
-            </Col>
-          </Row>
+    //         </Col>
+    //       </Row>
 
 
-          <Row>
-            <Col>
-              <Button
-                className="button-update"
-                size="lg"
-                block
-                onClick={this.handleShow}
-              >
-                {" "}
-                Transfer to Labour Ward{" "}
-              </Button>
-            </Col>
-          </Row>
+    //       <Row>
+    //         <Col>
+    //           <Button
+    //             className="button-update"
+    //             size="lg"
+    //             block
+    //             onClick={this.handleShow}
+    //           >
+    //             {" "}
+    //             Transfer to Labour Ward{" "}
+    //           </Button>
+    //         </Col>
+    //       </Row>
 
         
-        </Container>
-      );
+    //     </Container>
+    //   );
 
 
 

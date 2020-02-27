@@ -6,9 +6,21 @@ import "./parturients.css"
 
 
 class Visualize extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       
+    };
+  };
+  
 
-  componentDidMount() {
-    drawTemplate(this.props.customDataSet);
+  componentDidUpdate() {
+    if(this.props.customDataSet){
+      console.log(this.props.customDataSet)
+      drawTemplate(this.props.customDataSet)
+    }
+    ;
   }
 
 

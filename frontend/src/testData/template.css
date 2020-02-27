@@ -94,13 +94,13 @@ div.navigation > nav {
     stroke: #0401E7;
 }
 .action-line {
-    fill:none;
+    fill: none;
     stroke: red;
     stroke-linecap: round;
 }
 
 .custom-line {
-    
+    fill: none;
     stroke:#FFC700;
     stroke-linejoin: round;
     stroke-width: 3;
@@ -122,7 +122,7 @@ div.navigation > nav {
     stroke-width: 1;
 }
 #custom-sys-line {
-   
+    
     stroke:#FFC700;
     stroke-linejoin: round;
     stroke-width: 1;
