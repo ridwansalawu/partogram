@@ -5,8 +5,8 @@ import "./parturients.css"
 
 class MaternalHeartViz extends Component {
 
-  componentDidMount() {
-    drawTemplate();
+  componentDidUpdate() {
+    drawTemplate(this.props.customDataSetMhr);
   }
 
 

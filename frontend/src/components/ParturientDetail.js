@@ -33,6 +33,7 @@ class ParturientDetail extends Component {
 
       // show: false,
       customDataSet: [],
+      customDataSetMhr: [],
       showDelete: false,
       room: "",
       name: "",
@@ -48,15 +49,17 @@ class ParturientDetail extends Component {
        `parturients/cervicogram/${this.props.parturient._id}`
       ).then(response => {
         this.setState({ customDataSet: response.data });
-        console.log(response.data);
-        console.log(this.state.customDataSet)
-        // this.setState({ show: true });
+      });
+
+      Axios(
+       `parturients/maternalheartrate/${this.props.parturient._id}`
+      ).then(response => {
+        this.setState({ customDataSetMhr: response.data });
+        console.log(response.data)
       });
     }
   }
 
- 
- 
   handleAssign = () => {
     this.setState({
       room: `${this.props.parturient.firstName}`,
@@ -100,6 +103,21 @@ class ParturientDetail extends Component {
       
     });
   };
+
+  handleClearMatHr = () => {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    Axios.put(
+      `parturients/clearmaternalheartrate/${this.props.parturient._id}`, {}, {headers: {'Authorzation': token }}
+    ).then(response => {
+      console.log(response)
+      let res = response.data.medId;
+     this.props.history.push(`/parturients/${res}`)
+      
+    });
+  };
+
+
+
   handleDownload = () => {
     Axios.post(`/downloadPartographPdf`)
   }
@@ -291,10 +309,33 @@ class ParturientDetail extends Component {
 
            : null}
           </Row>
+
+
                     <MaternalHeartViz 
                           parturient={this.props.parturient}
-                         
+                          customDataSetMhr={this.state.customDataSetMhr}
                           />
+
+                    
+             <Row>
+                      {this.state.maternalHR 
+                      ? 
+                      <Row>
+                      <Col>
+                      <MaternalHR
+                            parturient={this.props.parturient}
+                            refresh={this.refresh}
+                          />
+                          </Col>
+                          <Col>
+                    <Button onClick={this.handleClearMatHr} className="button-update">Clear</Button>
+                    </Col>
+                    </Row>
+                      : null}
+           </Row>
+
+
+
                     <VizFetal 
                           parturient={this.props.parturient}
                           
@@ -313,17 +354,7 @@ class ParturientDetail extends Component {
           
 
 
-          <Row>
-          {this.state.maternalHR 
-          ? 
-          <MaternalHR
-                parturient={this.props.parturient}
-                refresh={this.refresh}
-              />
-
-           : null}
-
-          </Row>
+        
           
 
 

@@ -29,16 +29,11 @@ export const drawTemplate = () => {
     const xScale = d3.scaleLinear()
         //   .domain(d3.extent(initData, d => d.time))
           .domain([0, 12])
-
           .range([0, drawingBoardWidth])
-
-   
 
     const yScale = d3.scaleLinear()
           .domain(d3.extent(initData, d => d.heartRate))
           .range([drawingBoardHeight, 0])
-
-    
 
     const drawingBoard = mains
             // .insert("svg", ":first-child")
@@ -51,7 +46,7 @@ export const drawTemplate = () => {
 
     const yAxisGroup = drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
             yAxisGroup.append("text")
-            .attr("y", 20)
+            .attr("y", 28)
             .attr("x", height/2)
             .attr("transform", "rotate(90)")
             .text("Fetal Heart Rate")
@@ -101,7 +96,6 @@ export const drawTemplate = () => {
         .x(d => xScale(d.time))
         .y(d => yScale(d.heartRate))
        
-
     drawingBoard.append("path")
         .attr("class", "custom-line")
         .datum(customDataSet)

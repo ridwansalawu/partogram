@@ -4,9 +4,9 @@ const graphData = require("./graphData");
 const initData = graphData.setInitialGraphDataMaternalHeart();
 const highDataset = graphData.setHigherMaternalHeart();
 const lowDataSet = graphData.setLowerMaternalHeart();
-const customDataSet = graphData.setCustomMaternalHeart();
 
-export const drawTemplate = () => {
+
+export const drawTemplate = (customDataSetMhr) => {
     d3.select(".main-graph-maternal > *").remove();
 
     const margin = {
@@ -25,23 +25,15 @@ export const drawTemplate = () => {
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
           
-    const minTime = d3.extent(initData, d => d.time)
     const xScale = d3.scaleLinear()
-        //   .domain(d3.extent(initData, d => d.time))
           .domain([0, 12])
-
           .range([0, drawingBoardWidth])
-
-   
 
     const yScale = d3.scaleLinear()
           .domain(d3.extent(initData, d => d.heartRate))
           .range([drawingBoardHeight, 0])
 
-    
-
     const drawingBoard = mains
-            // .insert("svg", ":first-child")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -51,7 +43,7 @@ export const drawTemplate = () => {
 
     const yAxisGroup = drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
             yAxisGroup.append("text")
-            .attr("y", 20)
+            .attr("y", 28)
             .attr("x", height/2)
             .attr("transform", "rotate(90)")
             .text("Maternal Heart Rate")
@@ -104,7 +96,7 @@ export const drawTemplate = () => {
 
     drawingBoard.append("path")
         .attr("class", "custom-line")
-        .datum(customDataSet)
+        .datum(customDataSetMhr)
         .attr("d", drawCustomLine)
         .attr("stroke-linecap", "round")
 

@@ -51,7 +51,7 @@ export const drawTemplate = () => {
 
     const yAxisGroup = drawingBoard.append("g").call(d3.axisLeft(yScale).ticks(10).tickSize(-550));
             yAxisGroup.append("text")
-            .attr("y", 20)
+            .attr("y", 28)
             .attr("x", height/2)
             .attr("transform", "rotate(90)")
             .text("Maternal Blood Pressure")

@@ -118,7 +118,6 @@ parturientsRouter
   .route("/cervicogram/:parturientId")
   .get(async(req, res, next) => {
     await Parturients.findById(req.params.parturientId)
-      .populate("comments.author")
       .then(
         parturient => {
           res.statusCode = 200;
@@ -199,11 +198,82 @@ parturientsRouter
       .catch(err => next(err));
   });
 
-  // parturientsRouter
-  //   .route("downloadPartographPdf")
-  //   .post((req, res) => {
-  //     pdf.create(req.body, {}).toFile("result.pdf", (err) => )
-      
-  //   })
+
+// =========================================================================================
+
+parturientsRouter
+  .route("/maternalheartrate/:parturientId")
+  .get(async(req, res, next) => {
+    await Parturients.findById(req.params.parturientId)
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient.partographDataset.matHeartRate);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  })
+
+  .put((req, res, next) => {
+     Parturients.findByIdAndUpdate(
+      req.params.parturientId,
+      {
+        $push: {
+          "partographDataset.matHeartRate": req.body
+        } 
+      },
+      { new: true }
+    )
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient.partographDataset.matHeartRate);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
+
+
+  parturientsRouter
+  .route("/clearmaternalheartrate/:parturientId")
+  .put(async (req, res, next) => {
+    await Parturients.findByIdAndUpdate(
+      req.params.parturientId,
+      {
+        $set: { "partographDataset.matHeartRate": [] }
+      },
+      { new: true },
+      (err, res) => {
+        if (err) {
+          console.log("is this error?", err.errMsg);
+          console.log("show me res:", res);
+        }
+      }
+    )
+      .then(
+        parturient => {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json(parturient);
+        },
+        err => next(err)
+      )
+      .catch(err => next(err));
+  });
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = parturientsRouter;

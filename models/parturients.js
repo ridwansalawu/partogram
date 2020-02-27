@@ -5,31 +5,23 @@ const parturientSchema = new Schema({
     medId: {
         type: String,
         required:true
-      
-       
-         
     },
     firstName: {
         type: String,
-        required:true
-       
+        required:true 
     },
     otherName: {
-        type: String
-       
+        type: String   
     },
     lastName: {
         type: String,
-        required:true
-        
+        required:true    
     },
     lmp: {
-        type: String
-       
+        type: String  
     },
     dob: {
-        type: String
-       
+        type: String   
     },
     email: {
         type: String
@@ -47,8 +39,7 @@ const parturientSchema = new Schema({
         type: String
     },
     dateAdmission: {
-        type: Date
-        
+        type: Date    
     },
     dateDischarge: {
         type: Date
@@ -75,9 +66,18 @@ const parturientSchema = new Schema({
         "vagEx":[
             
         ],
-        "matHeartRate":[],
-        "fetalHeartRate":[],
-        "fetalHeadDescent":[]
+        "matHeartRate":[
+
+        ],
+        "matBp":[
+
+        ],
+        "fetalHeartRate":[
+
+        ],
+        "fetalHeadDescent":[
+
+        ]
 
     },
     "bishopScore": [{
