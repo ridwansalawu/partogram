@@ -26,6 +26,17 @@ router.get("/",  (req, res, next) => {
     // })
 });
 
+router.delete("/delete", (req, res) => {
+  User.remove({})
+    .then(users => {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.json(users);
+    }).then(err => {
+      console.log("here is the ", err)
+    })
+})
+
 
   router.post('/signup', (req, res) => {
     User.register(new User({username: req.body.username}), 
