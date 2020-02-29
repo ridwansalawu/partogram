@@ -30,6 +30,14 @@ export default class Header extends Component {
     };
   }
 
+  componentDidMount() {
+    setInterval(this.handleLogout(),0)
+  }
+
+
+
+
+
 
   toggleNav = () => {
     this.setState({

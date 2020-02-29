@@ -11,7 +11,9 @@ import "../index.css"
 export default function Home(props) {
     if(props.isAuthenticated) {
         return <Redirect to="/" />
+        
       }
+
 
     return (
         <Container fluid="md" className="no-padding">
