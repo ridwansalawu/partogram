@@ -34,6 +34,9 @@ class ParturientDetail extends Component {
       // show: false,
       customDataSet: [],
       customDataSetMhr: [],
+      customDataSetMbps: [],
+      customDataSetMbpd: [],
+      customDataSetFhr: [],
       showDelete: false,
       room: "",
       name: "",
@@ -55,6 +58,24 @@ class ParturientDetail extends Component {
        `parturients/maternalheartrate/${this.props.parturient._id}`
       ).then(response => {
         this.setState({ customDataSetMhr: response.data });
+        console.log(response.data)
+      });
+      Axios(
+       `parturients/maternalbpsystolic/${this.props.parturient._id}`
+      ).then(response => {
+        this.setState({ customDataSetMbps: response.data });
+        console.log(response.data)
+      });
+      Axios(
+       `parturients/maternalbpdiastolic/${this.props.parturient._id}`
+      ).then(response => {
+        this.setState({ customDataSetMbpd: response.data });
+        console.log(response.data)
+      });
+      Axios(
+       `parturients/fetalheartrate/${this.props.parturient._id}`
+      ).then(response => {
+        this.setState({ customDataSetFhr: response.data });
         console.log(response.data)
       });
     }

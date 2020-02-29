@@ -45,7 +45,7 @@ export default class Header extends Component {
       event.preventDefault()
 
     this.toggleModal();
-    if (this.pin.value === "aaaa"){
+    if (this.pin.value === "a1b2c3"){
 
     this.props.loginUser({
       username: this.username.value,
