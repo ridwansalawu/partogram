@@ -59,22 +59,16 @@ export default class Header extends Component {
       event.preventDefault()
 
     this.toggleModal();
-<<<<<<< HEAD
-=======
    
 
->>>>>>> 25ef9dfe36e7cfdf490a7556edae6c526e3d9ea2
     this.props.loginUser({
       username: this.username.value,
       password: this.password.value
     })
-<<<<<<< HEAD
     .then(setTimeout( function() { history.push('/labourward') }, 700))
    
-=======
     .then(setTimeout( function() { history.push('/') }, 700))
     
->>>>>>> 25ef9dfe36e7cfdf490a7556edae6c526e3d9ea2
   };
 
   handleLogout = () => {
