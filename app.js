@@ -11,10 +11,12 @@ const authenticate = require('./authenticate');
 const indexRouter = require('./routes/index');
 const usersRouter = require("./routes/users")
 const parturientsRouter = require("./routes/parturientsRouter");
+const drugsRouter = require("./routes/drugsRouter");
 
 
 const mongoose = require("mongoose");
-const Parturients = require("./models/parturients")
+const Parturients = require("./models/parturients");
+
 
 const url = process.env.MONGODB_URI;
 const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false } )
@@ -53,8 +55,10 @@ app.use(express.static("public"));
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 // app.use(authenticate);
+app.use("/drugsearch", drugsRouter)
 app.use('/parturients', parturientsRouter)
 app.use("/parturients/:parturientId", parturientsRouter)
+
 
 
 

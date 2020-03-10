@@ -8,12 +8,8 @@ const drugsDirectorySchema = new Schema({
     generic: {
         type: String
     },
-    route: [
-
-    ],
-    class:[
-        
-    ]
+    route: [],
+    class:[]
 
 
     
@@ -21,6 +17,8 @@ const drugsDirectorySchema = new Schema({
 
 });
 
-var DrugsDirectory = mongoose.model("DrugsDirectory", drugsDirectorySchema);
+drugsDirectorySchema.index({"brand":"text", "generic":"text"})
 
-module.exports = DrugsDirectory;
+var Drugs = mongoose.model("Drugs", drugsDirectorySchema);
+
+module.exports = Drugs;

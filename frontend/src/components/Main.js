@@ -23,6 +23,7 @@ import SignupNewParturient from "../forms/SignupNewParturient";
 import Signup from "../forms/Signup";
 import NewParturient from "./NewParturient";
 import Chat from "./Chat/Chat";
+import DrugsSearch from "../forms/DrugsSearch";
 
 export const createHistory = require("history").createBrowserHistory;
 
@@ -155,6 +156,7 @@ class Main extends Component {
                 component={() => <Chat auth={this.props.auth} />}
               />
               <Route path="/aboutpartograph" component={ () => (<AboutPartograph  auth={this.props.auth}/>)} />
+              <Route path="/drugsearch" component={ () => (<DrugsSearch  auth={this.props.auth}/>)} />
 
               <Route
                 path="/signup"
