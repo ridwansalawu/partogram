@@ -7,10 +7,10 @@ class AboutPartograph extends Component {
 
 
 componentDidMount = () => {
-    if (!this.props.auth.isAuthenticated) {
-        alert("you need to sign in to continue")
-        this.props.history.push("/home");
-      }
+    // if (!this.props.auth.isAuthenticated) {
+    //     alert("you need to sign in to continue")
+    //     this.props.history.push("/home");
+    //   }
 };
 
 
@@ -23,7 +23,7 @@ componentDidMount = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/Normal_Partograph_390.jpg"
+                            src="assets/images/preg_bush.jpeg"
                             width="100%"
                         
                             alt="First slide"
