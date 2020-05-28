@@ -9,10 +9,10 @@ import "../index.css"
 
 
 export default function Home(props) {
-    if(props.isAuthenticated) {
-        return <Redirect to="/" />
+    // if(props.isAuthenticated) {
+    //     return <Redirect to="/" />
         
-      }
+    //   }
 
 
     return (

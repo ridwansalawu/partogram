@@ -25,10 +25,10 @@ class Parturients extends Component {
   }
   componentDidMount() {
     
-    if (!this.props.auth.isAuthenticated) {
-      alert("you need to sign in to continue")
-      this.props.history.push("/home");
-    }
+    // if (!this.props.auth.isAuthenticated) {
+    //   alert("you need to sign in to continue")
+    //   this.props.history.push("/home");
+    // }
   }
 
   handleChange = e => {

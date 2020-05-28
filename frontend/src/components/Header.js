@@ -101,6 +101,12 @@ export default class Header extends Component {
                               <Nav.Link>
                                 <NavLink className="nav-item" to="/drugsearch" >Drugs</NavLink>
                               </Nav.Link>
+                              <Nav.Link>
+                                <NavLink className="nav-item" to="/drugsearch" >
+                                
+                                
+                                </NavLink>
+                              </Nav.Link>
                               <NavDropdown 
                                   title={
                                     this.props.auth.isAuthenticated ?

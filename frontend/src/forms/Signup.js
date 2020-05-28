@@ -19,10 +19,10 @@ class Signup extends Component {
     };
 
     componentDidMount() {
-        if (this.props.auth.isAuthenticated) {
-            this.setState({login:true})
+        // if (this.props.auth.isAuthenticated) {
+        //     this.setState({login:true})
             
-          }
+        //   }
         
     }
     
