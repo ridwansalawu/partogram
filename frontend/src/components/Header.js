@@ -92,22 +92,22 @@ export default class Header extends Component {
                               <Nav.Link>
                                 <NavLink className="nav-item" to="/parturients" >Parturients</NavLink>
                               </Nav.Link>
-                              <Nav.Link>
+                              {/* <Nav.Link>
                                 <NavLink className="nav-item" to="/aboutpartograph" >About</NavLink>
-                              </Nav.Link>
+                              </Nav.Link> */}
                               <Nav.Link>
                                 <NavLink className="nav-item" to="/signupnewparturient" >Admit</NavLink>
                               </Nav.Link>
-                              <Nav.Link>
+                              {/* <Nav.Link>
                                 <NavLink className="nav-item" to="/drugsearch" >Drugs</NavLink>
-                              </Nav.Link>
+                              </Nav.Link> */}
                               <Nav.Link>
                                 <NavLink className="nav-item" to="/drugsearch" >
                                 
                                 
                                 </NavLink>
                               </Nav.Link>
-                              <NavDropdown 
+                              {/* <NavDropdown 
                                   title={
                                     this.props.auth.isAuthenticated ?
                                     <span className="nav-item"> {this.props.auth.user.username} </span>  :
@@ -130,7 +130,7 @@ export default class Header extends Component {
                                   {this.props.auth.isAuthenticated ? <NavDropdown.Item><span onClick={this.handleLogout} >Log Out</span></NavDropdown.Item>: null}
                                   
 
-                              </NavDropdown>
+                              </NavDropdown> */}
                     
                           </Nav>
 
