@@ -227,20 +227,20 @@ class ParturientDetail extends Component {
                 Back
               </Button>
             </Row>
-            <Row>
+            {/* <Row>
               <Button className="button-update" onClick={this.backToDetails}>
                 Bishop
               </Button>
-            </Row>
-            <Row>
+            </Row> */}
+            {/* <Row>
               <Button
                 className="button-update"
                 onClick={this.activateMaternalHR}
               >
                 Maternal HR
               </Button>
-            </Row>
-            <Row>
+            </Row> */}
+            {/* <Row>
               <Button className="button-update" onClick={this.backToDetails}>
                 Maternal BP
               </Button>
@@ -254,7 +254,7 @@ class ParturientDetail extends Component {
               <Button className="button-update" onClick={this.backToDetails}>
                 Contractions
               </Button>
-            </Row>
+            </Row> */}
             <Row>
               <Button
                 className="button-update"
@@ -326,6 +326,8 @@ class ParturientDetail extends Component {
                     ?name=${this.state.name}&room=${this.state.room}`}
                 >
                   Management discussion: {this.state.room}
+                  
+                  
                 </Link>
 
                 {this.state.user && this.state.room ? (

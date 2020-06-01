@@ -31,14 +31,14 @@ export default class Header extends Component {
     };
   }
 
-  componentDidMount() {
-    Axios("https://api.fda.gov/drug/label.json?search=hydrallazine:generic_name")
-      .then(res => {
-        console.log(res.data)
-      })
+  // componentDidMount() {
+  //   Axios("https://api.fda.gov/drug/label.json?search=hydrallazine:generic_name")
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
 
    
-  }
+  // }
 
 
 
@@ -102,11 +102,42 @@ export default class Header extends Component {
                                 <NavLink className="nav-item" to="/drugsearch" >Drugs</NavLink>
                               </Nav.Link> */}
                               <Nav.Link>
-                                <NavLink className="nav-item" to="/drugsearch" >
-                                
-                                
-                                </NavLink>
+                              {
+                                    this.props.auth.isAuthenticated ?
+                                    <span className="nav-item"> {this.props.auth.user.username} </span>  :
+                                    <span >
+                                    <span className="nav-item" onClick={this.toggleModal}>Login</span> 
+                                    {this.props.auth.isFetching ? (
+                                      <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                    ) : null}
+                                  </span>
+
+                                  }
                               </Nav.Link>
+
+                              {!this.props.auth.isAuthenticated ?  <Nav.Link>
+                                <NavLink className="nav-item" to="/signup" >Sign Up</NavLink>
+                              </Nav.Link>: null}
+
+                              <Nav.Link>
+                                 <NavLink className="nav-item" to="#">
+                                    {this.props.auth.isAuthenticated ? <span onClick={this.handleLogout} >Log Out</span>: null}
+                              </NavLink>
+                             </Nav.Link>
+                             
+                            
+                            
+                              {/* {this.props.auth.isAuthenticated ? 
+
+                                <Nav.Link>
+                                <NavLink className="nav-item"> <span onClick={this.handleLogout} >Log Out</span></NavLink>
+                              </Nav.Link>
+                              
+                              : null} */}
+                              
+                              
+
+
                               {/* <NavDropdown 
                                   title={
                                     this.props.auth.isAuthenticated ?
