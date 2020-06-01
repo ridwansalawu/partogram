@@ -15,9 +15,10 @@ export default class ObsEmerg extends Component {
 
     render() {
         return (
+           
             <Container>
 
-            <Accordion>
+            {/* <Accordion>
                             <Card className="body-card">
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0" className="title-text">
@@ -190,7 +191,7 @@ export default class ObsEmerg extends Component {
                     </Accordion>
 
 
-
+ */}
 
 
 
