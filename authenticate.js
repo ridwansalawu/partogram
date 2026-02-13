@@ -4,7 +4,7 @@ const User = require("./models/users");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const Jwt = require("jsonwebtoken");
-const FacebookTokenStrategy = require("passport-facebook-token");
+//const FacebookTokenStrategy = require("passport-facebook-token");
 
 // const config = require("./config.js");
 
@@ -13,9 +13,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//JWT helper
 exports.getToken = function(user) {
     return Jwt.sign(user, process.env.SECRET_KEY,
-        {expiresIn: 10} );
+        {expiresIn: '1h'} );
 };
 
 const opts = {};

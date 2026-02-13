@@ -1,3 +1,4 @@
+require("dotenv").config();
 const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -16,6 +17,10 @@ const drugsRouter = require("./routes/drugsRouter");
 
 const mongoose = require("mongoose");
 const Parturients = require("./models/parturients");
+const MongoStore = require("connect-mongo");
+
+const app = express();
+
 
 
 const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/partogram";
@@ -27,7 +32,9 @@ connect.then((db) => {
     console.log("***db Connection Error***" + err);
 })
 
-const app = express();
+
+
+
 const cors = require("cors");
 app.use(cors());
 
@@ -46,6 +53,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(express.static("public"));
+
+
+
+// ===============================
+// Session Middleware (Mongo-backed)
+// ===============================
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: 'sessions'
+    })
+}));
+
+// ===============================
+// Passport initialization
+// ===============================
+app.use(passport.initialize());
+app.use(passport.session());
+require('./authenticate'); // loads Local + JWT strategies
 
 // app.use(passport.session());
 
