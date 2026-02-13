@@ -70,3 +70,4 @@ yarn-error.log*
 *.dev
 .DS_Store
 sample.js
+.env

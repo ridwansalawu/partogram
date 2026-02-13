@@ -18,8 +18,8 @@ const mongoose = require("mongoose");
 const Parturients = require("./models/parturients");
 
 
-const url = process.env.MONGODB_URI;
-const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false } )
+const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/partogram";
+const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true } )
 
 connect.then((db) => {
     console.log(`YaY🎃🤝... connected succesfully to the database at ${url}`);
