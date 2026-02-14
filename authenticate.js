@@ -1,80 +1,43 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models/users");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const Jwt = require("jsonwebtoken");
-//const FacebookTokenStrategy = require("passport-facebook-token");
 
-// const config = require("./config.js");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwt = require('jsonwebtoken');
+const User = require('./models/User');
 
-// exports.local = 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+const SECRET_KEY = process.env.SECRET_KEY || 'supersecret';
 
-//JWT helper
-exports.getToken = function(user) {
-    return Jwt.sign(user, process.env.SECRET_KEY,
-        {expiresIn: '1h'} );
+// --- Local Strategy ---
+passport.use(new LocalStrategy(async (username, password, done) => {
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return done(null, false, { message: 'Incorrect username' });
+    const valid = await user.comparePassword(password);
+    if (!valid) return done(null, false, { message: 'Incorrect password' });
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+}));
+
+// --- JWT Strategy ---
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: SECRET_KEY
 };
 
-const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.SECRET_KEY;
+passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
+  try {
+    const user = await User.findById(jwt_payload._id);
+    if (user) return done(null, user);
+    else return done(null, false);
+  } catch (err) {
+    return done(err, false);
+  }
+}));
 
-exports.jwtPassport = passport.use(new JwtStrategy(opts, 
-    (jwt_payload, done) => {
-        console.log("JWT payload: ", jwt_payload);
-        User.findOne({_id: jwt_payload._id}, (err, user) => {
-            if (err) {
-                return done(err, false);
-            }
-            else if (user) {
-                return done(null, user)
-            }
-            else {
-                return done(null, false);
-            }
-        });
-    }));
-
-    exports.verifyUser = passport.authenticate("jwt", {session: false})
-
-    // exports.verifyAdmin = (req, res, next) => {
-    //     if (req.user.admin)
-    //         next();
-    //     else {
-    //         const err = new Error ("you are not authorized to perform this action, sorry!")
-    //         err.status = 403;
-    //         return next(err);
-    //     }
-    // }
-
-   // exports.facebookPassport = passport.use(new FacebookTokenStrategy({
-   //     clientID: process.env.FACEBOOK_CLIENT_ID,
-   //     clientSecret: process.env.FACEBOOK_CLIENT_SECRET
-   // }, (accessToken, refreshToken, profile, done) => {
-   //     User,findOne({facebookId: profile.id}, (err, user) =>{
-   //         if (err) {
-   //             return done(err, false);
-   //         }
-   //         if(!err & user !== null) {
-   //             return done(null, user);
-   //         }
-   //         else {
-   //             user = new User({ username: profile.displayName });
-   //             user.facebookId = profile.id;
-   //             user.firstname = profile.name.givenName;
-   //             user.lastname = profile.name.familyName;
-   //             user.save((err, user) => {
-   //                 if (err) 
-   //                     return done(err, false);
-   //                 else
-   //                     return done(null, user)
-   //             })
-   //         }
-   //     })
-   // }
-
-   // 
+// --- Helpers ---
+exports.getToken = user => jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+exports.jwtPassport = passport;
+exports.verifyUser = passport.authenticate('jwt', { session: false });

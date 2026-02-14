@@ -1,32 +1,42 @@
-require("dotenv").config();
 const createError = require('http-errors');
-const express = require('express');
 const cookieParser = require('cookie-parser');
-const bodyParser = require("body-parser")
 const logger = require('morgan');
 const session = require("express-session")
 const FileStore = require("session-file-store")(session);
-const passport = require('passport');
 const authenticate = require('./authenticate');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require("./routes/users")
 const parturientsRouter = require("./routes/parturientsRouter");
 const drugsRouter = require("./routes/drugsRouter");
 
 
+const passport = require('passport');
+const bodyParser = require("body-parser")
+const express = require('express');
+const usersRouter = require("./routes/users")
+const cors = require("cors");
 const mongoose = require("mongoose");
+const protectedRouter = require("./routes/protected");
+
+require("dotenv").config();
+require("./authenticate");
+
+
+
 const Parturients = require("./models/parturients");
 const MongoStore = require("connect-mongo");
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(passport.initialize());
 
 
-
+// --- MongoDB connection ---
 const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/partogram";
 const connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true } )
 
-connect.then((db) => {
+connect.then(() => {
     console.log(`YaY🎃🤝... connected succesfully to the database at ${url}`);
 }, (err) => {
     console.log("***db Connection Error***" + err);
@@ -34,9 +44,14 @@ connect.then((db) => {
 
 
 
+// --- Routes ---
+app.use('/users', usersRouter);
+app.use('/protected', protectedRouter);
 
-const cors = require("cors");
-app.use(cors());
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
 
 // app.use((req,res,next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*")
