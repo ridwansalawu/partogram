@@ -4,7 +4,7 @@ const User = require("./models/users");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const Jwt = require("jsonwebtoken");
-const FacebookTokenStrategy = require("passport-facebook-token");
+//const FacebookTokenStrategy = require("passport-facebook-token");
 
 // const config = require("./config.js");
 
@@ -13,9 +13,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//JWT helper
 exports.getToken = function(user) {
     return Jwt.sign(user, process.env.SECRET_KEY,
-        {expiresIn: 10} );
+        {expiresIn: '1h'} );
 };
 
 const opts = {};
@@ -50,30 +51,30 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
     //     }
     // }
 
-    exports.facebookPassport = passport.use(new FacebookTokenStrategy({
-        clientID: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET
-    }, (accessToken, refreshToken, profile, done) => {
-        User,findOne({facebookId: profile.id}, (err, user) =>{
-            if (err) {
-                return done(err, false);
-            }
-            if(!err & user !== null) {
-                return done(null, user);
-            }
-            else {
-                user = new User({ username: profile.displayName });
-                user.facebookId = profile.id;
-                user.firstname = profile.name.givenName;
-                user.lastname = profile.name.familyName;
-                user.save((err, user) => {
-                    if (err) 
-                        return done(err, false);
-                    else
-                        return done(null, user)
-                })
-            }
-        })
-    }
+   // exports.facebookPassport = passport.use(new FacebookTokenStrategy({
+   //     clientID: process.env.FACEBOOK_CLIENT_ID,
+   //     clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+   // }, (accessToken, refreshToken, profile, done) => {
+   //     User,findOne({facebookId: profile.id}, (err, user) =>{
+   //         if (err) {
+   //             return done(err, false);
+   //         }
+   //         if(!err & user !== null) {
+   //             return done(null, user);
+   //         }
+   //         else {
+   //             user = new User({ username: profile.displayName });
+   //             user.facebookId = profile.id;
+   //             user.firstname = profile.name.givenName;
+   //             user.lastname = profile.name.familyName;
+   //             user.save((err, user) => {
+   //                 if (err) 
+   //                     return done(err, false);
+   //                 else
+   //                     return done(null, user)
+   //             })
+   //         }
+   //     })
+   // }
 
-    ));
+   // 
