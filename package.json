@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "build-web": "yarn --cwd frontend install && yarn --cwd frontend build",
+    "build-web": "npm --prefix frontend install && npm --prefix frontend run",
     "deploy-web": "cp -a frontend/build/. public/",
-    "heroku-postbuild": "yarn build-web && yarn deploy-web"
+    "heroku-postbuild": "npm run build-web && npm run deploy-web"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
