@@ -17,9 +17,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import { NavLink, Link, Redirect } from "react-router-dom";
 import "./header.css";
 import Axios from "axios";
-export const createHistory = require("history").createBrowserHistory
+//export const createHistory = require("history").createBrowserHistory
 
-const history = createHistory();
+//const history = createHistory();
 
 export default class Header extends Component {
   constructor(props) {
@@ -55,30 +55,41 @@ export default class Header extends Component {
       isModalOpen: !this.state.isModalOpen
     });
   };
-  handleLogin = event => {
-      event.preventDefault()
 
-    this.toggleModal();
-   
 
-    this.props.loginUser({
-      username: this.username.value,
-      password: this.password.value
-    })
-    .then(setTimeout( function() { history.push('/labourward') }, 700))
-   
-    .then(setTimeout( function() { history.push('/') }, 700))
-    
+
+
+
+handleLogin = (event) => {
+  event.preventDefault();
+  this.toggleModal();
+
+  const credentials = {
+    username: this.username.value,
+    password: this.password.value
   };
+
+  this.props.loginUser(credentials)
+    .then(() => {
+      if(this.props.auth.isAuthenticated) {
+        this.props.history.push("/labourward"); // redirect after login
+      }
+    });
+};
+
 
   handleLogout = () => {
     this.props.logoutUser();
   };
 
   render() {
-    if(this.props.isAuthenticated) {
-      return <Redirect to="/" />
-    }
+
+
+if (this.props.auth.isAuthenticated) {
+  return <Redirect to="/labourward" />;
+}
+
+
     return (
       <div  className="navigatio">
                     <Navbar bg="light" expand="lg" fixed="top">
@@ -115,10 +126,12 @@ export default class Header extends Component {
                                   }
                               </Nav.Link>
 
-                              {!this.props.auth.isAuthenticated ?  <Nav.Link>
-                                <NavLink className="nav-item" to="/signup" >Sign Up</NavLink>
-                              </Nav.Link>: null}
 
+    {!this.props.auth.isAuthenticated ? (
+      <Nav.Link>
+        <NavLink className="nav-item" to="/signup" >Sign Up</NavLink>
+      </Nav.Link>
+    ) : null}
                               <Nav.Link>
                                  <NavLink className="nav-item" to="#">
                                     {this.props.auth.isAuthenticated ? <span onClick={this.handleLogout} >Log Out</span>: null}
@@ -127,41 +140,6 @@ export default class Header extends Component {
                              
                             
                             
-                              {/* {this.props.auth.isAuthenticated ? 
-
-                                <Nav.Link>
-                                <NavLink className="nav-item"> <span onClick={this.handleLogout} >Log Out</span></NavLink>
-                              </Nav.Link>
-                              
-                              : null} */}
-                              
-                              
-
-
-                              {/* <NavDropdown 
-                                  title={
-                                    this.props.auth.isAuthenticated ?
-                                    <span className="nav-item"> {this.props.auth.user.username} </span>  :
-                                    <span >
-                                    <span className="nav-item" onClick={this.toggleModal}>Login</span> 
-                                    {this.props.auth.isFetching ? (
-                                      <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                    ) : null}
-                                  </span>
-
-                                  } 
-
-                                  id="basic-nav-dropdown"
-                                  >
-
-                                  <NavDropdown.Item href="#action/3.1">Edit Profile</NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.2">Contact Admin</NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.3">Help</NavDropdown.Item>
-                                  {!this.props.auth.isAuthenticated ? <NavDropdown.Item><Link to="/signup" >Sign Up</Link></NavDropdown.Item>: null}
-                                  {this.props.auth.isAuthenticated ? <NavDropdown.Item><span onClick={this.handleLogout} >Log Out</span></NavDropdown.Item>: null}
-                                  
-
-                              </NavDropdown> */}
                     
                           </Nav>
 

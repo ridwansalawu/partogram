@@ -1,43 +1,50 @@
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const jwt = require('jsonwebtoken');
-const User = require('./models/User');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const jwt = require("jsonwebtoken");
+const User = require("./models/users"); // your Mongoose User model
 
-const SECRET_KEY = process.env.SECRET_KEY || 'supersecret';
+require("dotenv").config();
 
-// --- Local Strategy ---
-passport.use(new LocalStrategy(async (username, password, done) => {
-  try {
-    const user = await User.findOne({ username });
-    if (!user) return done(null, false, { message: 'Incorrect username' });
-    const valid = await user.comparePassword(password);
-    if (!valid) return done(null, false, { message: 'Incorrect password' });
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
-}));
+// ===============================
+// Local Strategy for login
+// ===============================
+passport.use(new LocalStrategy(User.authenticate()));
 
-// --- JWT Strategy ---
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: SECRET_KEY
+// serialize / deserialize for local strategy (required by passport-local-mongoose)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// ===============================
+// JWT helpers
+// ===============================
+const secretKey = process.env.SECRET_KEY || "mysecretkey"; // replace with secure env var
+
+exports.getToken = (user) => {
+    // sign user payload (typically _id) into JWT
+    return jwt.sign({ _id: user._id }, secretKey, { expiresIn: "1h" });
 };
 
-passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
-  try {
-    const user = await User.findById(jwt_payload._id);
-    if (user) return done(null, user);
-    else return done(null, false);
-  } catch (err) {
-    return done(err, false);
-  }
-}));
+// ===============================
+// JWT Strategy for protecting routes
+// ===============================
+const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: secretKey,
+};
 
-// --- Helpers ---
-exports.getToken = user => jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
-exports.jwtPassport = passport;
-exports.verifyUser = passport.authenticate('jwt', { session: false });
+passport.use(
+    new JwtStrategy(opts, (jwt_payload, done) => {
+        User.findById(jwt_payload._id)
+            .then((user) => {
+                if (user) return done(null, user);
+                else return done(null, false);
+            })
+            .catch((err) => done(err, false));
+    })
+);
+
+// middleware to protect routes
+exports.verifyUser = passport.authenticate("jwt", { session: false });

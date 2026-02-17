@@ -33,7 +33,7 @@
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "react-scripts start",
     "startdev": "nodemon react-scripts",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -58,5 +58,5 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:5001"
 }
