@@ -15,7 +15,8 @@ import {
   logoutUser,
   signupUser,
   drawInitialPartograph,
-  setRefer
+  setRefer,
+  restoreAuth
 } from "../redux/ActionCreators";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Partograph from "./Partograph";
@@ -59,16 +60,31 @@ const mapDispatchToProps = dispatch => ({
 
   drawInitialPartograph: () => {
     dispatch(drawInitialPartograph);
-  }
+  },
+  restoreAuth: token => dispatch(restoreAuth(token)),
 });
 
 class Main extends Component {
-  componentDidMount = () => {
-    this.props.fetchParturients();
 
-    console.log(this.props.auth);
-  };
+componentDidMount = () => {
+  this.props.fetchParturients();
 
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    // decode JWT payload
+      this.props.restoreAuth(token);
+    //const payload = JSON.parse(atob(token.split(".")[1]));
+
+    // Restore auth state in Redux
+    //this.props.loginUser({
+     // username: payload.username || payload._id,
+      //token: token
+   // });
+  }
+
+  console.log("Auth state:", this.props.auth);
+};
   render() {
     const ParturientWithHospId = ({ match }) => {
       return (

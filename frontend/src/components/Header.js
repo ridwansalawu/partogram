@@ -1,6 +1,6 @@
+
 import React, { Component } from "react";
 import {
-
   Collapse,
   Form,
   NavbarToggler,
@@ -12,16 +12,12 @@ import {
   Label,
   Input
 } from "reactstrap";
-import {Nav, NavDropdown} from "react-bootstrap";
-import Navbar from 'react-bootstrap/Navbar'
-import { NavLink, Link, Redirect } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import Navbar from "react-bootstrap/Navbar";
+import { NavLink, withRouter } from "react-router-dom";
 import "./header.css";
-import Axios from "axios";
-//export const createHistory = require("history").createBrowserHistory
 
-//const history = createHistory();
-
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -31,178 +27,142 @@ export default class Header extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   Axios("https://api.fda.gov/drug/label.json?search=hydrallazine:generic_name")
-  //     .then(res => {
-  //       console.log(res.data)
-  //     })
-
-   
-  // }
-
-
-
-
-
-
   toggleNav = () => {
-    this.setState({
-      isNavOpen: !this.state.isNavOpen
-    });
+    this.setState(prevState => ({
+      isNavOpen: !prevState.isNavOpen
+    }));
   };
+
   toggleModal = () => {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen
-    });
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen
+    }));
   };
 
+  handleLogin = async (event) => {
+    event.preventDefault();
 
+    const credentials = {
+      username: this.username.value,
+      password: this.password.value
+    };
 
+    try {
+      await this.props.loginUser(credentials);
 
-
-handleLogin = (event) => {
-  event.preventDefault();
-  this.toggleModal();
-
-  const credentials = {
-    username: this.username.value,
-    password: this.password.value
-  };
-
-  this.props.loginUser(credentials)
-    .then(() => {
-      if(this.props.auth.isAuthenticated) {
-        this.props.history.push("/labourward"); // redirect after login
+      // Check if token exists (successful login)
+      if (this.props.auth.token) {
+        this.toggleModal();
+        this.props.history.push("/labourward");
       }
-    });
-};
-
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
 
   handleLogout = () => {
     this.props.logoutUser();
+    this.props.history.push("/home");
   };
 
   render() {
-
-
-if (this.props.auth.isAuthenticated) {
-  return <Redirect to="/labourward" />;
-}
-
-
     return (
-      <div  className="navigatio">
-                    <Navbar bg="light" expand="lg" fixed="top">
-                        <Navbar.Brand href="/" className="main-title"> Digital Partogram </Navbar.Brand>
-                        <NavbarToggler onClick={this.toggleNav} />
-                        <Collapse isOpen={this.state.isNavOpen} navbar>
-                          <Nav className="mr-auto">
-                              <Nav.Link>
-                                <NavLink className="nav-item" to="/home" >Home</NavLink>
-                              </Nav.Link>
-                              <Nav.Link>
-                                <NavLink className="nav-item" to="/parturients" >Parturients</NavLink>
-                              </Nav.Link>
-                              {/* <Nav.Link>
-                                <NavLink className="nav-item" to="/aboutpartograph" >About</NavLink>
-                              </Nav.Link> */}
-                              <Nav.Link>
-                                <NavLink className="nav-item" to="/signupnewparturient" >Admit</NavLink>
-                              </Nav.Link>
-                              {/* <Nav.Link>
-                                <NavLink className="nav-item" to="/drugsearch" >Drugs</NavLink>
-                              </Nav.Link> */}
-                              <Nav.Link>
-                              {
-                                    this.props.auth.isAuthenticated ?
-                                    <span className="nav-item"> {this.props.auth.user.username} </span>  :
-                                    <span >
-                                    <span className="nav-item" onClick={this.toggleModal}>Login</span> 
-                                    {this.props.auth.isFetching ? (
-                                      <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                    ) : null}
-                                  </span>
+      <div className="navigatio">
+        <Navbar bg="light" expand="lg" fixed="top">
+          <Navbar.Brand href="/" className="main-title">
+            Digital Partogram
+          </Navbar.Brand>
 
-                                  }
-                              </Nav.Link>
+          <NavbarToggler onClick={this.toggleNav} />
 
+          <Collapse isOpen={this.state.isNavOpen} navbar>
+            <Nav className="mr-auto">
 
-    {!this.props.auth.isAuthenticated ? (
-      <Nav.Link>
-        <NavLink className="nav-item" to="/signup" >Sign Up</NavLink>
-      </Nav.Link>
-    ) : null}
-                              <Nav.Link>
-                                 <NavLink className="nav-item" to="#">
-                                    {this.props.auth.isAuthenticated ? <span onClick={this.handleLogout} >Log Out</span>: null}
-                              </NavLink>
-                             </Nav.Link>
-                             
-                            
-                            
-                    
-                          </Nav>
+              <Nav.Link>
+                <NavLink className="nav-item" to="/home">
+                  Home
+                </NavLink>
+              </Nav.Link>
 
-                         
-                        </Collapse>
-                        
-                  
-                    
-                  
-                    </Navbar>
+              <Nav.Link>
+                <NavLink className="nav-item" to="/parturients">
+                  Parturients
+                </NavLink>
+              </Nav.Link>
 
-                    
+              <Nav.Link>
+                <NavLink className="nav-item" to="/signupnewparturient">
+                  Admit
+                </NavLink>
+              </Nav.Link>
 
+              <Nav.Link>
+                {this.props.auth.isAuthenticated ? (
+                  <span className="nav-item">
+                    {this.props.auth.user?.username}
+                  </span>
+                ) : (
+                  <span className="nav-item" onClick={this.toggleModal}>
+                    Login
+                  </span>
+                )}
+              </Nav.Link>
 
-                    <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                      <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-                      <ModalBody>
-                        <Form onSubmit={this.handleLogin}>
-                          <FormGroup>
-                            <Label htmlFor="username"> Username </Label>
-                            <Input
-                              type="text"
-                              id="username"
-                              name="username"
-                              innerRef={input => (this.username = input)}
-                            />
-                          </FormGroup>
-                          <FormGroup>
-                            <Label htmlFor="password"> Password</Label>
-                            <Input
-                              type="password"
-                              id="password"
-                              name="password"
-                              innerRef={input => (this.password = input)}
-                            />
-                          </FormGroup>
-                          {/* <FormGroup>
-                            <Label htmlFor="pin"> PIN</Label>
-                            <Input
-                              type="password"
-                              id="pin"
-                              name="pin"
-                              innerRef={input => (this.pin = input)}
-                            />
-                          </FormGroup> */}
-                          <FormGroup check>
-                            <Label check>
-                              <Input
-                                type="checkbox"
-                                name="remember"
-                                innerRef={input => (this.remember = input)}
-                              />
-                              Remember me
-                            </Label>
-                          </FormGroup>
-                          <Button type="submit" value="submit" color="primary">
-                            Login
-                          </Button>
-                        </Form>
-                      </ModalBody>
-                    </Modal>
-           
-          </div>
+              {!this.props.auth.isAuthenticated && (
+                <Nav.Link>
+                  <NavLink className="nav-item" to="/signup">
+                    Sign Up
+                  </NavLink>
+                </Nav.Link>
+              )}
+
+              {this.props.auth.isAuthenticated && (
+                <Nav.Link>
+                  <span className="nav-item" onClick={this.handleLogout}>
+                    Log Out
+                  </span>
+                </Nav.Link>
+              )}
+            </Nav>
+          </Collapse>
+        </Navbar>
+
+        {/* LOGIN MODAL */}
+        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleLogin}>
+              <FormGroup>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  name="username"
+                  innerRef={input => (this.username = input)}
+                  required
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  id="password"
+                  name="password"
+                  innerRef={input => (this.password = input)}
+                  required
+                />
+              </FormGroup>
+
+              <Button type="submit" color="primary" block>
+                Login
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+      </div>
     );
   }
 }
+
+export default withRouter(Header);

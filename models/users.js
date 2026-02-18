@@ -24,4 +24,4 @@ User.set("timestamps", true)
 User.plugin(passportLocalMongoose);
 
 
-module.exports = mongoose.model("User", User);
+module.exports = mongoose.models.User || mongoose.model("User", User);

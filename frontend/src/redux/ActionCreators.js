@@ -137,6 +137,15 @@ export const receiveLogin = response => {
     token: response.token
   };
 };
+
+
+export const restoreAuth = (token) => {
+  return {
+    type: ActionTypes.LOGIN_SUCCESS,
+    token: token
+  };
+};
+
 export const loginError = message => {
   return {
     type: ActionTypes.LOGIN_FAILURE,
