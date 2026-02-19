@@ -33,7 +33,7 @@
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "startdev": "nodemon react-scripts",
     "build": "react-scripts build",
     "test": "react-scripts test",
