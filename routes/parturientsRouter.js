@@ -1,4 +1,4 @@
-var express = require("express");
+const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const authenticate = require("../authenticate");
@@ -10,270 +10,178 @@ const parturientsRouter = express.Router();
 parturientsRouter.use(bodyParser.json());
 
 
+
+/* ===================================================== */
+/* ROOT ROUTE */
+/* ===================================================== */
+
 parturientsRouter
   .route("/")
-  // .options((req, res) => { res.sendStatus(200)})
-  .get(async(req, res, next) => {
-    await Parturients.find(req.query)
-      .then(
-        parturients => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturients);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .get(async (req, res, next) => {
+    try {
+      const parturients = await Parturients.find(req.query);
+      res.status(200).json(parturients);
+    } catch (err) {
+      next(err);
+    }
   })
-  .post(async(req, res, next) => {
-    await Parturients.create(req.body)
-      .then(
-        parturient => {
-          console.log(
-            "Another patient admitted into labour ward, ",
-            parturient
-          );
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .post(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.create(req.body);
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   })
- 
-  .delete(authenticate.verifyUser, (req, res, next) => {
-    Parturients.remove({})
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(resp);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .delete(authenticate.verifyUser, async (req, res, next) => {
+    try {
+      const result = await Parturients.deleteMany({});
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
   });
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/* ===================================================== */
+/* SINGLE PARTURIENT */
+/* ===================================================== */
 
 parturientsRouter
   .route("/:parturientId")
-  .get(async(req, res, next) => {
-    await Parturients.findById(req.params.parturientId)
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .get(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findById(req.params.parturientId);
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   })
-  .post(authenticate.verifyUser, (req, res, next) => {
-    res.statusCode = 403;
-    res.end(
-      "POST operation not supported on /parturients/" + req.params.parturientId
-    );
+  .put(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findByIdAndUpdate(
+        req.params.parturientId,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   })
-  .put(async(req, res, next) => {
-    await Parturients.findOneAndUpdate(
-      req.params.parturientId,
-      {
-        $set: req.body
-      },
-      { useFindAndModify: false },
-      (error, result) => {
-        if (error) {
-          console.log(error);
-        }
-      }
-    )
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
-  })
-  .delete((req, res, next) => {
-    Parturients.findByIdAndRemove(req.params.parturientId)
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .delete(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findByIdAndDelete(
+        req.params.parturientId
+      );
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   });
 
-// ====================================================================================================
+/* ===================================================== */
+/* CERVICOGRAM */
+/* ===================================================== */
+
 parturientsRouter
   .route("/cervicogram/:parturientId")
-  .get(async(req, res, next) => {
-    await Parturients.findById(req.params.parturientId)
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient.partographDataset.vagEx);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .get(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findById(
+        req.params.parturientId
+      );
+      res.status(200).json(parturient.partographDataset.vagEx);
+    } catch (err) {
+      next(err);
+    }
   })
-
-  .put((req, res, next) => {
-     Parturients.findByIdAndUpdate(
-      req.params.parturientId,
-      {
-        $push: {
-          "partographDataset.vagEx": req.body
-        } 
-      },
-      { new: true }
-    )
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient.partographDataset.vagEx);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .put(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findByIdAndUpdate(
+        req.params.parturientId,
+        { $push: { "partographDataset.vagEx": req.body } },
+        { new: true }
+      );
+      res.status(200).json(parturient.partographDataset.vagEx);
+    } catch (err) {
+      next(err);
+    }
   });
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-parturientsRouter.route("/search/:searchParams")
-.get(async(req, res, next) => {
-  await Parturients.findOne({
-    medId: req.params.searchParams
-  })
-    .then(
-      parturient => {
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json(parturient);
-      },
-      err => next(err)
-    )
-    .catch(err => next(err));
-});
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 parturientsRouter
   .route("/clearcervicogram/:parturientId")
   .put(async (req, res, next) => {
-    console.log("parturient id", req.params.parturientId);
-    await Parturients.findByIdAndUpdate(
-      req.params.parturientId,
-      {
-        $set: { "partographDataset.vagEx": [] }
-      },
-      { new: true },
-      (err, res) => {
-        if (err) {
-          console.log("is this error?", err.errMsg);
-          console.log("show me res:", res);
-        }
-      }
-    )
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+    try {
+      const parturient = await Parturients.findByIdAndUpdate(
+        req.params.parturientId,
+        { $set: { "partographDataset.vagEx": [] } },
+        { new: true }
+      );
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   });
 
-
-// =========================================================================================
+/* ===================================================== */
+/* MATERNAL HEART RATE */
+/* ===================================================== */
 
 parturientsRouter
   .route("/maternalheartrate/:parturientId")
-  .get(async(req, res, next) => {
-    await Parturients.findById(req.params.parturientId)
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient.partographDataset.matHeartRate);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .get(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findById(
+        req.params.parturientId
+      );
+      res.status(200).json(parturient.partographDataset.matHeartRate);
+    } catch (err) {
+      next(err);
+    }
   })
-
-  .put((req, res, next) => {
-     Parturients.findByIdAndUpdate(
-      req.params.parturientId,
-      {
-        $push: {
-          "partographDataset.matHeartRate": req.body
-        } 
-      },
-      { new: true }
-    )
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient.partographDataset.matHeartRate);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+  .put(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findByIdAndUpdate(
+        req.params.parturientId,
+        { $push: { "partographDataset.matHeartRate": req.body } },
+        { new: true }
+      );
+      res.status(200).json(parturient.partographDataset.matHeartRate);
+    } catch (err) {
+      next(err);
+    }
   });
 
-
-  parturientsRouter
+parturientsRouter
   .route("/clearmaternalheartrate/:parturientId")
   .put(async (req, res, next) => {
-    await Parturients.findByIdAndUpdate(
-      req.params.parturientId,
-      {
-        $set: { "partographDataset.matHeartRate": [] }
-      },
-      { new: true },
-      (err, res) => {
-        if (err) {
-          console.log("is this error?", err.errMsg);
-          console.log("show me res:", res);
-        }
-      }
-    )
-      .then(
-        parturient => {
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "application/json");
-          res.json(parturient);
-        },
-        err => next(err)
-      )
-      .catch(err => next(err));
+    try {
+      const parturient = await Parturients.findByIdAndUpdate(
+        req.params.parturientId,
+        { $set: { "partographDataset.matHeartRate": [] } },
+        { new: true }
+      );
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
   });
 
+/* ===================================================== */
+/* SEARCH */
+/* ===================================================== */
 
-
-
-
-
-
-
-
-
-
+parturientsRouter
+  .route("/search/:searchParams")
+  .get(async (req, res, next) => {
+    try {
+      const parturient = await Parturients.findOne({
+        medId: req.params.searchParams
+      });
+      res.status(200).json(parturient);
+    } catch (err) {
+      next(err);
+    }
+  });
 
 module.exports = parturientsRouter;
