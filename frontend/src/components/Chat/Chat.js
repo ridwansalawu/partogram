@@ -15,7 +15,7 @@ export default function Chat(props) {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = process.env.NODE_ENV === "production" ? "https://partogram.herokuapp.com/" : "http://localhost:3001/" 
+    const ENDPOINT = process.env.NODE_ENV === "production" ? "https://partogram.herokuapp.com/" : "http://localhost:5001" 
 
 
     useEffect(() => {
